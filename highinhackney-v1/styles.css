@@ -198,3 +198,8 @@ main { flex: 1 0 auto; }
 
 /* v11: flex children keep full width (auto margins shrink flex items otherwise) */
 main, .site-footer { width: 100%; }
+
+/* v12: vertically center hero between top and footer, slightly more space above */
+main { display: flex; flex-direction: column; justify-content: center; }
+.hero { width: 100%; }
+@media (min-width: 960px) { .hero { padding-top: 4.5rem; padding-bottom: 1rem; } }
