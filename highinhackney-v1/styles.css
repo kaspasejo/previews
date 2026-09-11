@@ -155,3 +155,6 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 .site-header nav:empty { display: none; }
 @media (prefers-reduced-motion: reduce) { .wl, .puff-a, .puff-b { animation: none; } }
 @media (max-width: 480px) { .hero-word { font-size: clamp(1.9rem, 9.5vw, 2.6rem); } }
+
+/* offer badge replaces the 18+ tag in the form header (18+ gate stays as checkbox) */
+.tag-offer { background: #dcebfb; color: #1e4f8f; font-size: .74rem; }
