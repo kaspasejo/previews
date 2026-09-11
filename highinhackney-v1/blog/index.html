@@ -14,7 +14,7 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chicle&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>:root{--ground:#f4f1e9;--surface:#fffdf8;--surface-2:#ece7da;--ink:#15211a;--ink-2:#4b564f;--ink-3:#79837c;--line:#e0d9c9;--accent:#1f5c3d;--accent-deep:#143b27;--on-accent:#f4f1e9;--amber:#e2a63d;--font-display:'Fraunces',ui-serif,Georgia,serif;--font-sans:ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;--measure:40rem;--radius-card:22px;--radius-pill:999px;--shadow-card:0 1px 2px rgb(21 33 26/.05),0 10px 30px rgb(21 33 26/.07)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -26,7 +26,8 @@ img{max-width:100%;height:auto}
 .wrap{max-width:64rem;margin:0 auto;padding:0 1.25rem}
 .measure,article>.eyebrow,article>h1,article>.lede,article>.meta,.prose,.faq{max-width:var(--measure);margin-inline:auto}
 .site-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
-.site-header .brand{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-display);font-weight:600;font-size:1.3rem;color:var(--ink);text-decoration:none;min-height:44px}
+.site-header .brand{display:inline-flex;align-items:center;gap:.55rem;text-decoration:none;min-height:44px}
+.site-header .brand span{font-family:'Chicle',cursive;font-weight:400;font-size:1.45rem;color:var(--accent);letter-spacing:.02em}
 .site-header nav{display:flex;gap:.5rem;align-items:center}
 .site-header nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .95rem;border-radius:var(--radius-pill);color:var(--ink);text-decoration:none;font-weight:500;font-size:.95rem}
 .site-header nav a.nav-link{border:1px solid var(--line);background:var(--surface)}
@@ -72,7 +73,12 @@ h3{font-size:1.15rem;font-weight:600;margin:1.75rem 0 .5rem}
 .empty a{font-weight:600}
 .more{margin-top:3.5rem;padding-top:1.5rem;border-top:1px solid var(--line)}
 .more h2{margin:0 0 1.25rem;font-size:1.4rem}
-.site-footer{display:block;padding:2.5rem 0 2rem;border-top:1px solid var(--line);color:var(--ink-3);font-size:.88rem}
+body{display:flex;flex-direction:column;min-height:100vh;min-height:100svh}
+main{flex:1 0 auto;width:100%}
+.site-header,.site-footer{width:100%;flex-shrink:0}
+.site-footer{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1.5rem 0 1.25rem;border-top:1px solid var(--line);color:var(--ink-3);font-size:.88rem}
+.site-footer .credit{margin:0 0 0 auto;text-align:right}
+.site-footer .foot-links{margin:0}
 .legal{max-width:46rem;margin:0 0 1rem}
 .foot-links{display:flex;gap:1.25rem;margin:0 0 .6rem}
 .site-footer a{color:var(--ink-3)}
@@ -98,7 +104,6 @@ h3{font-size:1.15rem;font-weight:600;margin:1.75rem 0 .5rem}
     </div>
 </main>
 <footer class="site-footer wrap">
-  <p class="legal">High in Hackney is a waitlist, not a shop. Cannabis and psilocybin are controlled drugs in the UK. This site sells nothing, gives no medical advice, and encourages no one to break the law. Strictly 18+.</p>
   <nav class="foot-links">
     <a href="../blog/">Blog</a>
     <a href="../privacy/">Privacy</a>
