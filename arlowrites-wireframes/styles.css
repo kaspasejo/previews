@@ -538,3 +538,7 @@ main{min-height:calc(100vh - 64px)}
   .cover-art .cover-card{position:static;width:100%;transform:rotate(1deg)}
   .cover-art .phone{display:none}
 }
+
+/* v3 polish */
+.review-actions .btn,.review-actions .mini{white-space:nowrap}
+@media (max-width:760px){.site-nav{flex-wrap:wrap;row-gap:12px}.site-links{margin-left:0;order:3;width:100%}}
