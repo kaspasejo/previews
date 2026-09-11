@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b10">
+<title>admin.kaspasejo.com - product plan v2</title>
+<style>
+  :root{
+    --paper:#f4f3ee; --ink:#17171c; --muted:#6f6e78; --faint:#8a8896;
+    --line:#e3e1e8; --card:#ffffff;
+    --purple:#7b5cd6; --purple-ink:#6a4fc9; --purple-soft:#efeafd; --purple-border:#8b6ee0;
+    --amber:#d9a03c; --amber-bg:#fbeecb; --amber-ink:#8a6414;
+    --green:#2fa37c; --green-bg:#e3f4ec; --green-ink:#17755a;
+    --dark:#0b0b10; --dark-card:#16161d; --dark-line:#26262e; --dark-muted:#9a99a6; --dark-faint:#6d6d78;
+    --side:#14141b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:var(--dark);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0 56px;position:relative}
+  section.light{background:var(--paper)}
+  section.light::before{
+    content:"";position:absolute;inset:0 0 auto auto;width:60%;height:340px;pointer-events:none;
+    background:radial-gradient(60% 100% at 100% 0%,rgba(139,110,224,.14),rgba(139,110,224,0));
+  }
+  section.dark{background:var(--dark);color:#f2f2f5}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;position:relative}
+  h1{font-size:clamp(36px,5.4vw,58px);line-height:1.06;letter-spacing:-0.032em;font-weight:800;text-wrap:balance;position:relative}
+  h2{font-size:clamp(26px,3.6vw,38px);line-height:1.12;letter-spacing:-0.025em;font-weight:800;text-wrap:balance;margin-bottom:16px;position:relative}
+  .lede{font-size:clamp(16px,1.9vw,19px);color:var(--muted);max-width:62ch;text-wrap:pretty;margin-top:18px;position:relative}
+  .dark .lede{color:var(--dark-muted)}
+  .sub{color:var(--muted);font-size:15px;max-width:70ch;text-wrap:pretty;position:relative}
+  .dark .sub{color:var(--dark-muted)}
+  .grid{display:grid;gap:14px;position:relative}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+  .dark .card{background:var(--dark-card);border-color:var(--dark-line)}
+  .card h3{font-size:16.5px;font-weight:700;letter-spacing:-0.01em;text-wrap:balance}
+  .card p{color:var(--muted);font-size:14px;margin-top:8px;text-wrap:pretty}
+  .dark .card p{color:var(--dark-muted)}
+  .card .kick{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+  .edge-l{border-left:4px solid var(--purple-border)}
+  .edge-amber{border-left:4px solid var(--amber)}
+  .edge-green{border-left:4px solid var(--green)}
+  .callout{background:var(--purple-soft);border:1px solid #ddd2f5;border-left:4px solid var(--purple-border);border-radius:14px;padding:16px 20px;position:relative}
+  .callout p{color:#4c4664;font-size:14px;margin-top:4px;text-wrap:pretty}
+  .callout b, .callout strong{color:var(--ink)}
+  .src{margin-top:44px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--faint);position:relative}
+  .src .pg{letter-spacing:.22em;font-weight:600;white-space:nowrap}
+  .dark .src{color:var(--dark-faint)}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;white-space:nowrap}
+  .pill-green{background:var(--green-bg);color:var(--green-ink)}
+  .pill-amber{background:var(--amber-bg);color:var(--amber-ink)}
+  .pill-purple{background:var(--purple-soft);color:var(--purple-ink)}
+  .pill-grey{background:#eeeef2;color:#55535f}
+  .dot::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+  .btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:7px 14px;border-radius:9px;border:1px solid transparent;white-space:nowrap}
+  .btn-dark{background:#17171f;color:#fff}
+  .btn-purple{background:var(--purple);color:#fff}
+  .btn-line{border-color:var(--line);color:var(--ink);background:#fff}
+  .tagpill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:#eeeef2;color:#55535f;white-space:nowrap}
+  .arrow{color:var(--purple);font-size:22px;display:flex;align-items:center;justify-content:center}
+  /* mockup frame */
+  .mock{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 30px 70px -34px rgba(23,20,50,.35);position:relative;margin-top:34px}
+  .mock-top{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;border-bottom:1px solid var(--line);font-size:13.5px;background:#fff}
+  .mock-top .url{font-weight:700;letter-spacing:-0.01em}
+  .mock-top .search{color:var(--muted);font-size:12.5px}
+  .mock-body{display:grid;grid-template-columns:200px 1fr}
+  .mock-side{background:var(--side);color:#c9c9d2;padding:20px 14px;border-bottom-left-radius:18px}
+  .mock-side .brand{color:#fff;font-weight:800;font-size:14.5px;letter-spacing:.02em}
+  .side-h{font-size:9.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#6d6d78;margin:18px 8px 6px}
+  .mi{padding:7px 12px;border-radius:9px;font-size:13.5px;color:#c9c9d2;line-height:1.3}
+  .mi.on{background:var(--purple);color:#fff;font-weight:600}
+  .mock-main{background:#f4f4f7;padding:24px;min-width:0}
+  .mock-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+  .mock-head .mh-kick{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .mock-head h4{font-size:21px;font-weight:800;letter-spacing:-0.02em;margin-top:2px}
+  .mock-head .mh-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat .sk{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+  .stat .sv{font-size:26px;font-weight:800;letter-spacing:-0.02em;margin-top:4px}
+  .stat .sn{font-size:12px;color:var(--muted);margin-top:2px}
+  .mtable{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .mrow{display:grid;gap:10px;padding:13px 18px;align-items:center;border-top:1px solid #eeeef2;font-size:13.5px}
+  .mrow:first-child{border-top:0}
+  .mrow.mhead{background:#f8f7fb;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:10px 18px}
+  .av{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#e4dcfa;color:#5b43b3;font-size:11px;font-weight:700;flex:none}
+  .who{display:flex;align-items:center;gap:10px;font-weight:600}
+  .x-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kcol{background:#ececf1;border-radius:14px;padding:10px}
+  .kcol .kh{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#55535f;padding:4px 6px 10px}
+  .kcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:10px}
+  .kcard:last-child{margin-bottom:0}
+  .kcard b{font-size:13.5px;display:block}
+  .kcard span{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+  .kcard .pill{margin-top:8px}
+  .foot-note{margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .kai-grid{display:grid;grid-template-columns:1fr 400px;gap:16px;align-items:start}
+  .chat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .chat .ch-h{font-weight:700;font-size:14px;border-bottom:1px solid #eeeef2;padding-bottom:10px}
+  .bub{max-width:88%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.45}
+  .bub.user{background:var(--purple);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+  .bub.kai{background:#efeff4;color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px}
+  .chat .ch-in{border:1px solid var(--line);border-radius:10px;padding:9px 13px;color:var(--faint);font-size:13px;margin-top:2px}
+  .seq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;align-items:stretch;position:relative}
+  .seq .card{margin:0 8px}
+  .seq-line{position:absolute;top:50%;left:4%;right:4%;height:2px;background:var(--purple);opacity:.5;z-index:0}
+  .seq .card{position:relative;z-index:1}
+  .bars{display:flex;align-items:flex-end;gap:8px;height:64px;margin:14px 0 6px}
+  .bars i{flex:1;max-width:26px;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,#8b6ee0,#6a4fc9)}
+  .kv{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #eeeef2;font-size:13.5px}
+  .kv:first-of-type{border-top:0}
+  .kv .k{color:var(--muted)}
+  .checkline{font-size:13.5px;color:#4c4664}
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  @media (max-width:900px){
+    .g4{grid-template-columns:repeat(2,1fr)}
+    .g3{grid-template-columns:repeat(2,1fr)}
+    .kai-grid{grid-template-columns:1fr}
+    .seq{grid-template-columns:1fr;gap:14px}
+    .seq .card{margin:0}
+    .seq-line{display:none}
+  }
+  @media (max-width:640px){
+    section{padding:56px 0 44px}
+    .wrap{padding:0 18px}
+    .g2,.g3,.g4{grid-template-columns:1fr}
+    .mock-body{grid-template-columns:1fr}
+    .mock-side{border-bottom-left-radius:0;border-bottom:1px solid #26262e;padding:14px 14px 10px}
+    .mock-side .side-h{display:none}
+    .mock-side nav{display:flex;flex-wrap:wrap;gap:2px 10px;margin-top:8px}
+    .mi{padding:5px 9px;font-size:12.5px}
+    .mock-main{padding:16px}
+    .statgrid{grid-template-columns:1fr 1fr}
+    .stat .sv{font-size:22px}
+    .mock{margin-top:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 01 COVER -->
+<section class="dark" id="cover">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;position:relative">
+      <div class="eyebrow" style="margin:0">Product plan · 11 September 2026</div>
+      <a href="../" style="color:var(--dark-faint);font-size:12.5px;text-decoration:none">kaspasejo.github.io/previews</a>
+    </div>
+    <h1 style="margin-top:26px">One admin.<br><span style="color:#a78bfa">The whole operating system.</span></h1>
+    <p class="lede">A build plan for the place where Sam runs the CRM, manages Adonae and Murmr, and asks Kai to act. Includes designed product views, system boundaries, migration order, effort and running costs.</p>
+    <div class="grid g3" style="margin-top:44px">
+      <div class="card">
+        <div class="kick">Memory</div>
+        <h3 style="font-size:22px">kai-vault</h3>
+        <p>The owned black book and long-term record.</p>
+      </div>
+      <div class="card">
+        <div class="kick">Ledger</div>
+        <h3 style="font-size:22px">admin CRM</h3>
+        <p>People, deals, tasks, sequences and app state.</p>
+      </div>
+      <div class="card">
+        <div class="kick">Output</div>
+        <h3 style="font-size:22px">content</h3>
+        <p>Approved drafts, publishing and campaigns.</p>
+      </div>
+    </div>
+    <div style="margin-top:40px;position:relative">
+      <span class="pill pill-grey dot" style="background:#16161d;color:#9a99a6;border:1px solid #26262e">Built from the live repos, CRM spec v4 and Master CRM structure</span>
+    </div>
+    <div class="src"><span></span><span class="pg">ADMIN.KASPASEJO.COM · 01</span></div>
+  </div>
+</section>
+
+<!-- 02 RECOMMENDATION -->
+<section class="light" id="recommendation">
+  <div class="wrap">
+    <div class="eyebrow">The recommendation</div>
+    <h2 style="font-size:clamp(28px,4.2vw,44px)">Make admin.kaspasejo.com the control room, not another database.</h2>
+    <div class="grid" style="grid-template-columns:1.05fr 1fr;margin-top:30px;align-items:start" id="reco-cols">
+      <div>
+        <p class="sub" style="font-size:16px;margin:0">Keep the ownership line simple: the vault remembers, the CRM runs work, app databases remain authoritative for their own customers, and Kai is the operator across them.</p>
+        <div class="callout" style="margin-top:22px">
+          <p><b>Phase 2.5:</b> put Kai inside the admin after the CRM core works, before replacing Attio. The panel can start read-only, then gain reviewed actions.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What lands under one login</h3>
+        <p><b style="color:var(--ink)">CRM:</b> Today, People, Pipeline, Work and email context.</p>
+        <p><b style="color:var(--ink)">Apps:</b> users, plans, promo codes, broadcasts, subscriptions and audit.</p>
+        <p><b style="color:var(--ink)">Kai:</b> chat, evidence, proposed actions and approval.</p>
+      </div>
+    </div>
+    <div class="grid g4" style="margin-top:14px">
+      <div class="card"><h3>One sign-in</h3><p>Cloudflare Access protects every view.</p></div>
+      <div class="card"><h3>One audit trail</h3><p>Human and Kai actions share provenance.</p></div>
+      <div class="card"><h3>No per-seat CRM</h3><p>Attio can become archive or be cancelled.</p></div>
+      <div class="card"><h3>Phone-complete</h3><p>The web app remains usable at 360 × 800.</p></div>
+    </div>
+    <div class="src"><span>Sources: ecosystem page; admin-crm CLAUDE.md and CONTRACT.md; CRM spec v4.</span><span class="pg">ADMIN.KASPASEJO.COM · 02</span></div>
+  </div>
+</section>
+
+<!-- 03 SYSTEM MAP -->
+<section class="dark" id="system-map">
+  <div class="wrap">
+    <div class="eyebrow">System map</div>
+    <h2>Four systems. Clear ownership. No overlap.</h2>
+    <div class="grid" style="grid-template-columns:1fr 48px 1fr;align-items:center;margin-top:30px" id="map-grid">
+      <div class="card">
+        <div class="kick">Inputs</div>
+        <h3>Gmail · Calendar · Meet · Apps</h3>
+        <p>Source records enter once. Each interaction keeps its source and timestamp.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <div class="kick">Control room</div>
+        <h3>admin.kaspasejo.com</h3>
+        <p>CRM ledger, Adonae and Murmr admin, action queue, approvals and audit.</p>
+      </div>
+      <div class="card">
+        <div class="kick">Canonical memory</div>
+        <h3>kai-vault</h3>
+        <p>People, organisations, meetings and durable learning. Append history; revise current fields with a log.</p>
+      </div>
+      <div class="arrow">↔</div>
+      <div class="card">
+        <div class="kick">Operator</div>
+        <h3>Kai</h3>
+        <p>Reads the vault and CRM, proposes work, uses tools, and waits for approval when an action leaves the building.</p>
+      </div>
+      <div class="card">
+        <div class="kick">Specialist stores</div>
+        <h3>Adonae DB · Murmr DB</h3>
+        <p>Each app keeps its own customer truth. The admin calls only the shared hub contract, server-side.</p>
+      </div>
+      <div class="arrow">→</div>
+      <div class="card">
+        <div class="kick">Outputs</div>
+        <h3>Drafts · Campaigns · Content</h3>
+        <p>Approved work moves to Gmail, Instantly, the content machine or an app broadcast.</p>
+      </div>
+    </div>
+    <div class="src"><span>Sources: admin-crm contract; kai and kai-vault repos; ecosystem plan.</span><span class="pg">ADMIN.KASPASEJO.COM · 03</span></div>
+  </div>
+</section>
+
+<!-- 04 PRODUCT SHAPE -->
+<section class="light" id="product-shape">
+  <div class="wrap">
+    <div class="eyebrow">Product shape</div>
+    <h2>What the admin becomes</h2>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card">
+        <div class="kick">01 · CRM</div>
+        <h3>Run the day</h3>
+        <p>Today queue, unified people and organisations, pipelines, tasks, sequences, meetings, drafts and email context.</p>
+      </div>
+      <div class="card">
+        <div class="kick">02 · App admin</div>
+        <h3>Run the products</h3>
+        <p>Adonae and Murmr through the same interface, while their databases remain separate and authoritative.</p>
+      </div>
+      <div class="card">
+        <div class="kick">03 · Kai</div>
+        <h3>Ask, inspect, approve</h3>
+        <p>Chat on the right, live records on the left. Kai can gather context and stage actions without hiding what changes.</p>
+      </div>
+    </div>
+    <div class="mtable" style="margin-top:14px">
+      <div class="mrow mhead" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Area</span><span>Owns</span><span>Reads</span><span>Never owns</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Vault</span><span>Memory</span><span>CRM + sources</span><span>Deal state</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>CRM</span><span>Operational ledger</span><span>Vault + Gmail</span><span>App customer truth</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>App admin</span><span>Admin actions</span><span>App databases</span><span>CRM dossiers</span></div>
+      <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Kai</span><span>Reasoning + actions</span><span>All permitted context</span><span>Canonical records</span></div>
+    </div>
+    <div class="src"><span>Decision encoded from ecosystem plan: vault = memory; CRM = ledger; content = output.</span><span class="pg">ADMIN.KASPASEJO.COM · 04</span></div>
+  </div>
+</section>
+
+<!-- 05 MOCKUP CRM HOME -->
+<section class="light" id="mock-crm-home">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · CRM home</div>
+    <h2>A short queue, not a vanity dashboard.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi on">Today</div>
+            <div class="mi">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Friday, 11 September</div>
+              <h4>Today</h4>
+            </div>
+            <div class="mh-actions"><span class="btn btn-dark">＋ Quick add</span></div>
+          </div>
+          <div class="statgrid">
+            <div class="stat"><div class="sk">Needs you</div><div class="sv">7</div><div class="sn">3 replies · 2 promises · 2 stale deals</div></div>
+            <div class="stat"><div class="sk">Meetings</div><div class="sv">2</div><div class="sn">Next brief ready at 14:30</div></div>
+            <div class="stat"><div class="sk">Open pipeline</div><div class="sv">£210k</div><div class="sn">Across sales and fundraising</div></div>
+          </div>
+          <div class="x-scroll">
+          <div class="mtable" style="min-width:640px">
+            <div class="mrow mhead" style="grid-template-columns:1.2fr 1.3fr 1fr 1fr"><span>Priority</span><span>Why now</span><span>Brand</span><span>Action</span></div>
+            <div class="mrow" style="grid-template-columns:1.2fr 1.3fr 1fr 1fr"><span class="who"><span class="av">JH</span>J. Hart</span><span>No reply for 5 days</span><span>Kulcho</span><span><span class="pill pill-amber">Review draft</span></span></div>
+            <div class="mrow" style="grid-template-columns:1.2fr 1.3fr 1fr 1fr"><span class="who"><span class="av">NP</span>Northstar</span><span>Promise due today</span><span>Fundraising</span><span><span class="pill pill-green">Open deal</span></span></div>
+            <div class="mrow" style="grid-template-columns:1.2fr 1.3fr 1fr 1fr"><span class="who"><span class="av">MA</span>Maya A.</span><span>Meeting in 2 hours</span><span>Wickent</span><span><span class="pill pill-green">Read brief</span></span></div>
+            <div class="mrow" style="grid-template-columns:1.2fr 1.3fr 1fr 1fr"><span class="who"><span class="av">OC</span>Orbit Capital</span><span>11 days in stage</span><span>Fundraising</span><span><span class="pill pill-amber">Choose next step</span></span></div>
+          </div>
+          </div>
+          <div class="callout" style="margin-top:14px"><p>One primary action per card. Nothing sends until the final sender, recipient and words are reviewed.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Grounded in CRM spec v4: Today, phone-complete navigation and one primary action per card.</span><span class="pg">ADMIN.KASPASEJO.COM · 05</span></div>
+  </div>
+</section>
+
+<!-- 06 MOCKUP PERSON + EMAIL -->
+<section class="light" id="mock-person">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · Person + email</div>
+    <h2>See the conversation in context, then act in Gmail.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi on">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Person</div>
+              <h4>Maya Anderson</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green">Warm relationship</span></div>
+          </div>
+          <div class="grid" style="grid-template-columns:0.85fr 1.6fr;align-items:start" id="person-cols">
+            <div class="card">
+              <div class="kick" style="color:var(--faint)">Relationship</div>
+              <div style="margin-top:10px"><b style="font-size:13.5px">Organisation</b><p style="margin-top:1px">Northstar Ventures</p></div>
+              <div style="margin-top:12px"><b style="font-size:13.5px">Pipeline</b><p style="margin-top:1px">Fundraising · Meeting</p></div>
+              <div style="margin-top:12px"><b style="font-size:13.5px">Next step</b><p style="margin-top:1px">Send revised data room by Monday</p></div>
+              <div style="margin-top:12px"><b style="font-size:13.5px">Known from</b><p style="margin-top:1px">3 emails · 1 meeting · 1 intro</p></div>
+              <div class="callout" style="margin-top:16px;padding:12px 14px"><b style="font-size:13px">Vault note</b><p>Prefers direct updates. Asked about retention and creator conversion.</p></div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+                <div class="kick" style="color:var(--faint);margin:0">Email context</div>
+                <span class="btn btn-line" style="font-size:12px">Open in Gmail ↗</span>
+              </div>
+              <h3 style="margin-top:8px">Latest thread · Re: Kulcho follow-up</h3>
+              <div style="margin-top:12px;border-top:1px solid #eeeef2;padding-top:12px">
+                <b style="font-size:13px">Maya · Yesterday, 16:42</b>
+                <p style="margin-top:4px">Thanks Sam. The creator migration story is clearer now. Could you send the retention table and current runway?</p>
+              </div>
+              <div style="margin-top:12px;border-top:1px solid #eeeef2;padding-top:12px">
+                <b style="font-size:13px">Sam · Wednesday, 09:15</b>
+                <p style="margin-top:4px">Good speaking yesterday. I have attached the short deck and will send the requested cohort view.</p>
+              </div>
+              <div class="callout" style="margin-top:14px">
+                <div class="kick" style="margin:0">Kai suggestion</div>
+                <p>Draft a concise reply with the retention table, then hold it in Gmail for approval.</p>
+                <span class="btn btn-dark" style="margin-top:10px">Ask Kai to draft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Recommendation: read-only thread context per contact. Gmail stays the mail client and sending surface.</span><span class="pg">ADMIN.KASPASEJO.COM · 06</span></div>
+  </div>
+</section>
+
+<!-- 07 MOCKUP PIPELINE -->
+<section class="light" id="mock-pipeline">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · Pipeline</div>
+    <h2>One ledger, with firm brand boundaries.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi">People</div>
+            <div class="mi on">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Pipeline</div>
+              <h4>Fundraising</h4>
+            </div>
+            <div class="mh-actions"><span class="btn btn-line">£210k open</span><span class="btn btn-dark">＋ Deal</span></div>
+          </div>
+          <div class="x-scroll">
+          <div class="kanban" style="min-width:680px">
+            <div class="kcol">
+              <div class="kh"><span>New</span><span>4</span></div>
+              <div class="kcard"><b>Arcade Fund</b><span>£50k · intro source recorded</span></div>
+              <div class="kcard"><b>Horizon</b><span>£25k · fit check due</span></div>
+            </div>
+            <div class="kcol">
+              <div class="kh"><span>Contacted</span><span>6</span></div>
+              <div class="kcard"><b>Orbit Capital</b><span>11 days · stale</span><span class="pill pill-amber">Needs you</span></div>
+              <div class="kcard"><b>Vale Partners</b><span>Last touch yesterday</span></div>
+            </div>
+            <div class="kcol">
+              <div class="kh"><span>Meeting</span><span>3</span></div>
+              <div class="kcard"><b>Northstar</b><span>£50k · brief ready</span><span class="pill pill-green">On track</span></div>
+              <div class="kcard"><b>Field Notes</b><span>Follow-up Monday</span></div>
+            </div>
+            <div class="kcol">
+              <div class="kh"><span>Nurture</span><span>8</span></div>
+              <div class="kcard"><b>Signal House</b><span>Re-engage in 14 days</span></div>
+              <div class="kcard"><b>Foundry</b><span>Quarterly update list</span></div>
+            </div>
+          </div>
+          </div>
+          <div class="foot-note">
+            <span>Adult-brand contacts are walled off from mainstream and investor workspaces.</span>
+            <span class="btn btn-line" style="font-size:12px">Board · List · Forecast</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Sources: CRM spec v4 and Master CRM tab structure.</span><span class="pg">ADMIN.KASPASEJO.COM · 07</span></div>
+  </div>
+</section>
+
+<!-- 08 MOCKUP APP ADMIN ADONAE -->
+<section class="light" id="mock-adonae">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · App admin</div>
+    <h2>Adonae: customer state with safe actions.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi on">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Managed app</div>
+              <h4>Adonae</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green dot">Live</span><span class="btn btn-dark">New promo code</span></div>
+          </div>
+          <div class="statgrid">
+            <div class="stat"><div class="sk">Members</div><div class="sv">2,418</div><div class="sn">+8.4% this month</div></div>
+            <div class="stat"><div class="sk">Paid</div><div class="sv">684</div><div class="sn">28.3% of members</div></div>
+            <div class="stat"><div class="sk">MRR</div><div class="sv">£•••</div><div class="sn">From app database</div></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1.3fr 1fr;align-items:stretch" id="adonae-mid">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3>Member health</h3><span class="btn btn-line" style="font-size:12px">30 days</span></div>
+              <div class="bars"><i style="height:38%"></i><i style="height:56%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:82%"></i><i style="height:66%"></i><i style="height:88%"></i></div>
+              <p>New, active, trial and paid grouped consistently.</p>
+            </div>
+            <div class="card">
+              <h3>Quick actions</h3>
+              <p style="padding:8px 0;border-bottom:1px solid #eeeef2">Create a money-off code</p>
+              <p style="padding:8px 0;border-bottom:1px solid #eeeef2">Preview a broadcast</p>
+              <p style="padding:8px 0">Find a member</p>
+            </div>
+          </div>
+          <div class="x-scroll" style="margin-top:14px">
+          <div class="mtable" style="min-width:560px">
+            <div class="mrow mhead" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span>Recent member</span><span>Plan</span><span>Joined</span><span>Status</span></div>
+            <div class="mrow" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span class="who"><span class="av">EH</span>Emma H.</span><span>Annual</span><span>Today</span><span><span class="pill pill-green">Paid</span></span></div>
+            <div class="mrow" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span class="who"><span class="av">LK</span>Leah K.</span><span>Free week</span><span>Today</span><span><span class="pill pill-amber">Trial</span></span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Numbers shown are illustrative mockup data, clearly masked where financial truth must come from the live app.</span><span class="pg">ADMIN.KASPASEJO.COM · 08</span></div>
+  </div>
+</section>
+
+<!-- 09 MOCKUP APP ADMIN MURMR -->
+<section class="light" id="mock-murmr">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · App admin</div>
+    <h2>Murmr: usage, paid state and system health.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi on">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Managed app</div>
+              <h4>Murmr</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green dot">Connected</span><span class="btn btn-dark">Send notification</span></div>
+          </div>
+          <div class="statgrid">
+            <div class="stat"><div class="sk">People</div><div class="sv">1,206</div><div class="sn">Across free and paid tiers</div></div>
+            <div class="stat"><div class="sk">Entries today</div><div class="sv">389</div><div class="sn">Voice and text combined</div></div>
+            <div class="stat"><div class="sk">Paid tier</div><div class="sv">18%</div><div class="sn">Stripe + RevenueCat normalised</div></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1fr 1fr;align-items:stretch" id="murmr-mid">
+            <div class="card">
+              <h3>Subscription sources</h3>
+              <div style="margin-top:10px">
+                <div class="kv"><span class="k">Web · Stripe</span><span>Matched</span></div>
+                <div class="kv"><span class="k">Android · RevenueCat</span><span>Matched</span></div>
+                <div class="kv"><span class="k">Price and trial parity</span><span style="color:var(--green-ink);font-weight:600">Healthy</span></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>System health</h3>
+              <div style="margin-top:10px">
+                <div class="kv"><span class="k">Hub contract</span><span style="color:var(--green-ink);font-weight:600">v1</span></div>
+                <div class="kv"><span class="k">Last sync</span><span>2 min ago</span></div>
+                <div class="kv"><span class="k">Failed admin actions</span><span>0</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="x-scroll" style="margin-top:14px">
+          <div class="mtable" style="min-width:560px">
+            <div class="mrow mhead" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span>Person</span><span>Plan</span><span>Last entry</span><span>State</span></div>
+            <div class="mrow" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span class="who"><span class="av">AR</span>Alex R.</span><span>Plus</span><span>18 min ago</span><span><span class="pill pill-green">Active</span></span></div>
+            <div class="mrow" style="grid-template-columns:1.4fr 1fr 1fr 1fr"><span class="who"><span class="av">SK</span>Sam K.</span><span>Free</span><span>Yesterday</span><span><span class="pill pill-green">Active</span></span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>App databases remain authoritative. The admin reads and acts only through the shared hub contract.</span><span class="pg">ADMIN.KASPASEJO.COM · 09</span></div>
+  </div>
+</section>
+
+<!-- 10 MOCKUP KAI PANEL -->
+<section class="light" id="mock-kai">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · Kai panel</div>
+    <h2>Chat on the right. Evidence and consequences on the left.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi on">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+          <div class="side-h">System</div>
+          <nav>
+            <div class="mi">Audit log</div>
+            <div class="mi">Settings</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick">Kai · Phase 2.5</div>
+              <h4>Work with context visible</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green dot">Sources current</span></div>
+          </div>
+          <div class="kai-grid">
+            <div>
+              <div class="grid g2">
+                <div class="card" style="padding:16px 18px">
+                  <div class="kick" style="color:var(--faint)">Selected person</div>
+                  <h3 style="font-size:17px">Maya Anderson</h3>
+                  <p>Northstar · Fundraising · Meeting</p>
+                </div>
+                <div class="card" style="padding:16px 18px">
+                  <div class="kick" style="color:var(--faint)">Open commitment</div>
+                  <h3 style="font-size:17px">Send retention table</h3>
+                  <p>Due Monday · source: email</p>
+                </div>
+              </div>
+              <div class="x-scroll" style="margin-top:14px">
+              <div class="mtable" style="min-width:520px">
+                <div class="mrow mhead" style="grid-template-columns:1.1fr 1.6fr 0.8fr 0.7fr"><span>Evidence</span><span>What it says</span><span>Source</span><span>Date</span></div>
+                <div class="mrow" style="grid-template-columns:1.1fr 1.6fr 0.8fr 0.7fr"><span>Latest email</span><span>Asked for runway</span><span>Gmail</span><span>10 Sep</span></div>
+                <div class="mrow" style="grid-template-columns:1.1fr 1.6fr 0.8fr 0.7fr"><span>Meeting note</span><span>Retention is key concern</span><span>Vault</span><span>8 Sep</span></div>
+              </div>
+              </div>
+              <div class="callout" style="margin-top:14px">
+                <b style="font-size:13.5px">Action preview</b>
+                <p>Create a Gmail draft to Maya from sam@kulcho.com. No send. Attach the approved retention table.</p>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="ch-h">Kai</div>
+              <div class="bub user">What do I owe Maya, and can you prepare it?</div>
+              <div class="bub kai">You owe the retention table and current runway by Monday. I found the latest thread and the meeting note. I can prepare a reply and save it as a Gmail draft.</div>
+              <div class="bub user">Do that. Keep it direct.</div>
+              <div class="bub kai">Draft staged. Review the recipient, attachment and words before it is saved.</div>
+              <div class="ch-in">Ask Kai to find, prepare or update…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Phase 2.5 starts read-only, then adds proposed actions with review. External actions retain approval gates.</span><span class="pg">ADMIN.KASPASEJO.COM · 10</span></div>
+  </div>
+</section>
+
+<!-- 11 EMAIL INSIDE ADMIN -->
+<section class="light" id="email-inside">
+  <div class="wrap">
+    <div class="eyebrow">Email inside admin</div>
+    <h2>Context in Admin. Reading and sending stay in Gmail.</h2>
+    <p class="sub">The CRM explains the relationship around an email. Gmail remains the inbox and composer.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card edge-l">
+        <h3 style="letter-spacing:.02em">BUILD IN ADMIN</h3>
+        <p>• Read-only thread context on each person • Sender, recipients, subject, attachments and canonical Gmail link • Status, next step and next-action date inferred from activity • Kai proposes a draft with a copy-to-clipboard button • Every inferred field shows its source and confidence</p>
+      </div>
+      <div class="card edge-amber">
+        <h3 style="letter-spacing:.02em">DO NOT REBUILD</h3>
+        <p>• No second inbox, folders or unread state • No competing Gmail composer • No hidden send button inside the CRM • No copied attachment store without a clear need • No claim of automation before Gmail activity is observable</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      <b style="font-size:13.5px;letter-spacing:.02em">THE HONEST ACCESS LINE</b>
+      <p>Auto-updates and reply detection need one of two inputs: the Gmail companion can observe the open Gmail tab, or a proper Gmail connection can supply reliable mailbox events. Without either, Admin cannot know a send or reply happened. This must be visible in settings and onboarding, not buried as a technical dependency.</p>
+    </div>
+    <div class="src"><span>Sources: Sam voice note, 11 Sep 2026; Attio email/calendar sync: <a href="https://attio.com/help/reference/email-calendar/email-and-calendar-syncing" style="color:inherit">attio.com/help/reference/email-calendar/email-and-calendar-syncing</a></span><span class="pg">ADMIN.KASPASEJO.COM · 11</span></div>
+  </div>
+</section>
+
+<!-- 12 ACTIVITY AUTOMATION -->
+<section class="light" id="activity-automation">
+  <div class="wrap">
+    <div class="eyebrow">Activity automation</div>
+    <h2>A conversation should move the record forward.</h2>
+    <p class="sub">Use evidence first, then update only what the email supports.</p>
+    <div class="grid g4" style="margin-top:30px">
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">01 · OBSERVE</h3><p>Send, reply or inbound email arrives through the companion or Gmail connection.</p></div>
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">02 · INTERPRET</h3><p>Match the person and brand. Extract intent, promised action, owner and date.</p></div>
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">03 · PROPOSE</h3><p>Show the status change, next step and due date with the exact email as evidence.</p></div>
+      <div class="card edge-green"><h3 style="letter-spacing:.02em">04 · APPLY</h3><p>Low-risk fields can update automatically. Ambiguous or high-impact changes enter review.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card"><h3 style="letter-spacing:.02em">EXAMPLE: OUTBOUND</h3><p>“Can you send the demo metrics by Friday?” Status → Waiting on contact. Next step → Review demo metrics. Due → Friday.</p></div>
+      <div class="card"><h3 style="letter-spacing:.02em">EXAMPLE: INBOUND</h3><p>“I’ll get those over next Tuesday.” Status → Promised. Next step → Await metrics. Due → Next Tuesday.</p></div>
+      <div class="card"><h3 style="letter-spacing:.02em">WHEN IT IS UNCLEAR</h3><p>“Let’s catch up soon.” No invented date. Keep the current status and add a review card to Today.</p></div>
+    </div>
+    <div class="src"><span>Design rule: an automation must retain the source event, prior value, new value and rollback path.</span><span class="pg">ADMIN.KASPASEJO.COM · 12</span></div>
+  </div>
+</section>
+
+<!-- 13 SEQUENCES -->
+<section class="dark" id="sequences">
+  <div class="wrap">
+    <div class="eyebrow">Sequences</div>
+    <h2>Two modes. One sequence model. No hidden requirement.</h2>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card edge-l" style="background:#fff;color:var(--ink)">
+        <h3 style="letter-spacing:.02em">MODE A · GMAIL CONNECTED</h3>
+        <p style="color:var(--muted)">Day 1 sends through the connected Gmail account. Day 7 sends only if no reply is detected. Pauses on reply, bounce, unsubscribe or manual stop. Every send is visible in the contact timeline and audit log.</p>
+      </div>
+      <div class="card edge-amber" style="background:#fff;color:var(--ink)">
+        <h3 style="letter-spacing:.02em">MODE B · NO GMAIL CONNECTION</h3>
+        <p style="color:var(--muted)">Day 1: Kai prepares a draft and puts it in Today. Sam copies it into Gmail. Day 7: Kai prepares the follow-up and reminder. Reply suppression works only if the companion has observed the thread; otherwise Sam confirms “replied” or “send next step”.</p>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card"><h3>Stop conditions</h3><p>Reply · bounce · unsubscribe · deal closed · manual pause</p></div>
+      <div class="card"><h3>Guardrails</h3><p>Per-brand sending identity · working hours · daily cap · audit</p></div>
+      <div class="card"><h3>First template</h3><p>Day 1 outreach · Day 7 follow-up · no branching in v1</p></div>
+    </div>
+    <div class="src"><span>Attio reference: <a href="https://attio.com/help/academy/sequences/managing-sequences" style="color:inherit">attio.com/help/academy/sequences/managing-sequences</a></span><span class="pg">ADMIN.KASPASEJO.COM · 13</span></div>
+  </div>
+</section>
+
+<!-- 14 MOCKUP GMAIL COMPANION -->
+<section class="light" id="mock-companion">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · Gmail companion</div>
+    <h2>Side-glance context only. Gmail owns the mail.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi on">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi">Sequences</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick" style="color:var(--purple)">People</div>
+              <h4>Gmail companion · Maya Anderson</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green dot">Context current</span></div>
+          </div>
+          <div class="grid" style="grid-template-columns:1.6fr 1fr;align-items:stretch" id="companion-cols">
+            <div class="card" style="background:#f0f0f4">
+              <h3 style="letter-spacing:.02em">GMAIL · Re: Kulcho follow-up</h3>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:12px">
+                <h3>Re: Kulcho follow-up</h3>
+                <p style="margin-top:10px"><b style="color:var(--ink)">Maya Anderson</b> · 16:42</p>
+                <p style="margin-top:8px">Thanks Sam. The creator migration story is clearer now. Could you send the retention table and current runway?</p>
+              </div>
+              <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:12px">
+                <h3>Reply in Gmail</h3>
+                <p>Gmail remains the composer and sending surface.</p>
+              </div>
+            </div>
+            <div class="card edge-l">
+              <h3 style="letter-spacing:.02em">ADMIN · SIDE GLANCE</h3>
+              <p style="margin-top:10px"><span class="pill pill-green">Warm relationship</span></p>
+              <p style="margin-top:10px"><b style="color:var(--ink)">Northstar Ventures</b> Fundraising · Meeting</p>
+              <div class="kick" style="margin-top:16px">Next step</div>
+              <p>Send revised data room by Monday</p>
+              <div class="kick" style="margin-top:16px">Previous context</div>
+              <p>3 emails · 1 meeting · 1 intro. Asked about retention and creator conversion.</p>
+              <span class="btn btn-purple" style="margin-top:16px">Copy Kai draft</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Mockup · Gmail companion. Side-glance context only; Gmail still owns reading, drafting and sending.</span><span class="pg">ADMIN.KASPASEJO.COM · 14</span></div>
+  </div>
+</section>
+
+<!-- 15 MOCKUP SEQUENCE DETAIL -->
+<section class="light" id="mock-sequence">
+  <div class="wrap">
+    <div class="eyebrow">Mockup · Sequence detail</div>
+    <h2>Day 1 + Day 7, with explicit stop conditions.</h2>
+    <div class="mock">
+      <div class="mock-top"><span class="url">admin.kaspasejo.com</span><span class="search">Search ⌘K &nbsp;·&nbsp; SG</span></div>
+      <div class="mock-body">
+        <aside class="mock-side">
+          <div class="brand">KASPASEJO</div>
+          <div class="side-h">Operating system</div>
+          <nav>
+            <div class="mi">Today</div>
+            <div class="mi">People</div>
+            <div class="mi">Pipeline</div>
+            <div class="mi on">Sequences</div>
+            <div class="mi">Work</div>
+            <div class="mi">Apps</div>
+            <div class="mi">Kai</div>
+          </nav>
+          <div class="side-h">Managed apps</div>
+          <nav>
+            <div class="mi">Adonae</div>
+            <div class="mi">Murmr</div>
+          </nav>
+        </aside>
+        <div class="mock-main">
+          <div class="mock-head">
+            <div>
+              <div class="mh-kick" style="color:var(--purple)">Sequences</div>
+              <h4>Sequence · Investor follow-up</h4>
+            </div>
+            <div class="mh-actions"><span class="pill pill-green dot">Draft mode</span></div>
+          </div>
+          <div class="seq">
+            <div class="seq-line"></div>
+            <div class="card edge-l">
+              <h3 style="letter-spacing:.02em">DAY 1 · INTRO</h3>
+              <p>Prepared by Kai. Owner: Sam. Send in Gmail.</p>
+              <p style="margin-top:6px"><b style="color:var(--ink)">Status:</b> ready to copy</p>
+            </div>
+            <div class="card">
+              <h3 style="letter-spacing:.02em">WAIT · 6 DAYS</h3>
+              <p>Stop if reply observed. Reminder remains visible. No action if deal is closed.</p>
+            </div>
+            <div class="card edge-amber">
+              <h3 style="letter-spacing:.02em">DAY 7 · FOLLOW-UP</h3>
+              <p>Prepared only if eligible. Copy to Gmail.</p>
+              <p style="margin-top:6px"><b style="color:var(--ink)">Status:</b> waiting</p>
+            </div>
+          </div>
+          <div class="callout" style="margin-top:16px">
+            <b style="font-size:13.5px;letter-spacing:.02em">ELIGIBILITY BEFORE EACH STEP</b>
+            <p class="checkline" style="margin-top:6px">✓ Correct sending identity · ✓ No observed reply · ✓ Not unsubscribed · ✓ Contact still in the right pipeline stage · ✓ Daily cap available</p>
+            <p>If Gmail is not connected and the companion did not observe the thread, eligibility becomes “needs confirmation” rather than pretending the system knows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src"><span>Mockup · sequence detail. V1 starts with one Day 1 + Day 7 template and explicit stop conditions.</span><span class="pg">ADMIN.KASPASEJO.COM · 15</span></div>
+  </div>
+</section>
+
+<!-- 16 INTERFACE TEARDOWN -->
+<section class="light" id="teardown">
+  <div class="wrap">
+    <div class="eyebrow">Interface teardown</div>
+    <h2>Take Attio’s speed. Take Radiant’s focus. Keep Admin smaller.</h2>
+    <p class="sub">A concrete improvement list for the interface already proposed.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>1 · Command-first navigation</h3><span class="tagpill">Attio</span></div><p>Keep ⌘K global search. Add create, jump, filter and “ask Kai” actions in one palette.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>2 · One record, many views</h3><span class="tagpill">Attio</span></div><p>Use the same underlying people in list, board and Today views. Never create duplicate segment databases.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>3 · Fast inline editing</h3><span class="tagpill">Attio</span></div><p>Edit stage, owner, brand and next date in place. Save instantly and expose undo.</p></div>
+      <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>4 · Calm daily queue</h3><span class="tagpill">Radiant</span></div><p>Make Today the default: few cards, one reason, one primary action. Keep reporting behind the work.</p></div>
+      <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>5 · AI beside the record</h3><span class="tagpill">Radiant</span></div><p>Kai stays adjacent to evidence and the proposed change. Avoid a separate AI destination with no context.</p></div>
+      <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>6 · Gmail-native context</h3><span class="tagpill">Radiant / usm</span></div><p>Put the relationship panel beside Gmail, but keep compose and send inside Gmail.</p></div>
+      <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>7 · Visible automation state</h3><span class="tagpill">Admin-specific</span></div><p>Every rule says what source it watches, what it changes, last run, failure state and how to pause it.</p></div>
+      <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>8 · Progressive disclosure</h3><span class="tagpill">Admin-specific</span></div><p>Default to essentials. Reveal provenance, raw events and audit detail only when asked.</p></div>
+    </div>
+    <div class="src"><span>Sources: Attio navigation/lists docs; Radiant OSS repo and app screenshot: <a href="https://github.com/dylanmeyford/radiant-ai-crm-oss" style="color:inherit">github.com/dylanmeyford/radiant-ai-crm-oss</a></span><span class="pg">ADMIN.KASPASEJO.COM · 16</span></div>
+  </div>
+</section>
+
+<!-- 17 WHAT CHANGES IN KAI -->
+<section class="light" id="kai-changes">
+  <div class="wrap">
+    <div class="eyebrow">What changes in Kai</div>
+    <h2>Kai is the assistant inside Admin.</h2>
+    <p class="sub">Product name: Admin. Assistant name: Kai. The distinction is now explicit.</p>
+    <div class="grid g4" style="margin-top:30px">
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">READ-ONLY FIRST</h3><p>Ask about people, pipelines, promises, emails and app state. Every answer links back to its evidence.</p></div>
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">DRAFT, THEN COPY</h3><p>Kai writes the email in Sam’s voice. “Copy draft” puts the exact text on the clipboard; Sam pastes and sends in Gmail.</p></div>
+      <div class="card edge-l"><h3 style="letter-spacing:.02em">BULK ACTIONS</h3><p>Segment, tag, assign, set next steps, prepare sequence enrolments and export. Show the proposed set before applying.</p></div>
+      <div class="card edge-green"><h3 style="letter-spacing:.02em">REVIEWED ACTIONS LATER</h3><p>Once the read model is trusted, Kai can execute approved CRM changes. External communication remains separately controlled.</p></div>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      <b style="font-size:13.5px;letter-spacing:.02em">ATTIO MIGRATION CHANGE</b>
+      <p>There is no Attio history worth importing. Remove Attio from the migration path. Admin supersedes the future need for it; the source systems are the Master CRM sheet, Gmail/companion activity, meetings and the app databases.</p>
+    </div>
+    <div class="src"><span>Source: Sam voice note, 11 Sep 2026; v1 Kai architecture retained.</span><span class="pg">ADMIN.KASPASEJO.COM · 17</span></div>
+  </div>
+</section>
+
+<!-- 18 DELIVERY PATH -->
+<section class="dark" id="delivery">
+  <div class="wrap">
+    <div class="eyebrow">Delivery path</div>
+    <h2>The same 0-4 path, updated around the locked choices.</h2>
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">0</span><div><h3 style="letter-spacing:.02em">LOCK + MAP</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">Now</div></div></div><p style="margin-top:12px">Schema, brands, adult wall, export rules, Gmail access mode.</p></div>
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">1</span><div><h3 style="letter-spacing:.02em">FOUNDATION</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">1-2 weeks</div></div></div><p style="margin-top:12px">Auth, hub contract, audit, app read models, CSV export.</p></div>
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">2</span><div><h3 style="letter-spacing:.02em">CRM CORE</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">3-5 weeks</div></div></div><p style="margin-top:12px">People, pipelines, Today, activity, companion, sequence drafts.</p></div>
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">2.5</span><div><h3 style="letter-spacing:.02em">KAI INSIDE</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">2-3 weeks</div></div></div><p style="margin-top:12px">Questions, evidence, copyable drafts, reviewed bulk actions.</p></div>
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">3</span><div><h3 style="letter-spacing:.02em">APP ADMIN</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">2-4 weeks</div></div></div><p style="margin-top:12px">Adonae + Murmr admin tools behind shared contracts.</p></div>
+      <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">4</span><div><h3 style="letter-spacing:.02em">AUTOMATION</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">Ongoing</div></div></div><p style="margin-top:12px">Connected Gmail, reliable reply events, safe auto-updates, measured sends.</p></div>
+    </div>
+    <div class="src"><span>Effort ranges are implementation estimates, not quotes. Near-zero software cost remains the target; Gmail/API volume may add later cost.</span><span class="pg">ADMIN.KASPASEJO.COM · 18</span></div>
+  </div>
+</section>
+
+<!-- 19 LOCKED DECISIONS -->
+<section class="light" id="decisions">
+  <div class="wrap">
+    <div class="eyebrow">Locked decisions</div>
+    <h2>The build brief now has a clear default.</h2>
+    <p class="sub">Six are settled. The adult-workspace wording needs one final confirmation.</p>
+    <div class="grid g2" style="margin-top:30px">
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>01 · Name</h3><span class="pill pill-green">LOCKED</span></div><p>Admin is the product. Kai is the assistant inside it.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>02 · Sheet + export</h3><span class="pill pill-green">LOCKED</span></div><p>Master CRM becomes a read-only archive. Full CSV export filters by B2B, creator and brand.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>03 · Attio</h3><span class="pill pill-green">LOCKED</span></div><p>No history to import. Remove Attio migration work.</p></div>
+      <div class="card edge-amber"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>04 · Adult boundary</h3><span class="pill pill-amber">CONFIRM WALL</span></div><p>All brands live in one Admin. Protected adult workspace wall stays.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>05 · Email</h3><span class="pill pill-green">LOCKED</span></div><p>Read, draft and send in Gmail. Activity updates status, next step and date when Gmail activity is observable.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>06 · Kai</h3><span class="pill pill-green">LOCKED</span></div><p>Questions, copyable email drafts and bulk actions. Read-only first, reviewed actions next.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>07 · Gmail companion</h3><span class="pill pill-green">LOCKED</span></div><p>Side-glance panel for identity, relationship and prior conversations.</p></div>
+      <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>08 · Sequences</h3><span class="pill pill-green">LOCKED</span></div><p>Day 1 + Day 7 unless replied. Auto-send only with Gmail connected; otherwise drafts + reminders.</p></div>
+    </div>
+    <div class="src"><span>Only wording to confirm: “one Admin with a protected adult workspace wall” versus removing that wall entirely.</span><span class="pg">ADMIN.KASPASEJO.COM · 19</span></div>
+  </div>
+</section>
+
+<script>
+  const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('section .card, section .callout, section .mock, section .mtable').forEach(el=>{el.classList.add('reveal');io.observe(el);});
+</script>
+</body>
+</html>
