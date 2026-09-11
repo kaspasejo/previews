@@ -107,3 +107,7 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 .prose-page .eyebrow{margin:0 0 .5rem;color:var(--accent);font-weight:600;font-size:.95rem;letter-spacing:.04em}
 .prose h2{font-family:var(--font-display);font-weight:500;font-size:1.45rem;margin:1.9rem 0 .5rem;letter-spacing:-.01em}
 .prose p{margin:0 0 1rem;color:var(--ink-2)}
+
+/* hero logo lockup + perk line */
+.hero-mark { width: 64px; height: 64px; display: block; margin: 0 auto 22px; border-radius: 18px; box-shadow: 0 12px 30px rgba(31, 92, 61, .25); }
+.form-perk { margin: -4px 0 14px; font-weight: 600; color: #1f5c3d; }
