@@ -122,3 +122,24 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 .puff-b { width: 96px; right: -44px; bottom: -14px; opacity: .85; }
 @keyframes hih-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @media (prefers-reduced-motion: reduce) { .hero-logo, .puff-a { animation: none; } }
+
+/* split headline + two-column hero */
+.h1-sub { display: block; font-size: clamp(1.25rem, 3.2vw, 1.9rem); font-weight: 500; color: var(--accent); margin-top: .55rem; letter-spacing: 0; max-width: none; }
+.lede strong { color: var(--accent-deep); }
+.hero-grid { display: grid; gap: 2.5rem; }
+@media (min-width: 960px) {
+  .hero { text-align: left; padding: 4.5rem 0 5rem; }
+  .hero-grid { grid-template-columns: 1.05fr .95fr; align-items: center; gap: 3.5rem; }
+  .hero-copy .eyebrow, .hero-copy h1, .hero-copy .lede { margin-left: 0; margin-right: 0; }
+  .hero-logo { margin: 0 0 1.1rem; }
+  .hero-form .form-card { margin: 0 0 0 auto; }
+}
+@media (max-width: 480px) {
+  .hero { padding: 2.5rem 0 3rem; }
+  .hero-word { font-size: clamp(46px, 15vw, 64px); }
+  .puff-a { width: 100px; left: -30px; top: -18px; }
+  .puff-b { width: 74px; right: -22px; }
+  .form-card { padding: 1.35rem; margin-top: 1.75rem; }
+  .form-perk { font-size: .98rem; }
+  .button { width: 100%; }
+}
