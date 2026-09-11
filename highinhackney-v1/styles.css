@@ -158,3 +158,9 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 
 /* offer badge replaces the 18+ tag in the form header (18+ gate stays as checkbox) */
 .tag-offer { background: #dcebfb; color: #1e4f8f; font-size: .74rem; }
+
+/* v6: header removed, logo to top, mobile eyebrow break */
+.br-mobile { display: none; }
+.hero { padding-top: 2rem; }
+@media (max-width: 480px) { .br-mobile { display: block; } .hero { padding-top: 1.25rem; } }
+@media (min-width: 960px) { .hero { padding-top: 2.5rem; } }
