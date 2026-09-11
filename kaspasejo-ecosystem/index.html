@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f6f5ef">
+<title>The Kaspasejo ecosystem - how everything fits together</title>
+<style>
+  :root{
+    --bg:#f6f5ef; --ink:#191914; --muted:#6b6a60; --line:#e2e0d4;
+    --card:#ffffff; --kai:#4f46e5; --kai-bg:#eef0fe; --crm:#047857; --crm-bg:#e9f6f0;
+    --content:#be123c; --content-bg:#fdf0f3; --inst:#0e7490; --inst-bg:#e8f6fa;
+    --you:#b45309; --you-bg:#fdf4e7; --flag:#b91c1c; --flag-bg:#fdefef;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  section{padding:56px 0}
+  section + section{border-top:1px solid var(--line)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-0.03em;font-weight:800;text-wrap:balance}
+  h2{font-size:clamp(24px,3.4vw,34px);line-height:1.15;letter-spacing:-0.02em;font-weight:800;text-wrap:balance;margin-bottom:14px}
+  h3{font-size:17px;font-weight:700;letter-spacing:-0.01em;text-wrap:balance}
+  .lede{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:56ch;text-wrap:balance;margin-top:18px}
+  p{text-wrap:pretty}
+  .sub{color:var(--muted);font-size:15px;max-width:68ch;text-wrap:pretty;margin-bottom:28px}
+
+  /* cover */
+  .cover{padding:88px 0 64px}
+  .cover .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+  .tag{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+  .page-note{margin-top:40px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* map */
+  .map{display:flex;flex-direction:column;gap:0}
+  .layer{position:relative;border:1.5px solid var(--line);border-radius:18px;background:var(--card);padding:18px 18px 16px}
+  .layer-label{font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .connector{align-self:center;color:#b9b7a8;padding:2px 0}
+  .connector svg{display:block}
+  .cards{display:grid;gap:12px}
+  .cards.c3{grid-template-columns:repeat(3,1fr)}
+  .cards.c2{grid-template-columns:repeat(2,1fr)}
+  .node{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:#fbfaf6}
+  .node h3{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .node p{font-size:13.5px;color:var(--muted);margin-top:6px}
+  .node ul{margin:8px 0 0 18px;font-size:13.5px;color:var(--muted)}
+  .node li + li{margin-top:3px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+  .b-live{background:#e9f6f0;color:var(--crm)}
+  .b-built{background:#fdf4e7;color:var(--you)}
+  .b-decision{background:#fdefef;color:var(--flag)}
+  .accent-kai{border-top:4px solid var(--kai)}
+  .accent-crm{border-top:4px solid var(--crm)}
+  .accent-content{border-top:4px solid var(--content)}
+  .accent-inst{border-top:4px solid var(--inst)}
+  .accent-you{border-top:4px solid var(--you)}
+  .you-row{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch}
+  .you-chip{flex:1;min-width:150px;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;background:#fbfaf6;font-size:13.5px;color:var(--muted)}
+  .you-chip strong{display:block;color:var(--ink);font-size:14.5px;margin-bottom:2px}
+
+  /* rule strip */
+  .rule{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .rule article{border-radius:16px;padding:20px;border:1.5px solid var(--line)}
+  .rule article p{font-size:14px;color:var(--muted);margin-top:8px}
+  .rule .r-kai{background:var(--kai-bg)}
+  .rule .r-crm{background:var(--crm-bg)}
+  .rule .r-content{background:var(--content-bg)}
+  .rule h3{font-size:16px}
+  .rule .big{font-size:15px;font-weight:600;color:var(--ink);margin-top:2px}
+
+  /* who does what */
+  .roles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .role{border:1.5px solid var(--line);border-radius:16px;background:var(--card);padding:22px;display:flex;flex-direction:column;gap:10px}
+  .role .owns{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .role ul{margin-left:18px;font-size:14.5px;color:#3d3d36}
+  .role li + li{margin-top:6px}
+  .role .never{font-size:13.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:auto}
+
+  /* decision */
+  .decision{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch}
+  .dec-card{border:1.5px solid var(--line);border-radius:16px;padding:20px;background:var(--card)}
+  .dec-card.old{opacity:.75}
+  .dec-card h3{margin-bottom:8px}
+  .dec-card p{font-size:14px;color:var(--muted)}
+  .dec-card .st{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:4px 10px;border-radius:999px}
+  .st-was{background:#f1efe6;color:var(--muted)}
+  .st-now{background:var(--crm-bg);color:var(--crm)}
+  .dec-arrow{display:flex;align-items:center;justify-content:center;color:var(--crm)}
+
+  /* phases */
+  .phases{display:flex;flex-direction:column;gap:0;counter-reset:ph}
+  .phase{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:22px 0;position:relative}
+  .phase + .phase{border-top:1px dashed var(--line)}
+  .ph-num{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none}
+  .phase.now .ph-num{background:var(--you)}
+  .phase h3{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .phase p{font-size:14.5px;color:var(--muted);margin-top:6px;max-width:70ch}
+  .phase ul{margin:8px 0 0 18px;font-size:14px;color:var(--muted)}
+  .phase li + li{margin-top:3px}
+
+  /* flags */
+  .flags{display:flex;flex-direction:column;gap:12px}
+  .flag{display:grid;grid-template-columns:auto 1fr;gap:16px;border:1.5px solid #f3d3d3;background:var(--flag-bg);border-radius:14px;padding:18px 20px}
+  .flag .ic{color:var(--flag);font-weight:800;font-size:18px;line-height:1.4}
+  .flag h3{font-size:15.5px}
+  .flag p{font-size:14px;color:#5c4a4a;margin-top:5px}
+  .flag .q{margin-top:8px;font-size:13.5px;font-weight:600;color:var(--flag)}
+
+  footer{padding:40px 0 64px;color:var(--muted);font-size:13px}
+  footer .wrap{border-top:1px solid var(--line);padding-top:28px}
+
+  @media (max-width:760px){
+    section{padding:44px 0}
+    .cards.c3,.cards.c2,.rule,.roles,.decision{grid-template-columns:1fr}
+    .dec-arrow svg{transform:rotate(90deg)}
+    .phase{grid-template-columns:44px 1fr;gap:14px}
+    .ph-num{width:36px;height:36px;font-size:13px}
+  }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="wrap">
+    <div class="eyebrow">Kaspasejo Â· System map Â· 11 September 2026</div>
+    <h1>How everything fits together.</h1>
+    <p class="lede">One page for the whole machine: the CRM and app admin at admin.kaspasejo.com, Kai as your private brain, the content machine, and Instinct - what each piece owns, how they connect, and the path from where things stand today.</p>
+    <div class="tags">
+      <span class="tag">CRM + app admin</span>
+      <span class="tag">Kai: brain, worker, interface</span>
+      <span class="tag">Content machine</span>
+      <span class="tag">Instinct</span>
+      <span class="tag">Phased path</span>
+      <span class="tag">Repo flags</span>
+    </div>
+    <p class="page-note">Built from the repos as they stand: admin-crm Â· kai Â· kai-vault Â· usm Â· content-automation Â· murmr</p>
+  </div>
+</section>
+
+<section id="map">
+  <div class="wrap">
+    <div class="eyebrow">The map</div>
+    <h2>The whole machine at a glance</h2>
+    <p class="sub">Read top to bottom: you at the top, the interfaces you touch, the three systems that do the work, and the services they all stand on.</p>
+
+    <div class="map">
+      <div class="layer accent-you">
+        <div class="layer-label">You</div>
+        <div class="you-row">
+          <div class="you-chip"><strong>Slack</strong>Capture, @kai questions, approvals in threads</div>
+          <div class="you-chip"><strong>WhatsApp + Slack</strong>Instinct: errands, builds, research, this page</div>
+          <div class="you-chip"><strong>admin.kaspasejo.com</strong>One sign-in for CRM and app admin</div>
+        </div>
+      </div>
+
+      <div class="connector"><svg width="20" height="26" viewBox="0 0 20 26"><path d="M10 0v22M4 16l6 8 6-8" stroke="currentColor" stroke-width="2" fill="none"/></svg></div>
+
+      <div class="layer">
+        <div class="layer-label">The systems doing the work</div>
+        <div class="cards c3">
+          <div class="node accent-kai">
+            <h3><span class="dot" style="background:var(--kai)"></span>Kai <span class="badge b-live">Live</span></h3>
+            <p>Your private brain. Remembers everyone, prepares every meeting, drafts in your voice.</p>
+            <ul>
+              <li><b>Brain:</b> kai-vault - the black book (people, orgs, meetings, deals, cold prospects)</li>
+              <li><b>Worker:</b> kai repo - Claude skills, 4 routines on schedule</li>
+              <li><b>Interface:</b> @kai in Slack (#brain, #briefing, #learning)</li>
+            </ul>
+          </div>
+          <div class="node accent-crm">
+            <h3><span class="dot" style="background:var(--crm)"></span>admin.kaspasejo.com <span class="badge b-built">Built, not deployed</span></h3>
+            <p>The ledger. CRM plus app admin for Adonae and Murmr, behind one login.</p>
+            <ul>
+              <li><b>admin-crm repo:</b> Cloudflare Worker + React, behind Cloudflare Access</li>
+              <li><b>CRM:</b> pipelines, contacts, sequences - your decision, new home here</li>
+              <li><b>App admin:</b> people, money, messages, promo codes via the hub contract</li>
+            </ul>
+          </div>
+          <div class="node accent-content">
+            <h3><span class="dot" style="background:var(--content)"></span>Content machine <span class="badge b-live">Running</span></h3>
+            <p>content-automation: every brand's voice, content and SEO on a self-improving loop.</p>
+            <ul>
+              <li>Brand packs: heduno, kulcho, adonae, murmr, sam (+417x)</li>
+              <li>SEO autopilot deployed into six site repos</li>
+              <li>Canonical voice pack feeds Kai's drafts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><svg width="20" height="26" viewBox="0 0 20 26"><path d="M10 0v22M4 16l6 8 6-8" stroke="currentColor" stroke-width="2" fill="none"/></svg></div>
+
+      <div class="layer">
+        <div class="layer-label">The services everything stands on</div>
+        <div class="cards c3">
+          <div class="node"><h3>Google Workspace</h3><p>Gmail, Calendar, Meet transcripts. Kai's sources; drafts land in Gmail for your approval.</p></div>
+          <div class="node"><h3>Supabase per app</h3><p>Adonae and Murmr each keep their own database. The admin reaches them only through the shared hub functions, server-side.</p></div>
+          <div class="node"><h3>Money rails</h3><p>Stripe on the web, Google Play via RevenueCat on Android. Same prices, same trial, one admin view.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rule">
+  <div class="wrap">
+    <div class="eyebrow">The organising rule</div>
+    <h2>Memory, ledger, output. Nothing overlaps.</h2>
+    <p class="sub">One rule keeps the systems from stepping on each other. It is already written into Kai's design and it extends cleanly to the CRM's new home.</p>
+    <div class="rule">
+      <article class="r-kai">
+        <h3>The vault is the memory</h3>
+        <div class="big">Who everyone is, and what was said.</div>
+        <p>kai-vault is the canonical record. Append-only history; profiles describe the present. If you ever leave any tool, you keep the history.</p>
+      </article>
+      <article class="r-crm">
+        <h3>The CRM is the ledger</h3>
+        <div class="big">Pipeline state, money, outreach.</div>
+        <p>Deals, stages, sequences and subscription state live in admin.kaspasejo.com. Operational, fast, queryable. Everything written here mirrors back to the vault.</p>
+      </article>
+      <article class="r-content">
+        <h3>Content is the output</h3>
+        <div class="big">What the world sees.</div>
+        <p>content-automation turns the same voice and facts into posts, press and SEO. It reads the shared voice layer; it never invents its own.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="roles">
+  <div class="wrap">
+    <div class="eyebrow">Division of labour</div>
+    <h2>Who does what - including me</h2>
+    <p class="sub">Four workers, four jobs. The test for any task: which box does it belong in?</p>
+    <div class="roles">
+      <div class="role accent-crm">
+        <h3>admin.kaspasejo.com <span class="badge b-built">Built, not deployed</span></h3>
+        <div class="owns">Owns: the CRM + app admin</div>
+        <ul>
+          <li>Contacts, pipelines, sequences and tracking - the sales machine's state</li>
+          <li>Adonae + Murmr admin: members, plans, promo codes, broadcasts</li>
+          <li>One audited record of every change, signed with your login email</li>
+        </ul>
+        <p class="never">Never: app-specific code (the hub contract forbids it), content, conversation.</p>
+      </div>
+      <div class="role accent-kai">
+        <h3>Kai <span class="badge b-live">Live</span></h3>
+        <div class="owns">Owns: the compounding private brain</div>
+        <ul>
+          <li>Black book on everyone you actually deal with; meeting notes and follow-ups</li>
+          <li>Daily briefing, weekly review, hourly capture filing, @kai answers</li>
+          <li>Drafts in your voice, in Gmail, for your approval - never sends</li>
+        </ul>
+        <p class="never">Never: outbound without your approval, cold-prospect scraping into the black book, anything public-facing.</p>
+      </div>
+      <div class="role accent-content">
+        <h3>Content machine <span class="badge b-live">Running</span></h3>
+        <div class="owns">Owns: the audience-facing output</div>
+        <ul>
+          <li>Social, press and listening loops per brand, on routines</li>
+          <li>SEO autopilot across the six site repos</li>
+          <li>The canonical voice pack every other system borrows</li>
+        </ul>
+        <p class="never">Never: your relationships. It talks to audiences, not people.</p>
+      </div>
+      <div class="role accent-inst">
+        <h3>Instinct <span class="badge b-live">Live</span></h3>
+        <div class="owns">Owns: general assistant work across your life</div>
+        <ul>
+          <li>Builds, research, errands, reviews - like this map, the HomeReady launch, the Play Console setup</li>
+          <li>Reads your repos, sheets and calendar; hands you drafts and previews to approve</li>
+          <li>Works across every brand on demand, no routines of its own in your repos</li>
+        </ul>
+        <p class="never">Never: replaces Kai. Kai is the brain you own outright; I am the extra pair of hands on everything else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="decision">
+  <div class="wrap">
+    <div class="eyebrow">Your call, 11 September</div>
+    <h2>What the admin-crm decision changes</h2>
+    <p class="sub">You decided the CRM will be part of /admin-crm, hosted at admin.kaspasejo.com, alongside admin for Adonae and Murmr. That supersedes two older plans in the repos.</p>
+    <div class="decision">
+      <div class="dec-card old">
+        <span class="st st-was">Before</span>
+        <h3>CRM in two other places</h3>
+        <p>Kai's config points at Attio (paid, per-seat) as the operational CRM, mirrored to the vault. The usm spec (issue #1, 10 Sep) planned a standalone CRM in the usm repo: Gmail extension plus a Fastify + Postgres server.</p>
+      </div>
+      <div class="dec-arrow"><svg width="34" height="34" viewBox="0 0 34 34"><path d="M4 17h24M20 8l9 9-9 9" stroke="currentColor" stroke-width="2.5" fill="none"/></svg></div>
+      <div class="dec-card">
+        <span class="st st-now">Now</span>
+        <h3>One home: admin.kaspasejo.com</h3>
+        <p>The CRM joins the app admin you already built. One sign-in, one audit trail, one Postgres behind the Worker, zero per-seat fees. Attio becomes optional history; the usm repo's Gmail-extension idea can live on later as a surface onto this CRM, or retire.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="path">
+  <div class="wrap">
+    <div class="eyebrow">The path</div>
+    <h2>From where things stand to the target</h2>
+    <p class="sub">Grounded in admin-crm's "Where things stand" (11 Sep) and murmr/docs/GO-LIVE.md. Each phase is shippable on its own.</p>
+    <div class="phases">
+      <div class="phase now">
+        <div class="ph-num">0</div>
+        <div>
+          <h3>Today <span class="badge b-built">You are here</span></h3>
+          <p>Kai is live on four routines and the content machine is running. The admin is built, tested and green on main in every repo - but nothing is deployed, and the CRM is still Attio lists plus the Master CRM sheet.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-num">1</div>
+        <div>
+          <h3>Switch on admin.kaspasejo.com</h3>
+          <p>Dashboard work only, in order: Cloudflare Access application, deploy the Worker, set the secrets from the admin-crm README, run Adonae's hub.sql and Murmr's two migrations, set ADMIN_LIST_SECRET on the adonae-lander Worker.</p>
+          <ul>
+            <li>Unlocks: live app admin for Adonae and Murmr behind one login</li>
+            <li>Same pass: Murmr's paid tier - Stripe product, RevenueCat project, Play products (step 2 of GO-LIVE)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-num">2</div>
+        <div>
+          <h3>Build the CRM inside admin-crm</h3>
+          <p>Add the CRM next to the app admin: Postgres behind the same Worker, pipelines for Kulcho sales, Wick and Fundraising, one-shot import of the Master CRM sheet (~20k rows) and the Attio lists. The sheet retires to a read-only archive.</p>
+          <ul>
+            <li>Unlocks: one contacts ledger across every brand, no per-seat fees</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-num">3</div>
+        <div>
+          <h3>Repoint Kai from Attio to the new CRM</h3>
+          <p>One config change in kai/config/config.yaml: the pipeline and sequence reads and writes move to admin-crm. The mirror rule moves with it - everything written to the CRM still lands in the vault. Sequences and outreach drafting start running against the ledger.</p>
+          <ul>
+            <li>Unlocks: the sales machine runs out of your own stack, Attio can be cancelled</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-num">4</div>
+        <div>
+          <h3>Always-on and clean-up</h3>
+          <p>Move Kai's worker to a small always-on box (a planned config change, not a rewrite) so @kai answers in seconds and routines run 24/7. Once the admin has matched the in-app admin screens' numbers for a couple of weeks, delete those screens in Adonae and Murmr.</p>
+          <ul>
+            <li>Unlocks: the finished shape - one brain, one ledger, one admin, always on</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flags">
+  <div class="wrap">
+    <div class="eyebrow">Found in the repos</div>
+    <h2>Flags to resolve</h2>
+    <p class="sub">Places where the repos disagree with the new shape. None are urgent; each is a small decision.</p>
+    <div class="flags">
+      <div class="flag">
+        <div class="ic">!</div>
+        <div>
+          <h3>Kai still points at Attio</h3>
+          <p>kai/config/config.yaml, master-spec.md and CLAUDE.md all name Attio as the CRM and sequence engine, with per-brand pipeline lists. That was true until today's decision.</p>
+          <p class="q">Resolve in Phase 3: repoint the config to admin-crm, then Attio is optional.</p>
+        </div>
+      </div>
+      <div class="flag">
+        <div class="ic">!</div>
+        <div>
+          <h3>The usm spec builds the CRM in the usm repo</h3>
+          <p>usm issue #1 (spec v2, 10 Sep) planned a monorepo CRM: Gmail extension plus Fastify + Postgres server. Your admin-crm decision supersedes the server half.</p>
+          <p class="q">Decide: does usm live on as a Gmail sidebar onto the admin-crm CRM, or retire?</p>
+        </div>
+      </div>
+      <div class="flag">
+        <div class="ic">!</div>
+        <div>
+          <h3>shared-context is copies, not the submodule the docs claim</h3>
+          <p>kai's docs describe shared-context/ as a git submodule shared with content-automation; .gitmodules is empty, so it is a plain folder of stamped copies. The voice files already drifted once under exactly this arrangement.</p>
+          <p class="q">Decide: make it a real submodule, or formalise the copy-and-check dance.</p>
+        </div>
+      </div>
+      <div class="flag">
+        <div class="ic">!</div>
+        <div>
+          <h3>Kai runs desktop-first</h3>
+          <p>The desktop scheduled tasks, including the one-minute @kai poll, only run while your Mac is awake. The four cloud routines run regardless, capped at hourly.</p>
+          <p class="q">Phase 4 fixes it: a small always-on VM, roughly Â£4-8 a month.</p>
+        </div>
+      </div>
+      <div class="flag">
+        <div class="ic">!</div>
+        <div>
+          <h3>A stray kaspasejo/CRM repo exists</h3>
+          <p>Private, empty description, untouched since February 2026. Not referenced by any current doc.</p>
+          <p class="q">Decide: archive it so the admin-crm home is unambiguous.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Sources: kaspasejo/admin-crm (CLAUDE.md, CONTRACT.md, README.md), kaspasejo/murmr (docs/GO-LIVE.md), kaspasejo/kai (master-spec.md, CLAUDE.md, config/config.yaml), kaspasejo/kai-vault (README.md), kaspasejo/usm (issue #1, CRM spec v2), kaspasejo/content-automation (README.md). Prepared 11 September 2026.</p>
+  </div>
+</footer>
+
+</body>
+</html>
