@@ -164,3 +164,7 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 .hero { padding-top: 2rem; }
 @media (max-width: 480px) { .br-mobile { display: block; } .hero { padding-top: 1.25rem; } }
 @media (min-width: 960px) { .hero { padding-top: 2.5rem; } }
+
+/* v7: footer credit far right */
+.site-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.site-footer .credit { margin: 0 0 0 auto; text-align: right; }
