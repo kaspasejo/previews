@@ -188,3 +188,10 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
   .button { min-height: 46px; }
   .site-footer { padding: .7rem 0 .6rem; }
 }
+
+/* v10: sticky footer pinned to viewport bottom, more space above hero */
+body { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+main { flex: 1 0 auto; }
+.site-footer { flex-shrink: 0; }
+@media (min-width: 960px) { .hero { padding-top: 3rem; } }
+@media (max-width: 959px) { .hero { padding-top: 2rem; } }
