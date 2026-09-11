@@ -95,7 +95,8 @@
   .mrow.mhead{background:#f8f7fb;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:10px 18px}
   .av{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#e4dcfa;color:#5b43b3;font-size:11px;font-weight:700;flex:none}
   .who{display:flex;align-items:center;gap:10px;font-weight:600}
-  .x-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .x-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .x-scroll::-webkit-scrollbar{display:none}
   .kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   .kcol{background:#ececf1;border-radius:14px;padding:10px}
   .kcol .kh{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#55535f;padding:4px 6px 10px}
@@ -105,7 +106,8 @@
   .kcard span{font-size:12px;color:var(--muted);display:block;margin-top:2px}
   .kcard .pill{margin-top:8px}
   .foot-note{margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
-  .kai-grid{display:grid;grid-template-columns:1fr 400px;gap:16px;align-items:start}
+  .kai-grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;align-items:start}
+  .kai-grid>*{min-width:0}
   .chat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
   .chat .ch-h{font-weight:700;font-size:14px;border-bottom:1px solid #eeeef2;padding-bottom:10px}
   .bub{max-width:88%;padding:10px 14px;border-radius:14px;font-size:13.5px;line-height:1.45}
@@ -189,7 +191,7 @@
   <div class="wrap">
     <div class="eyebrow">The recommendation</div>
     <h2 style="font-size:clamp(28px,4.2vw,44px)">Make admin.kaspasejo.com the control room, not another database.</h2>
-    <div class="grid" style="grid-template-columns:1.05fr 1fr;margin-top:30px;align-items:start" id="reco-cols">
+    <div class="grid" style="grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);margin-top:30px;align-items:start" id="reco-cols">
       <div>
         <p class="sub" style="font-size:16px;margin:0">Keep the ownership line simple: the vault remembers, the CRM runs work, app databases remain authoritative for their own customers, and Kai is the operator across them.</p>
         <div class="callout" style="margin-top:22px">
@@ -218,7 +220,7 @@
   <div class="wrap">
     <div class="eyebrow">System map</div>
     <h2>Four systems. Clear ownership. No overlap.</h2>
-    <div class="grid" style="grid-template-columns:1fr 48px 1fr;align-items:center;margin-top:30px" id="map-grid">
+    <div class="grid" style="grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);align-items:center;margin-top:30px" id="map-grid">
       <div class="card">
         <div class="kick">Inputs</div>
         <h3>Gmail · Calendar · Meet · Apps</h3>
@@ -388,7 +390,7 @@
             </div>
             <div class="mh-actions"><span class="pill pill-green">Warm relationship</span></div>
           </div>
-          <div class="grid" style="grid-template-columns:0.85fr 1.6fr;align-items:start" id="person-cols">
+          <div class="grid" style="grid-template-columns:minmax(0,0.85fr) minmax(0,1.6fr);align-items:start" id="person-cols">
             <div class="card">
               <div class="kick" style="color:var(--faint)">Relationship</div>
               <div style="margin-top:10px"><b style="font-size:13.5px">Organisation</b><p style="margin-top:1px">Northstar Ventures</p></div>
@@ -541,7 +543,7 @@
             <div class="stat"><div class="sk">Paid</div><div class="sv">684</div><div class="sn">28.3% of members</div></div>
             <div class="stat"><div class="sk">MRR</div><div class="sv">£•••</div><div class="sn">From app database</div></div>
           </div>
-          <div class="grid" style="grid-template-columns:1.3fr 1fr;align-items:stretch" id="adonae-mid">
+          <div class="grid" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:stretch" id="adonae-mid">
             <div class="card">
               <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3>Member health</h3><span class="btn btn-line" style="font-size:12px">30 days</span></div>
               <div class="bars"><i style="height:38%"></i><i style="height:56%"></i><i style="height:48%"></i><i style="height:70%"></i><i style="height:82%"></i><i style="height:66%"></i><i style="height:88%"></i></div>
@@ -611,7 +613,7 @@
             <div class="stat"><div class="sk">Entries today</div><div class="sv">389</div><div class="sn">Voice and text combined</div></div>
             <div class="stat"><div class="sk">Paid tier</div><div class="sv">18%</div><div class="sn">Stripe + RevenueCat normalised</div></div>
           </div>
-          <div class="grid" style="grid-template-columns:1fr 1fr;align-items:stretch" id="murmr-mid">
+          <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch" id="murmr-mid">
             <div class="card">
               <h3>Subscription sources</h3>
               <div style="margin-top:10px">
@@ -826,7 +828,7 @@
             </div>
             <div class="mh-actions"><span class="pill pill-green dot">Context current</span></div>
           </div>
-          <div class="grid" style="grid-template-columns:1.6fr 1fr;align-items:stretch" id="companion-cols">
+          <div class="grid" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:stretch" id="companion-cols">
             <div class="card" style="background:#f0f0f4">
               <h3 style="letter-spacing:.02em">GMAIL · Re: Kulcho follow-up</h3>
               <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:12px">
@@ -999,7 +1001,7 @@
 
 <script>
   const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-  document.querySelectorAll('section .card, section .callout, section .mock, section .mtable').forEach(el=>{el.classList.add('reveal');io.observe(el);});
+  document.querySelectorAll('section .card, section .callout').forEach(el=>{el.classList.add('reveal');io.observe(el);});
 </script>
 </body>
 </html>
