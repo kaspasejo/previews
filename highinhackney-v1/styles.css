@@ -39,7 +39,7 @@ a:hover{text-decoration-thickness:2px}
 .hero{padding:3.5rem 0 4rem;text-align:center}
 .hero .eyebrow{margin:0 auto .9rem;color:var(--accent);font-weight:600;font-size:.95rem;letter-spacing:.04em}
 h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,4rem);line-height:1.05;letter-spacing:-.015em;margin:0 auto 1.1rem;max-width:19ch;text-wrap:balance}
-.lede{font-size:1.22rem;color:var(--ink-2);margin:0 auto;max-width:34rem;text-wrap:pretty}
+.lede{font-size:1.22rem;color:var(--ink-2);margin:0 auto;max-width:34rem;text-wrap:balance}
 
 .card{background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
 .form-card{max-width:26rem;margin:2.5rem auto 0;padding:1.75rem;text-align:left}
@@ -206,3 +206,4 @@ main { display: flex; flex-direction: column; justify-content: center; }
 
 /* v12b: subpage brand matches home wordmark */
 .site-header .brand span { font-family: 'Chicle', cursive; font-weight: 400; color: var(--accent); letter-spacing: .02em; font-size: 1.45rem; }
+
