@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f7f7f2">
-  <title>Arlowrites - Proposed wireframes</title>
+  <meta name="theme-color" content="#f6f6f1">
+  <title>Arlowrites - Proposed wireframes v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,90 +17,442 @@
       <button class="nav-button" id="previous" type="button" aria-label="Previous page">←</button>
       <label for="frame-select" class="sr-only">Select page</label>
       <select id="frame-select">
-        <option value="1">01 Overview</option><option value="2">02 Landing</option><option value="3">03 Proof + pricing</option><option value="4">04 Onboarding + home</option><option value="5">05 Review + edit</option><option value="6">06 Calendar</option><option value="7">07 Performance</option><option value="8">08 Review queue</option><option value="9">09 System notes</option>
+        <option value="1">01 Overview</option><option value="2">02 Landing</option><option value="3">03 Proof</option><option value="4">04 Pricing</option><option value="5">05 Onboarding + home</option><option value="6">06 Voice profiles</option><option value="7">07 Voice studio</option><option value="8">08 Review + edit</option><option value="9">09 Calendar</option><option value="10">10 Performance</option><option value="11">11 Desktop review</option><option value="12">12 Team + permissions</option><option value="13">13 System notes</option>
       </select>
       <button class="nav-button" id="next" type="button" aria-label="Next page">→</button>
     </nav>
-    <span id="count" class="count">01 / 09</span>
+    <span id="count" class="count">01 / 13</span>
   </header>
 
   <main>
+    <!-- 01 COVER -->
     <section class="frame cover active" data-frame="1" aria-labelledby="cover-title">
-      <div class="eyebrow">Product direction · September 2026</div>
+      <div class="eyebrow">Product direction · September 2026 · v2</div>
       <div class="cover-grid">
         <div>
-          <h1 id="cover-title">Arlowrites. Your voice, on schedule.</h1>
-          <p class="lede">A visual proposal for a concierge content system that learns a founder's voice, prepares the work and asks only for a final swipe.</p>
-          <div class="tags"><span>Landing</span><span>Mobile app</span><span>Desktop app</span></div>
+          <h1 id="cover-title">Arlowrites. Every voice, on schedule.</h1>
+          <p class="lede">A visual proposal for a concierge content system that learns each brand's voice, prepares the work and asks only for a final swipe.</p>
+          <div class="tags"><span>Landing</span><span>Mobile app</span><span>Desktop app</span><span>Voice profiles</span><span>Pricing</span></div>
         </div>
         <div class="cover-art" aria-hidden="true">
           <article><i></i><i></i><i></i><strong>Your week is ready</strong><b></b><b></b><b></b></article>
           <article class="phone"><i></i><strong>Morning, Sam.</strong><b></b><b></b></article>
         </div>
       </div>
-      <p class="page-note">ARLOWRITES.COM · PROPOSED WIREFRAMES V1</p>
+      <div class="whats-new">
+        <span class="kicker">New in v2</span>
+        <p>A sharper visual system throughout. Voice profiles become first-class: every brand gets its own. Pricing is worked out: a founder tier and a studio tier with seats, roles and per-brand permissions.</p>
+      </div>
+      <p class="page-note">ARLOWRITES.COM · PROPOSED WIREFRAMES V2</p>
     </section>
 
+    <!-- 02 LANDING -->
     <section class="frame" data-frame="2" aria-labelledby="landing-title">
       <div class="frame-heading"><div><span class="eyebrow">Landing wireframe</span><h2 id="landing-title">The complete conversion path</h2><p>Position Arlowrites as the operating system for founder-led content, not another blank-page AI writer.</p></div><span class="url">arlowrites.com</span></div>
       <div class="website-shell">
-        <div class="site-nav"><strong>arlowrites</strong><span>How it works</span><span>Results</span><span>Pricing</span><button>Join the waitlist</button></div>
+        <div class="browser-bar"><i></i><i></i><i></i><span>arlowrites.com</span></div>
+        <div class="site-nav"><strong>arlowrites</strong><span class="site-links"><span>How it works</span><span>Results</span><span>Pricing</span></span><button class="btn small">Join the waitlist</button></div>
         <div class="hero-grid">
-          <div><span class="kicker">AI content automation for small business</span><h3>Your voice, turned into a month of content.</h3><p>Arlowrites learns how you think and sound. It drafts your blog and social posts, schedules the calendar and gives you one simple review queue.</p><div class="actions"><button>Build my voice profile</button><a href="#">See a sample month →</a></div></div>
-          <div class="ready-card"><div><strong>Your week is ready</strong><span>4 approved</span></div><ul><li>Why founder-led content wins <b>Approve →</b></li><li>3 lessons from building slowly <b>Edit →</b></li><li>Friday opinion post <b>Preview →</b></li></ul></div>
+          <div class="hero-copy">
+            <span class="kicker">AI content automation for founder-led brands</span>
+            <h3>Your voice, turned into a month of content.</h3>
+            <p>Arlowrites learns how you think and sound. It drafts your blog and social posts, schedules the calendar and gives you one simple review queue.</p>
+            <div class="actions"><button class="btn">Build my voice profile</button><a href="#" class="text-link">See a sample month →</a></div>
+          </div>
+          <div class="ready-card">
+            <div class="ready-head"><strong>Your week is ready</strong><span class="pill">Voice match 94%</span></div>
+            <ul><li>Why founder-led content wins <b>Approve →</b></li><li>3 lessons from building slowly <b>Edit →</b></li><li>Friday opinion post <b>Preview →</b></li></ul>
+            <div class="ready-foot"><span class="dot"></span>4 approved · publishing starts Tuesday</div>
+          </div>
         </div>
-        <div class="value-grid"><article><h4>Not a generic AI writer</h4><p>Your voice profile sets vocabulary, rhythm, opinions and boundaries before anything is drafted.</p></article><article><h4>Not another scheduler</h4><p>The calendar starts with strategy and finished drafts, not an empty grid that adds work.</p></article><article><h4>Not an agency bottleneck</h4><p>Review a month of blog and social content in one calm queue, then let Arlo run it.</p></article></div>
-        <div class="how"><span class="kicker">How it works</span><h4>Talk once. Review lightly. Stay visible.</h4><div><span><b>1</b> Capture your voice</span><span><b>2</b> Approve the plan</span><span><b>3</b> Publish on schedule</span></div></div>
+        <div class="proof-strip"><span>Trusted by founder-led teams</span><b>HARBOUR &amp; CO</b><b>FIELDNOTES</b><b>NIMBUS</b><b>ARCLIGHT</b></div>
+        <div class="value-grid">
+          <article><h4>Not a generic AI writer</h4><p>Your voice profile sets vocabulary, rhythm, opinions and boundaries before anything is drafted.</p></article>
+          <article><h4>Not another scheduler</h4><p>The calendar starts with strategy and finished drafts, not an empty grid that adds work.</p></article>
+          <article><h4>Not an agency bottleneck</h4><p>Review a month of blog and social content in one calm queue, then let Arlo run it.</p></article>
+        </div>
+        <div class="voice-band">
+          <div><span class="kicker">Voice profiles</span><h4>Every brand gets its own voice.</h4><p>Run one founder voice or ten client brands. Each profile keeps its own vocabulary, rules and boundaries, and drafts never bleed across.</p><a href="#" class="text-link">How voice profiles work →</a></div>
+          <div class="voice-chips"><span><i class="avatar a1"></i>Nimbus Coffee · 94%</span><span><i class="avatar a2"></i>Harbour &amp; Co · 91%</span><span><i class="avatar a3"></i>Fieldnotes · learning</span></div>
+        </div>
+        <div class="how"><span class="kicker">How it works</span><h4>Talk once. Review lightly. Stay visible.</h4><div class="how-steps"><span><b>1</b>Capture your voice</span><span><b>2</b>Approve the plan</span><span><b>3</b>Publish on schedule</span></div></div>
       </div>
     </section>
 
+    <!-- 03 PROOF -->
     <section class="frame" data-frame="3" aria-labelledby="proof-title">
-      <div class="frame-heading"><div><span class="eyebrow">Landing system</span><h2 id="proof-title">Proof, pricing and the close</h2><p>Continue the same story. Show tangible output before asking a founder to choose a plan.</p></div><span class="url">arlowrites.com/#results</span></div>
-      <div class="proof-grid"><article><span class="kicker">A founder's week</span><h3>One voice note became six channel-ready drafts.</h3><blockquote>“It reads like me on a clear day. I changed two lines, approved the week and moved on.”</blockquote><small>Founder · B2B services</small></article><article><span class="kicker">Sample output</span><h3>1 idea → 1 blog → 5 social posts</h3><p>Every piece keeps the same point of view. Nothing is repackaged without context.</p><a href="#">Open the content pack →</a></article></div>
-      <div class="pricing-head"><span class="eyebrow">Pricing frame</span><h3>Less than an agency. More finished than a tool.</h3><p>Prices stay as placeholders until delivery scope and concierge capacity are fixed.</p></div>
-      <div class="pricing"><article><span>Starter</span><h3>£— <small>/ month</small></h3><p>Voice profile · 4 blog drafts · 12 social posts · calendar</p><button>Start with a voice session</button></article><article class="featured"><span>Most popular</span><h3>£— <small>/ month</small></h3><p>Everything in Starter · twice-weekly publishing · monthly performance review</p><button>Join the concierge plan</button></article><article><span>Partner</span><h3>Let's talk</h3><p>Multi-brand voice profiles · approvals · editorial strategy · managed migration</p><button>Book a fit call</button></article></div>
-      <div class="close"><div><h3>Give Arlo one hour. Get your month back.</h3><p>Begin with a guided voice profile. See the first content pack before committing.</p></div><button>Build my voice profile</button></div>
+      <div class="frame-heading"><div><span class="eyebrow">Landing system</span><h2 id="proof-title">Proof before the ask</h2><p>Show tangible output and a believable week before asking a founder to choose a plan.</p></div><span class="url">arlowrites.com/#results</span></div>
+      <div class="proof-grid">
+        <article class="proof-story"><span class="kicker">A founder's week</span><h3>One voice note became six channel-ready drafts.</h3><blockquote>“It reads like me on a clear day. I changed two lines, approved the week and moved on.”</blockquote><small>Founder · B2B services</small></article>
+        <article class="proof-pack"><span class="kicker">Sample output</span><h3>1 idea → 1 blog → 5 social posts</h3><p>Every piece keeps the same point of view. Nothing is repackaged without context.</p><a href="#" class="text-link">Open the content pack →</a></article>
+      </div>
+      <div class="stat-row">
+        <article><strong>4 min</strong><span>average weekly review</span></article>
+        <article><strong>91%</strong><span>median voice match</span></article>
+        <article><strong>6×</strong><span>drafts from one idea</span></article>
+        <article><strong>0</strong><span>posts published without approval</span></article>
+      </div>
+      <div class="close-band"><div><h3>Give Arlo one hour. Get your month back.</h3><p>Begin with a guided voice profile. See the first content pack before committing.</p></div><button class="btn">Build my voice profile</button></div>
     </section>
 
-    <section class="frame" data-frame="4" aria-labelledby="architecture-title">
-      <div class="frame-heading"><div><span class="eyebrow">App architecture</span><h2 id="architecture-title">One concierge loop across four jobs</h2><p>Capture the founder's voice, prepare the work, make review effortless and show what worked.</p></div></div>
+    <!-- 04 PRICING -->
+    <section class="frame" data-frame="4" aria-labelledby="pricing-title">
+      <div class="frame-heading"><div><span class="eyebrow">Pricing, worked out</span><h2 id="pricing-title">Less than an agency. More finished than a tool.</h2><p>Two self-serve tiers and one managed tier. Voice profiles and permissions are what separate them.</p></div><span class="url">arlowrites.com/#pricing</span></div>
+      <div class="pricing">
+        <article class="price-card">
+          <span class="plan-name">Founder</span>
+          <h3>£149 <small>/ month</small></h3>
+          <p class="plan-for">One person, one brand, one unmistakable voice.</p>
+          <ul><li>1 brand with 1 voice profile</li><li>Weekly pack: 1 blog + 5 social drafts</li><li>Swipe review queue and content calendar</li><li>Monthly performance read</li></ul>
+          <button class="btn ghost-btn">Start with a voice session</button>
+          <p class="rationale">About twice a self-serve tool, because the work arrives finished instead of waiting in a blank editor.</p>
+        </article>
+        <article class="price-card featured">
+          <span class="plan-flag">For agencies &amp; multi-brand teams</span>
+          <span class="plan-name">Studio</span>
+          <h3>£490 <small>/ month</small></h3>
+          <p class="plan-for">Many brands, one calm operation.</p>
+          <ul><li>5 brands, each with its own voice profile</li><li>Weekly packs for every active brand</li><li>5 seats with roles and per-brand permissions</li><li>Shared calendar, approval trail, client-ready exports</li><li>Extra brands at £80 / month each</li></ul>
+          <button class="btn">Join the Studio plan</button>
+          <p class="rationale">Under £100 per brand with finished drafts, against $79 per self-serve workspace at Blaze.</p>
+        </article>
+        <article class="price-card">
+          <span class="plan-name">Partner</span>
+          <h3>Let's talk</h3>
+          <p class="plan-for">For groups that want Arlo run for them.</p>
+          <ul><li>Unlimited brands and seats</li><li>White-label review links for clients</li><li>Editorial strategy and managed migration</li><li>Quarterly planning with the Arlowrites team</li></ul>
+          <button class="btn ghost-btn">Book a fit call</button>
+          <p class="rationale">Managed content services start near $900 a month; Partner prices against that, not against tools.</p>
+        </article>
+      </div>
+      <div class="roles-strip">
+        <span class="kicker">Studio permission model</span>
+        <div class="roles">
+          <article><b>Admin</b><p>Manages brands, people and billing. Assigns members to brands.</p></article>
+          <article><b>Voice editor</b><p>Updates a brand's voice profile, signals and rules.</p></article>
+          <article><b>Reviewer</b><p>Approves, edits and returns drafts in the queue.</p></article>
+          <article><b>Read-only</b><p>Sees the calendar and results. Nothing leaves without a reviewer.</p></article>
+        </div>
+      </div>
+      <p class="fine">Benchmarks, September 2026: Jasper Pro $59/mo annual with 1 seat (jasper.ai/pricing) · Blaze $79/mo for one brand workspace, managed from $2,499/mo (blaze.ai/pricing) · FeedHive $22/mo for 5 self-serve workspaces (feedhive.com/pricing) · Compose.ly managed content from $900/mo (compose.ly/pricing).</p>
+    </section>
+
+    <!-- 05 ONBOARDING + HOME -->
+    <section class="frame" data-frame="5" aria-labelledby="architecture-title">
+      <div class="frame-heading"><div><span class="eyebrow">App architecture</span><h2 id="architecture-title">One concierge loop across four jobs</h2><p>Capture the brand's voice, prepare the work, make review effortless and show what worked.</p></div></div>
       <div class="phones">
-        <article class="phone-ui"><div class="status">9:41 <span>● ● 100%</span></div><div class="appbar"><strong>arlowrites</strong></div><h3>Morning, Sam. Your week is ready.</h3><p>Three drafts need a quick look. The rest are scheduled.</p><div class="queue"><b>Review queue <em>3 drafts</em></b><span>About 4 minutes</span><button>Start reviewing</button></div><h5>Today</h5><div class="line"><b>Why clarity beats volume</b><span>LinkedIn · 10:30</span></div><div class="line"><b>Founder note: the slow week</b><span>Blog · 14:00</span></div><div class="insight"><b>Arlo noticed</b><span>Your opinion posts held attention 38% longer this month.</span></div><footer>Home　 Review　 Calendar　 Results</footer></article>
-        <article class="phone-ui"><div class="status">9:41 <span>● ● 100%</span></div><div class="appbar"><strong>Your voice</strong><em>72% learned</em></div><h3>Make Arlo sound more like you.</h3><p>Answer naturally. Arlo looks for rhythm, words, stories and opinions.</p><div class="record"><i>◉</i><b>Tell me what you believe about your industry.</b><span>Tap to record · 2-5 minutes</span></div><h5>Voice signals captured</h5><div class="signal"><b>Short, direct sentences</b><span>Confirmed from 7 samples</span></div><div class="signal"><b>Warm, sceptical tone</b><span>Confirmed from 5 samples</span></div><div class="signal"><b>Avoids hype and jargon</b><span>Added by you</span></div><button class="ghost">Add a source →</button></article>
-        <article class="phone-ui"><div class="status">9:41 <span>● ● 100%</span></div><div class="appbar"><strong>Strategy</strong><em>Step 3 of 4</em></div><h3>What should the content achieve?</h3><p>Choose the outcome. Arlo proposes the themes and channels.</p><div class="choice active-choice"><i>◉</i><b>Build founder authority</b><span>Opinion, lessons and category thinking</span></div><div class="choice"><i>○</i><b>Win search demand</b><span>Buyer guides, comparisons and how-tos</span></div><div class="choice"><i>○</i><b>Nurture existing leads</b><span>Proof, objections and customer stories</span></div><h5>Publishing rhythm</h5><div class="segmented">2× weekly　 3× weekly　 Custom</div><div class="plan"><b>Arlo's first plan</b><span>8 weeks · 16 posts · 3 core themes</span><button>Preview the calendar</button></div></article>
+        <article class="phone-ui">
+          <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+          <div class="appbar"><strong>arlowrites</strong><span class="brand-chip">Nimbus Coffee ▾</span></div>
+          <div class="phone-body">
+            <h3>Morning, Sam. Your week is ready.</h3>
+            <p class="sub">Three drafts need a quick look. The rest are scheduled.</p>
+            <div class="queue"><div><b>Review queue</b><em>3 drafts</em></div><span>About 4 minutes</span><button class="btn wide">Start reviewing</button></div>
+            <h5>Today</h5>
+            <div class="line"><span class="chip li">LinkedIn · 10:30</span><b>Why clarity beats volume</b></div>
+            <div class="line"><span class="chip bl">Blog · 14:00</span><b>Founder note: the slow week</b></div>
+            <div class="insight"><b>Arlo noticed</b><span>Your opinion posts held attention 38% longer this month.</span></div>
+          </div>
+          <footer class="tabbar"><span class="on">Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+        </article>
+        <article class="phone-ui">
+          <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+          <div class="appbar"><strong>Your voice</strong><em class="progress-pill">72% learned</em></div>
+          <div class="phone-body">
+            <h3>Make Arlo sound more like you.</h3>
+            <p class="sub">Answer naturally. Arlo looks for rhythm, words, stories and opinions.</p>
+            <div class="record"><i>◉</i><b>Tell me what you believe about your industry.</b><span>Tap to record · 2-5 minutes</span></div>
+            <h5>Voice signals captured</h5>
+            <div class="signal"><b>Short, direct sentences</b><span>Confirmed from 7 samples</span></div>
+            <div class="signal"><b>Warm, sceptical tone</b><span>Confirmed from 5 samples</span></div>
+            <div class="signal"><b>Avoids hype and jargon</b><span>Added by you</span></div>
+            <button class="btn ghost-btn wide">Add a source →</button>
+          </div>
+          <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+        </article>
+        <article class="phone-ui">
+          <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+          <div class="appbar"><strong>Strategy</strong><em class="progress-pill">Step 3 of 4</em></div>
+          <div class="phone-body">
+            <h3>What should the content achieve?</h3>
+            <p class="sub">Choose the outcome. Arlo proposes the themes and channels.</p>
+            <div class="choice active-choice"><i>◉</i><div><b>Build founder authority</b><span>Opinion, lessons and category thinking</span></div></div>
+            <div class="choice"><i>○</i><div><b>Win search demand</b><span>Buyer guides, comparisons and how-tos</span></div></div>
+            <div class="choice"><i>○</i><div><b>Nurture existing leads</b><span>Proof, objections and customer stories</span></div></div>
+            <h5>Publishing rhythm</h5>
+            <div class="segmented"><span>2× weekly</span><span class="on">3× weekly</span><span>Custom</span></div>
+            <div class="plan"><b>Arlo's first plan</b><span>8 weeks · 16 posts · 3 core themes</span><button class="btn wide">Preview the calendar</button></div>
+          </div>
+          <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+        </article>
       </div>
       <div class="captions"><span>Home: the next best action</span><span>Intake: voice before prompts</span><span>Strategy: outcomes, not settings</span></div>
     </section>
 
-    <section class="frame" data-frame="5" aria-labelledby="review-title">
+    <!-- 06 VOICE PROFILES -->
+    <section class="frame" data-frame="6" aria-labelledby="profiles-title">
+      <div class="frame-heading"><div><span class="eyebrow">Voice profiles · new in v2</span><h2 id="profiles-title">Every brand, its own voice</h2><p>Profiles are first-class. Switch brands from anywhere, see how well each voice is learned, and add a new brand in minutes.</p></div></div>
+      <div class="profiles-layout">
+        <div class="phones two-phones">
+          <article class="phone-ui">
+            <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+            <div class="appbar"><strong>Your brands</strong><em class="progress-pill">Studio · 3 of 5</em></div>
+            <div class="phone-body">
+              <div class="brand-row active-brand"><i class="avatar a1"></i><div><b>Nimbus Coffee</b><span>Active · 3 drafts waiting</span></div><span class="match-ring" style="--pct:94"><em>94</em></span></div>
+              <div class="brand-row"><i class="avatar a2"></i><div><b>Harbour &amp; Co</b><span>Voice match 91% · on schedule</span></div><span class="match-ring" style="--pct:91"><em>91</em></span></div>
+              <div class="brand-row"><i class="avatar a3"></i><div><b>Fieldnotes</b><span>Learning · needs 2 more samples</span></div><span class="match-ring" style="--pct:72"><em>72</em></span></div>
+              <div class="brand-row dim"><i class="avatar a4"></i><div><b>Arclight Studio</b><span>Paused by you</span></div><span class="paused">Paused</span></div>
+              <button class="btn wide">+ New brand voice</button>
+            </div>
+            <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+          </article>
+          <article class="phone-ui">
+            <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+            <div class="appbar"><strong>Harbour &amp; Co</strong><em class="progress-pill">Voice match 91%</em></div>
+            <div class="phone-body">
+              <div class="profile-hero"><i class="avatar a2 big"></i><b>Brand voice profile</b><span>Last trained Thursday · 14 sources</span></div>
+              <h5>This voice in three lines</h5>
+              <div class="signal"><b>Measured, precise, quietly funny</b><span>Confirmed from 11 samples</span></div>
+              <div class="signal"><b>Plain words over category jargon</b><span>Confirmed from 8 samples</span></div>
+              <h5>Boundaries</h5>
+              <div class="signal"><b>Never mention competitors by name</b><span>Rule added by Ana</span></div>
+              <div class="switch-card"><b>Working on Harbour &amp; Co today?</b><button class="btn wide">Switch to this brand</button></div>
+            </div>
+            <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+          </article>
+        </div>
+        <aside class="principles">
+          <h3>Profile rules</h3>
+          <ul>
+            <li>One voice profile per brand. Drafts never bleed across brands.</li>
+            <li>The active brand follows you across Home, Review, Calendar and Results.</li>
+            <li>Learning is explicit: the match score always shows what Arlo knows.</li>
+            <li>Members only see the brands an admin assigns to them.</li>
+          </ul>
+          <h4>Plan gating</h4>
+          <dl>
+            <dt>Founder</dt><dd>1 brand · 1 profile</dd>
+            <dt>Studio</dt><dd>5 brands · 5 profiles · extra at £80/mo</dd>
+            <dt>Partner</dt><dd>Unlimited, with managed migration</dd>
+          </dl>
+        </aside>
+      </div>
+      <div class="captions two"><span>All brands at a glance</span><span>One tap to switch context</span></div>
+    </section>
+
+    <!-- 07 VOICE STUDIO -->
+    <section class="frame" data-frame="7" aria-labelledby="studio-title">
+      <div class="frame-heading"><div><span class="eyebrow">Voice profiles · new in v2</span><h2 id="studio-title">Create and refine a voice</h2><p>Building a profile is a guided hour, not a settings page. Refining it is a conversation, and every correction teaches future drafts.</p></div></div>
+      <div class="profiles-layout">
+        <div class="phones two-phones">
+          <article class="phone-ui">
+            <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+            <div class="appbar"><strong>New voice profile</strong><em class="progress-pill">Step 1 of 3</em></div>
+            <div class="phone-body">
+              <h3>Whose voice is this?</h3>
+              <p class="sub">Name the brand, then give Arlo something to listen to.</p>
+              <div class="field"><span>Brand name</span><b>Fieldnotes</b></div>
+              <h5>Add sources</h5>
+              <div class="source-row"><i>◉</i><div><b>Record a voice note</b><span>2-5 minutes, easiest start</span></div></div>
+              <div class="source-row"><i>⌗</i><div><b>Paste links</b><span>Posts, pages or newsletters</span></div></div>
+              <div class="source-row"><i>⤓</i><div><b>Connect socials</b><span>Arlo reads the public feed</span></div></div>
+              <button class="btn wide">Start listening →</button>
+            </div>
+            <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+          </article>
+          <article class="phone-ui">
+            <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+            <div class="appbar"><strong>Fieldnotes voice</strong><em class="progress-pill">Learning · 72%</em></div>
+            <div class="phone-body">
+              <h3>Here is what Arlo hears.</h3>
+              <p class="sub">Confirm what is right. Correct what is not. Both teach the profile.</p>
+              <div class="signal"><b>Long, winding openers</b><span>Found in 6 sources</span><div class="mini-actions"><button class="mini">Keep</button><button class="mini">Not us</button></div></div>
+              <div class="signal"><b>Ends on a question</b><span>Found in 4 sources</span><div class="mini-actions"><button class="mini">Keep</button><button class="mini">Not us</button></div></div>
+              <h5>Hear the voice</h5>
+              <div class="voice-test"><p>“Some weeks the notebook stays shut. That is usually the week the most happens...”</p><div class="mini-actions"><button class="mini">Regenerate</button><button class="mini on">Sounds like us</button></div></div>
+            </div>
+            <footer class="tabbar"><span>Home</span><span>Review</span><span>Calendar</span><span>Results</span></footer>
+          </article>
+        </div>
+        <aside class="principles">
+          <h3>Studio rules</h3>
+          <ul>
+            <li>Creation is guided: name, sources, confirmation. No blank forms.</li>
+            <li>Every signal shows its evidence before it is kept.</li>
+            <li>“Not us” is as valuable as “keep” - it sharpens the boundary.</li>
+            <li>Voice editors can refine; reviewers and read-only roles cannot.</li>
+            <li>A profile is reusable across every future campaign for that brand.</li>
+          </ul>
+        </aside>
+      </div>
+      <div class="captions two"><span>Guided creation, not configuration</span><span>Corrections train future drafts</span></div>
+    </section>
+
+    <!-- 08 REVIEW + EDIT -->
+    <section class="frame" data-frame="8" aria-labelledby="review-title">
       <div class="frame-heading"><div><span class="eyebrow">Core interaction</span><h2 id="review-title">The swipe review queue</h2><p>Fast enough for a founder, careful enough for their public voice. Approval remains a deliberate action.</p></div></div>
       <div class="review-layout">
-        <article class="phone-ui review-phone"><div class="status">9:41 <span>● ● 100%</span></div><div class="appbar"><strong>Review</strong><em>1 of 3</em></div><div class="draft"><span>LinkedIn <em>Tue · 10:30</em></span><h3>The work rarely gets easier. Your standards get clearer.</h3><p>I used to think a calmer week meant fewer decisions. It doesn't. It means knowing which decisions only I can make...</p><div class="match">Voice match: 91% · Uses your “standards over speed” idea.</div></div><div class="review-actions"><button>← Rewrite</button><button class="approve">Approve ✓</button><button>Edit ✎</button></div><small>Swipe right to approve · left to revise</small></article>
-        <article class="phone-ui edit-phone"><div class="status">9:41 <span>● ● 100%</span></div><div class="appbar"><strong>Edit draft</strong><em>Saved</em></div><div class="editable">The work rarely gets easier. Your standards get clearer. I used to think a calmer week meant fewer decisions. It doesn't. It means knowing which decisions only I can make. That shift changed how I work with the team...</div><h5>Tell Arlo once</h5><blockquote>“Never say run the team. Say work with the team.”</blockquote><div class="segmented">Add voice rule　 This draft only</div><h5>Preview</h5><div class="segmented">LinkedIn　 Mobile　 Desktop</div><button class="wide">Save and approve</button></article>
-        <aside class="principles"><h3>Review principles</h3><ul><li>Show channel and publish time before approval.</li><li>Explain why the draft sounds like the founder.</li><li>Separate “change this draft” from “change my voice”.</li><li>Never publish from a casual swipe without a clear undo state.</li><li>Keep one draft, one decision and one visible next action.</li></ul><h4>Revision sheet</h4><dl><dt>Make it shorter</dt><dd>Preserve the central point</dd><dt>Make it more specific</dt><dd>Ask Arlo for evidence or an example</dd><dt>Wrong angle</dt><dd>Return to the content plan</dd><dt>Not my voice</dt><dd>Correct the voice profile</dd></dl></aside>
+        <article class="phone-ui review-phone">
+          <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+          <div class="appbar"><strong>Review</strong><em class="progress-pill">1 of 3</em></div>
+          <div class="phone-body">
+            <div class="draft"><span class="chip li">LinkedIn · Tue 10:30</span><h3>The work rarely gets easier. Your standards get clearer.</h3><p>I used to think a calmer week meant fewer decisions. It doesn't. It means knowing which decisions only I can make...</p><div class="match">Voice match: 91% · Uses your “standards over speed” idea.</div></div>
+            <div class="review-actions"><button class="mini">← Rewrite</button><button class="btn approve">Approve ✓</button><button class="mini">Edit ✎</button></div>
+            <small class="hint">Swipe right to approve · left to revise</small>
+          </div>
+          <footer class="tabbar"><span>Home</span><span class="on">Review</span><span>Calendar</span><span>Results</span></footer>
+        </article>
+        <article class="phone-ui edit-phone">
+          <div class="status"><span>9:41</span><span class="status-ic"><i></i><i></i><i></i></span></div>
+          <div class="appbar"><strong>Edit draft</strong><em class="progress-pill">Saved</em></div>
+          <div class="phone-body">
+            <div class="editable">The work rarely gets easier. Your standards get clearer. I used to think a calmer week meant fewer decisions. It doesn't. It means knowing which decisions only I can make. That shift changed how I work with the team...</div>
+            <h5>Tell Arlo once</h5>
+            <blockquote class="quote-card">“Never say run the team. Say work with the team.”</blockquote>
+            <div class="segmented"><span class="on">Add voice rule</span><span>This draft only</span></div>
+            <h5>Preview</h5>
+            <div class="segmented"><span class="on">LinkedIn</span><span>Mobile</span><span>Desktop</span></div>
+            <button class="btn wide">Save and approve</button>
+          </div>
+          <footer class="tabbar"><span>Home</span><span class="on">Review</span><span>Calendar</span><span>Results</span></footer>
+        </article>
+        <aside class="principles">
+          <h3>Review principles</h3>
+          <ul>
+            <li>Show channel and publish time before approval.</li>
+            <li>Explain why the draft sounds like the brand.</li>
+            <li>Separate “change this draft” from “change the voice”.</li>
+            <li>Never publish from a casual swipe without a clear undo state.</li>
+            <li>Keep one draft, one decision and one visible next action.</li>
+          </ul>
+          <h4>Revision sheet</h4>
+          <dl>
+            <dt>Make it shorter</dt><dd>Preserve the central point</dd>
+            <dt>Make it more specific</dt><dd>Ask Arlo for evidence or an example</dd>
+            <dt>Wrong angle</dt><dd>Return to the content plan</dd>
+            <dt>Not our voice</dt><dd>Correct the voice profile</dd>
+          </dl>
+        </aside>
       </div>
       <div class="captions two"><span>Single decision per screen</span><span>Every edit trains the profile</span></div>
     </section>
 
-    <section class="frame" data-frame="6" aria-labelledby="calendar-title">
+    <!-- 09 CALENDAR -->
+    <section class="frame" data-frame="9" aria-labelledby="calendar-title">
       <div class="frame-heading"><div><span class="eyebrow">Planning</span><h2 id="calendar-title">The calendar shows readiness, not busyness</h2><p>Every item has a channel, status and owner. Gaps become useful prompts rather than empty boxes.</p></div><span class="url">app.arlowrites.com/calendar</span></div>
-      <div class="desktop-shell"><aside><strong>arlowrites</strong><nav><span>Today</span><span>Review queue <b>3</b></span><span class="selected">Calendar</span><span>Voice profile</span><span>Results</span></nav><small>Settings</small></aside><div class="workspace"><div class="workspace-top"><div><span>September 2026</span><h3>Your content calendar</h3></div><div>Month　 <button>+ Add an idea</button></div></div><div class="stats"><b>12 scheduled</b><b>3 in review</b><b>1 gap</b></div><div class="calendar-grid"><b>Mon</b><b>Tue</b><b>Wed</b><b>Thu</b><b>Fri</b><b>Sat</b><b>Sun</b><article><strong>7</strong><span>Blog · Scheduled</span></article><article><strong>8</strong><span>LinkedIn · Review</span></article><article><strong>9</strong></article><article><strong>10</strong><span>LinkedIn · Ready</span></article><article><strong>11</strong><span>Story slot · Idea?</span></article><article><strong>12</strong></article><article><strong>13</strong></article><article><strong>14</strong><span>Blog · Scheduled</span></article><article><strong>15</strong><span>LinkedIn · Scheduled</span></article><article><strong>16</strong></article><article><strong>17</strong><span>LinkedIn · Review</span></article><article><strong>18</strong><span>Founder note · Ready</span></article><article><strong>19</strong></article><article><strong>20</strong></article></div><div class="suggestion"><b>Arlo's suggestion:</b> Your customer-story theme has been quiet for three weeks. Turn the Brightbox call notes into Friday's post?</div></div></div>
+      <div class="desktop-shell">
+        <div class="window-bar"><i></i><i></i><i></i><span>app.arlowrites.com/calendar</span></div>
+        <div class="shell-body">
+          <aside><strong>arlowrites</strong><nav><span>Today</span><span>Review queue <b>3</b></span><span class="selected">Calendar</span><span>Voice profiles</span><span>Results</span></nav><small>Settings</small></aside>
+          <div class="workspace">
+            <div class="workspace-top"><div><span class="kicker">September 2026</span><h3>Your content calendar</h3></div><div class="top-actions"><span class="brand-filter">All brands ▾</span><button class="btn small">+ Add an idea</button></div></div>
+            <div class="stats"><b>12 scheduled</b><b>3 in review</b><b>1 gap</b></div>
+            <div class="calendar-grid"><b>Mon</b><b>Tue</b><b>Wed</b><b>Thu</b><b>Fri</b><b>Sat</b><b>Sun</b>
+              <article><strong>7</strong><span>Blog · Scheduled</span></article><article><strong>8</strong><span>LinkedIn · Review</span></article><article><strong>9</strong></article><article><strong>10</strong><span>LinkedIn · Ready</span></article><article><strong>11</strong><span>Story slot · Idea?</span></article><article><strong>12</strong></article><article><strong>13</strong></article>
+              <article><strong>14</strong><span>Blog · Scheduled</span></article><article><strong>15</strong><span>LinkedIn · Scheduled</span></article><article><strong>16</strong></article><article><strong>17</strong><span>LinkedIn · Review</span></article><article><strong>18</strong><span>Founder note · Ready</span></article><article><strong>19</strong></article><article><strong>20</strong></article>
+            </div>
+            <div class="suggestion"><b>Arlo's suggestion:</b> Your customer-story theme has been quiet for three weeks. Turn the Brightbox call notes into Friday's post?</div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="frame" data-frame="7" aria-labelledby="performance-title">
+    <!-- 10 PERFORMANCE -->
+    <section class="frame" data-frame="10" aria-labelledby="performance-title">
       <div class="frame-heading"><div><span class="eyebrow">Performance</span><h2 id="performance-title">Translate metrics into next month's decisions</h2><p>Founders need the pattern and the recommended move, not a wall of channel analytics.</p></div><span class="url">app.arlowrites.com/results</span></div>
-      <div class="desktop-shell"><aside><strong>arlowrites</strong><nav><span>Today</span><span>Review queue</span><span>Calendar</span><span>Voice profile</span><span class="selected">Results</span></nav></aside><div class="workspace"><div class="workspace-top"><div><span>Last 30 days</span><h3>What your content did</h3></div><button class="ghost">Export report ↓</button></div><div class="metrics"><article><span>People reached</span><strong>24.8K</strong><em>↑ 18%</em></article><article><span>Qualified visits</span><strong>1,204</strong><em>↑ 11%</em></article><article><span>Content-led leads</span><strong>38</strong><em>6 assisted</em></article></div><div class="chart-row"><div class="chart"><div class="chart-head"><b>Qualified visits</b><span>Week by week</span></div><svg viewBox="0 0 640 230" role="img" aria-label="Qualified visits trend rising over four weeks"><path d="M15 190 C100 185 120 130 200 145 S315 105 380 120 S500 55 625 48" fill="none" stroke="#20231d" stroke-width="4"/><path d="M15 190 C100 185 120 130 200 145 S315 105 380 120 S500 55 625 48 L625 220 L15 220Z" fill="#e8f25a" opacity=".28"/></svg></div><article class="arlos-read"><h4>Arlo's read</h4><p>Direct opinion posts drove fewer impressions but twice as many profile visits.</p><a href="#">See the evidence →</a></article></div><div class="recommendation"><div><b>Recommendation for October</b><p>Shift one weekly how-to slot into a founder-opinion post. Keep the search pillar unchanged.</p></div><div><button class="ghost">Adjust plan</button><button>Apply recommendation</button></div></div></div></div>
+      <div class="desktop-shell">
+        <div class="window-bar"><i></i><i></i><i></i><span>app.arlowrites.com/results</span></div>
+        <div class="shell-body">
+          <aside><strong>arlowrites</strong><nav><span>Today</span><span>Review queue</span><span>Calendar</span><span>Voice profiles</span><span class="selected">Results</span></nav><small>Settings</small></aside>
+          <div class="workspace">
+            <div class="workspace-top"><div><span class="kicker">Last 30 days</span><h3>What your content did</h3></div><button class="btn ghost-btn small">Export report ↓</button></div>
+            <div class="metrics"><article><span>People reached</span><strong>24.8K</strong><em class="up">↑ 18%</em></article><article><span>Qualified visits</span><strong>1,204</strong><em class="up">↑ 11%</em></article><article><span>Content-led leads</span><strong>38</strong><em>6 assisted</em></article></div>
+            <div class="chart-row">
+              <div class="chart"><div class="chart-head"><b>Qualified visits</b><span>Week by week</span></div><svg viewBox="0 0 640 230" role="img" aria-label="Qualified visits trend rising over four weeks"><path d="M15 190 C100 185 120 130 200 145 S315 105 380 120 S500 55 625 48" fill="none" stroke="#1d221b" stroke-width="4"/><path d="M15 190 C100 185 120 130 200 145 S315 105 380 120 S500 55 625 48 L625 220 L15 220Z" fill="#e3f24f" opacity=".3"/></svg></div>
+              <article class="arlos-read"><h4>Arlo's read</h4><p>Direct opinion posts drove fewer impressions but twice as many profile visits.</p><a href="#" class="text-link">See the evidence →</a></article>
+            </div>
+            <div class="recommendation"><div><b>Recommendation for October</b><p>Shift one weekly how-to slot into a founder-opinion post. Keep the search pillar unchanged.</p></div><div class="rec-actions"><button class="btn ghost-btn small">Adjust plan</button><button class="btn small">Apply recommendation</button></div></div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="frame" data-frame="8" aria-labelledby="desktop-review-title">
+    <!-- 11 DESKTOP REVIEW -->
+    <section class="frame" data-frame="11" aria-labelledby="desktop-review-title">
       <div class="frame-heading"><div><span class="eyebrow">Desktop workspace</span><h2 id="desktop-review-title">A queue built for calm, batch decisions</h2><p>Mobile is for quick approvals. Desktop is for context, editing and a full week at a glance.</p></div><span class="url">app.arlowrites.com/review</span></div>
-      <div class="desktop-shell"><aside><strong>arlowrites</strong><nav><span>Today</span><span class="selected">Review queue <b>3</b></span><span>Calendar</span><span>Voice profile</span><span>Results</span></nav></aside><div class="workspace"><div class="workspace-top"><div><span>About 4 minutes</span><h3>Three drafts need you</h3></div><div>Filter　 <button>Approve all unchanged</button></div></div><div class="draft-grid"><article><span>LinkedIn <em>Tue 10:30</em></span><h4>The work rarely gets easier. Your standards get clearer.</h4><p>I used to think a calmer week meant fewer decisions...</p><div>Approve　 Edit　 Revise</div></article><article><span>Blog <em>Wed 09:00</em></span><h4>AI content automation without losing your voice</h4><p>Automation fails when it starts with output instead of identity...</p><div>Approve　 Edit　 Revise</div></article><article><span>LinkedIn <em>Fri 12:00</em></span><h4>What I stopped measuring when the team grew</h4><p>More dashboards gave me more numbers, not more clarity...</p><div>Approve　 Edit　 Revise</div></article><article class="all-clear"><span>All clear after this</span><h4>The rest of your week is scheduled.</h4><p>Nothing else needs your attention.</p></article></div><div class="safeguard"><b>Quality safeguard:</b> “Approve all unchanged” applies only to drafts currently visible and shows the exact channels and dates before confirmation.</div></div></div>
+      <div class="desktop-shell">
+        <div class="window-bar"><i></i><i></i><i></i><span>app.arlowrites.com/review</span></div>
+        <div class="shell-body">
+          <aside><strong>arlowrites</strong><nav><span>Today</span><span class="selected">Review queue <b>3</b></span><span>Calendar</span><span>Voice profiles</span><span>Results</span></nav><small>Settings</small></aside>
+          <div class="workspace">
+            <div class="workspace-top"><div><span class="kicker">About 4 minutes</span><h3>Three drafts need you</h3></div><div class="top-actions"><span class="brand-filter">Nimbus Coffee ▾</span><button class="btn small">Approve all unchanged</button></div></div>
+            <div class="draft-grid">
+              <article><span class="chip li">LinkedIn · Tue 10:30</span><h4>The work rarely gets easier. Your standards get clearer.</h4><p>I used to think a calmer week meant fewer decisions...</p><div class="draft-actions">Approve　 Edit　 Revise</div></article>
+              <article><span class="chip bl">Blog · Wed 09:00</span><h4>AI content automation without losing your voice</h4><p>Automation fails when it starts with output instead of identity...</p><div class="draft-actions">Approve　 Edit　 Revise</div></article>
+              <article><span class="chip li">LinkedIn · Fri 12:00</span><h4>What I stopped measuring when the team grew</h4><p>More dashboards gave me more numbers, not more clarity...</p><div class="draft-actions">Approve　 Edit　 Revise</div></article>
+              <article class="all-clear"><span class="kicker">All clear after this</span><h4>The rest of your week is scheduled.</h4><p>Nothing else needs your attention.</p></article>
+            </div>
+            <div class="safeguard"><b>Quality safeguard:</b> “Approve all unchanged” applies only to drafts currently visible and shows the exact channels and dates before confirmation.</div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="frame" data-frame="9" aria-labelledby="system-title">
+    <!-- 12 TEAM + PERMISSIONS -->
+    <section class="frame" data-frame="12" aria-labelledby="team-title">
+      <div class="frame-heading"><div><span class="eyebrow">Studio plan · new in v2</span><h2 id="team-title">People, roles and brand access</h2><p>Admins decide who touches which brand. Voice editors shape profiles, reviewers ship drafts, and clients can watch without risk.</p></div><span class="url">app.arlowrites.com/team</span></div>
+      <div class="desktop-shell">
+        <div class="window-bar"><i></i><i></i><i></i><span>app.arlowrites.com/team</span></div>
+        <div class="shell-body">
+          <aside><strong>arlowrites</strong><nav><span>Today</span><span>Review queue</span><span>Calendar</span><span>Voice profiles</span><span>Results</span><span class="selected">Team</span></nav><small>Settings</small></aside>
+          <div class="workspace">
+            <div class="workspace-top"><div><span class="kicker">Studio · 4 of 5 seats</span><h3>Your team</h3></div><button class="btn small">+ Invite member</button></div>
+            <div class="member-list">
+              <article><i class="avatar a1"></i><div class="member-id"><b>Sam Carter</b><span>sam@studio.com</span></div><div class="member-brands"><span>All brands</span></div><em class="role admin">Admin</em></article>
+              <article><i class="avatar a2"></i><div class="member-id"><b>Ana Ruiz</b><span>ana@studio.com</span></div><div class="member-brands"><span>Nimbus</span><span>Harbour &amp; Co</span></div><em class="role voice">Voice editor</em></article>
+              <article><i class="avatar a3"></i><div class="member-id"><b>Tom Okafor</b><span>tom@studio.com</span></div><div class="member-brands"><span>Nimbus</span><span>Fieldnotes</span></div><em class="role review">Reviewer</em></article>
+              <article><i class="avatar a4"></i><div class="member-id"><b>Brightbox (client)</b><span>lia@brightbox.com</span></div><div class="member-brands"><span>Fieldnotes</span></div><em class="role read">Read-only</em></article>
+            </div>
+            <div class="perm-matrix">
+              <div class="pm-row pm-head"><span>Can they...</span><b>Admin</b><b>Voice editor</b><b>Reviewer</b><b>Read-only</b></div>
+              <div class="pm-row"><span>Approve and publish drafts</span><b>✓</b><b>✓</b><b>✓</b><b class="no">-</b></div>
+              <div class="pm-row"><span>Edit voice profiles and rules</span><b>✓</b><b>✓</b><b class="no">-</b><b class="no">-</b></div>
+              <div class="pm-row"><span>Manage people and billing</span><b>✓</b><b class="no">-</b><b class="no">-</b><b class="no">-</b></div>
+              <div class="pm-row"><span>View calendar and results</span><b>✓</b><b>✓</b><b>✓</b><b>✓</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 SYSTEM NOTES -->
+    <section class="frame" data-frame="13" aria-labelledby="system-title">
       <div class="frame-heading"><div><span class="eyebrow">System notes</span><h2 id="system-title">Design and build direction</h2><p>The visual system should feel like quiet expert help: warm, precise and ready before the founder arrives.</p></div></div>
-      <div class="system-grid"><div><h3>Visual language</h3><div class="swatches"><span><i style="background:#20231d"></i>Ink <b>#20231D</b></span><span><i style="background:#f7f7f2"></i>Canvas <b>#F7F7F2</b></span><span><i style="background:#e8f25a"></i>Signal <b>#E8F25A</b></span><span><i style="background:#dbe8f4"></i>Info <b>#DBE8F4</b></span></div><h3>Typography</h3><p>Use a modern grotesk with clear weights. Large headings stay on two intentional lines. Body measure: 45-70 characters. No orphan words, manual line breaks or narrow copy columns inside wide frames.</p><h3>Motion</h3><p>Light spring transitions, queue cards that settle rather than fly, and a visible confirmation trail. Respect reduced-motion settings.</p><h3>Accessibility</h3><p>44px minimum touch targets, status conveyed by label and colour, clear focus states, AA contrast and readable previews at 100% zoom.</p></div><div><h3>Product rules</h3><dl class="rules"><dt>Concierge before configuration.</dt><dd>Every screen leads with what Arlo prepared and the one decision the founder needs to make.</dd><dt>Voice learning is explicit.</dt><dd>Show what Arlo inferred, let the founder correct it and explain when an edit changes future writing.</dd><dt>Approval has a boundary.</dt><dd>Always show channel, publish time and scope. Keep undo and pause within reach.</dd><dt>Performance ends in a recommendation.</dt><dd>Translate channel numbers into one evidence-backed change for the next plan.</dd><dt>Naming decision.</dt><dd>Arlowrites is the working brand. Domain availability must be checked again before purchase.</dd></dl></div></div>
-      <div class="prototype-order"><span>Recommended prototype order</span><strong>Landing conversion path → voice intake → review queue → calendar → performance.</strong><button>Move to clickable prototype</button></div>
+      <div class="system-grid">
+        <div>
+          <h3>Visual language</h3>
+          <div class="swatches"><span><i style="background:#1d221b"></i>Ink <b>#1D221B</b></span><span><i style="background:#f6f6f1"></i>Canvas <b>#F6F6F1</b></span><span><i style="background:#e3f24f"></i>Signal <b>#E3F24F</b></span><span><i style="background:#dce9f6"></i>Info <b>#DCE9F6</b></span></div>
+          <h3>Typography</h3>
+          <p>Use a modern grotesk with clear weights. Large headings stay on two intentional lines. Body measure: 55-75 characters. No orphan words, manual line breaks or narrow copy columns inside wide frames.</p>
+          <h3>Motion</h3>
+          <p>Light spring transitions, queue cards that settle rather than fly, and a visible confirmation trail. Respect reduced-motion settings.</p>
+          <h3>Accessibility</h3>
+          <p>44px minimum touch targets, status conveyed by label and colour, clear focus states, AA contrast and readable previews at 100% zoom.</p>
+        </div>
+        <div>
+          <h3>Product rules</h3>
+          <dl class="rules">
+            <dt>Concierge before configuration.</dt><dd>Every screen leads with what Arlo prepared and the one decision the founder needs to make.</dd>
+            <dt>Voice profiles are first-class.</dt><dd>Every brand gets its own profile. The active brand follows the user everywhere, and drafts never mix voices.</dd>
+            <dt>Voice learning is explicit.</dt><dd>Show what Arlo inferred, let people correct it and explain when an edit changes future writing.</dd>
+            <dt>Approval has a boundary.</dt><dd>Always show channel, publish time and scope. Keep undo and pause within reach.</dd>
+            <dt>Permissions mirror the work.</dt><dd>Admins assign brands, voice editors shape voices, reviewers ship drafts, read-only watches.</dd>
+            <dt>Performance ends in a recommendation.</dt><dd>Translate channel numbers into one evidence-backed change for the next plan.</dd>
+            <dt>Naming decision.</dt><dd>Arlowrites is the working brand. Domain availability must be checked again before purchase.</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="prototype-order"><span>Recommended prototype order</span><strong>Landing conversion path → voice profile creation → review queue → calendar → performance.</strong><button class="btn">Move to clickable prototype</button></div>
     </section>
   </main>
   <script src="app.js"></script>
