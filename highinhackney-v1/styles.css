@@ -168,3 +168,12 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 /* v7: footer credit far right */
 .site-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .site-footer .credit { margin: 0 0 0 auto; text-align: right; }
+
+/* v8: footer in viewport at laptop heights */
+@media (min-width: 960px) {
+  .hero { padding-top: 1.1rem; padding-bottom: 2rem; }
+  .hero-word { font-size: clamp(52px, 5.6vw, 76px); }
+  .hero-logo { margin-bottom: .5rem; }
+  .hero-grid { gap: 2.25rem; }
+  .site-footer { padding: 1rem 0 .9rem; }
+}
