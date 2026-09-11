@@ -125,7 +125,7 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 
 /* split headline + two-column hero */
 .h1-sub { display: block; font-size: clamp(1.25rem, 3.2vw, 1.9rem); font-weight: 500; color: var(--accent); margin-top: .55rem; letter-spacing: 0; max-width: none; }
-.lede strong { color: var(--accent-deep); }
+.lede-line { display: block; margin-top: .45rem; font-weight: 600; color: var(--accent-deep); }
 .hero-grid { display: grid; gap: 2.5rem; }
 @media (min-width: 960px) {
   .hero { text-align: left; padding: 4.5rem 0 5rem; }
@@ -143,3 +143,15 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
   .form-perk { font-size: .98rem; }
   .button { width: 100%; }
 }
+
+/* one-line animated wordmark */
+.hero-word { white-space: nowrap; font-size: clamp(2.3rem, 7.4vw, 4.4rem); }
+.wl { display: inline-block; animation: hih-bob 2.8s ease-in-out infinite; }
+.wl-sp { width: .32em; }
+@keyframes hih-bob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-2.5deg); } }
+.puff-a { animation: hih-drift 9s ease-in-out infinite; }
+.puff-b { animation: hih-drift 11s ease-in-out infinite reverse; }
+@keyframes hih-drift { 0%, 100% { transform: translateX(0) translateY(0); } 50% { transform: translateX(16px) translateY(-5px); } }
+.site-header nav:empty { display: none; }
+@media (prefers-reduced-motion: reduce) { .wl, .puff-a, .puff-b { animation: none; } }
+@media (max-width: 480px) { .hero-word { font-size: clamp(1.9rem, 9.5vw, 2.6rem); } }
