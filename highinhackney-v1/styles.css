@@ -195,3 +195,6 @@ main { flex: 1 0 auto; }
 .site-footer { flex-shrink: 0; }
 @media (min-width: 960px) { .hero { padding-top: 3rem; } }
 @media (max-width: 959px) { .hero { padding-top: 2rem; } }
+
+/* v11: flex children keep full width (auto margins shrink flex items otherwise) */
+main, .site-footer { width: 100%; }
