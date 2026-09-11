@@ -197,9 +197,12 @@ main { flex: 1 0 auto; }
 @media (max-width: 959px) { .hero { padding-top: 2rem; } }
 
 /* v11: flex children keep full width (auto margins shrink flex items otherwise) */
-main, .site-footer { width: 100%; }
+main, .site-footer, .site-header { width: 100%; }
 
 /* v12: vertically center hero between top and footer, slightly more space above */
 main { display: flex; flex-direction: column; justify-content: center; }
 .hero { width: 100%; }
 @media (min-width: 960px) { .hero { padding-top: 4.5rem; padding-bottom: 1rem; } }
+
+/* v12b: subpage brand matches home wordmark */
+.site-header .brand span { font-family: 'Chicle', cursive; font-weight: 400; color: var(--accent); letter-spacing: .02em; font-size: 1.45rem; }
