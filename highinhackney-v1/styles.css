@@ -109,5 +109,16 @@ h1{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,6.4vw,
 .prose p{margin:0 0 1rem;color:var(--ink-2)}
 
 /* hero logo lockup + perk line */
-.hero-mark { width: 64px; height: 64px; display: block; margin: 0 auto 22px; border-radius: 18px; box-shadow: 0 12px 30px rgba(31, 92, 61, .25); }
+
 .form-perk { margin: -4px 0 14px; font-weight: 600; color: #1f5c3d; }
+
+/* cloudy bubble wordmark */
+.wordmark { font-family: 'Chicle', 'Fraunces', cursive; font-weight: 400; color: #1f5c3d; }
+.brand-word { font-size: 21px; line-height: 1; }
+.hero-logo { position: relative; display: inline-block; margin: 0 auto 18px; animation: hih-float 6s ease-in-out infinite; }
+.hero-word { font-size: clamp(52px, 12vw, 92px); line-height: .98; display: block; letter-spacing: .01em; text-shadow: 0 3px 0 rgba(31,92,61,.12); }
+.puff { position: absolute; fill: #d9ead9; z-index: -1; }
+.puff-a { width: 130px; left: -58px; top: -26px; animation: hih-float 7s ease-in-out infinite reverse; }
+.puff-b { width: 96px; right: -44px; bottom: -14px; opacity: .85; }
+@keyframes hih-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@media (prefers-reduced-motion: reduce) { .hero-logo, .puff-a { animation: none; } }
