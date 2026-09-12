@@ -1,4 +1,4 @@
-/* Arlowrites wireframes v2 */
+/* Pointed wireframes v5 */
 :root{
   --ink:#1d221b; --ink-soft:#3a4036; --canvas:#f6f6f1; --signal:#e3f24f; --info:#dce9f6;
   --mint:#e0f2e3; --peach:#fbe7d8; --lav:#e9e4f7;
@@ -294,13 +294,13 @@ main{min-height:calc(100vh - 64px)}
 .metrics em{font-style:normal;font-size:12px;font-weight:700;color:var(--muted)}
 .metrics em.up{color:#3d7a44}
 .chart-row{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,.6fr);gap:14px}
-.chart,.arlos-read{background:var(--canvas);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.chart,.pointed-read{background:var(--canvas);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
 .chart-head{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
 .chart-head b{font-weight:800}
 .chart-head span{color:var(--muted)}
 .chart svg{width:100%;height:auto;display:block}
-.arlos-read h4{margin:0 0 8px;font-size:15px;font-weight:800}
-.arlos-read p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);text-wrap:pretty}
+.pointed-read h4{margin:0 0 8px;font-size:15px;font-weight:800}
+.pointed-read p{font-size:13.5px;line-height:1.55;color:var(--ink-soft);text-wrap:pretty}
 .recommendation{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:var(--ink);color:#f2f2ec;border-radius:16px;padding:18px 22px}
 .recommendation b{font-size:14px}
 .recommendation p{margin:4px 0 0;font-size:13px;color:#c8ccc0;max-width:60ch;text-wrap:pretty}
