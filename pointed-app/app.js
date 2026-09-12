@@ -76,7 +76,7 @@ function buildPack() {
   const kept = S.signals.filter(s => s.status === 'kept');
   const name = S.brand.name;
   const sents = S.sample && S.sample.text ? sentences(S.sample.text) : [];
-  const opener = sents.length ? sents.reduce((a, b) => (a.split(/\s+/).length <= b.split(/\s+/).length ? a : b)) : '';
+  const opener = sents.length ? sents[0] : '';
   const evidence = kept.length
     ? kept.slice(0, 2).map(k => `Voice rule: ${k.rule}`)
     : ['No voice rules kept yet'];
