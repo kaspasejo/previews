@@ -7,9 +7,10 @@
 <meta name="description" content="Pointed turns your voice and real business signals into useful work, ready for review.">
 <title>Pointed · Your voice, ready to work</title>
 <link rel="stylesheet" href="styles.css?v=3">
+<link rel="stylesheet" href="blog.css?v=1">
 </head>
 <body>
-<header class="top"><a class="brand" href="#top"><img src="assets/solid-nib.svg" alt=""><b>pointed<i>.</i></b></a><nav><a href="#system">How it works</a><a href="#connect">Connections</a><button class="nav-cta" data-open-app>Open workspace</button></nav></header>
+<header class="top"><a class="brand" href="#top"><img src="assets/solid-nib.svg" alt=""><b>pointed<i>.</i></b></a><nav><a href="#system">How it works</a><a href="#connect">Connections</a><a href="blog/">Blog</a><button class="nav-cta" data-open-app>Open workspace</button></nav></header>
 <main id="top">
 <section class="hero"><div class="hero-copy"><span class="eyebrow">A growth system in your voice</span><h1>Your point of view,<br><em>ready to work.</em></h1><p class="lede">Pointed learns how you sound, finds the signals worth acting on and prepares the work. You decide what leaves the building.</p><form class="url-form" id="url-form"><label for="site">Start with your website</label><div><input id="site" type="url" placeholder="https://yourcompany.com" required><button>Build my first pack</button></div><small>No integrations first. See useful work before setup.</small></form></div>
 <div class="hero-art" aria-label="Example review pack"><article class="voice-card"><span class="mini-label">VOICE PROFILE</span><div class="voice-head"><span class="avatar">SG</span><div><b>Direct, specific, human</b><small>Built from 7 sources</small></div><strong>92%</strong></div><ul><li><i></i>Short sentences when the point matters</li><li><i></i>Evidence before assertion</li><li><i></i>No generic closing questions</li></ul></article><article class="queue-card"><div class="queue-head"><div><span class="mini-label">REVIEW QUEUE</span><h3>Three drafts need you</h3></div><span class="time">~4 min</span></div><div class="draft"><span>LinkedIn · Opinion</span><b>Standards are not the opposite of speed.</b><small>2 sources · Voice match 94%</small></div><div class="draft"><span>Article · Search</span><b>The quiet cost of a content backlog</b><small>GSC opportunity · Voice match 89%</small></div><button data-open-app>Review the pack →</button></article></div></section>
@@ -19,6 +20,7 @@
 <section class="surface"><div class="surface-copy"><span class="eyebrow">The difference is visible</span><h2>It learns from the change, not the click.</h2><p>Pointed records what you changed and shows the rule it proposes updating. Keep it, edit it or roll it back. The voice gets better without becoming a black box.</p><ul><li>Before-and-after voice rules</li><li>Source feedback and affected brand</li><li>One-click rollback</li></ul></div><div class="change-card"><span class="mini-label">VOICE CHANGE · PROPOSED</span><h3>Prefer the concrete result before the lesson.</h3><div><small>BEFORE</small><p>Open with the general principle.</p></div><div class="after"><small>AFTER</small><p>Open with what happened, then earn the principle.</p></div><footer><button>Not us</button><button class="primary">Keep this rule</button></footer></div></section>
 <section class="connect" id="connect"><div><span class="eyebrow">Connect, don't configure</span><h2>Five minutes to depth.<br>Zero settings maze.</h2><p>Get a first pack from a URL and voice sample. Then connect only what helps.</p></div><div class="connect-list"><article><span class="provider google">G</span><div><b>Google Search Console</b><small>Queries, pages and real search results</small></div><em>OAuth</em></article><article><span class="provider cms">W</span><div><b>Your website</b><small>WordPress, Shopify or Webflow</small></div><em>Connect</em></article><article><span class="provider slack">#</span><div><b>Slack or Discord</b><small>Reviews, decisions and run health</small></div><em>Choose channel</em></article><article><span class="provider comp">↗</span><div><b>Up to 3 competitors</b><small>Pointed builds the first keyword map</small></div><em>Paste URLs</em></article><div class="progress"><span>Setup</span><b>3 of 5 connected</b><i><u></u></i></div></div></section>
 <section class="isolation"><div><span class="eyebrow">Built for more than one voice</span><h2>Every brand gets its own room.</h2><p>Separate sources, connectors, destinations, search and review history. No cross-brand retrieval. No accidental audience mixing.</p></div><div class="brand-stack"><article><span class="avatar amber">N</span><div><b>Nimbus Coffee</b><small>4 connections · Healthy</small></div><em>Open →</em></article><article><span class="avatar blue">H</span><div><b>Harbour &amp; Co</b><small>2 connections · Needs review</small></div><em>Open →</em></article><article><span class="avatar mint">F</span><div><b>Fieldnotes</b><small>Voice sample added</small></div><em>Continue →</em></article></div></section>
+<section class="blog-teaser" id="blog"><div class="blog-teaser-head"><span class="eyebrow">From the blog</span><h2>Notes on <em>voice-first</em> content.</h2></div><article class="post-card"><div class="post-meta"><time datetime="2026-09-12">Sep 12, 2026</time><i></i><span>Founding note</span></div><h3><a href="blog/your-voice-is-the-moat.html">Your voice is the moat</a></h3><p>Anyone can generate content now. The only thing competitors cannot copy is how you sound, so that is the thing your tooling should protect.</p><a class="read-link" href="blog/your-voice-is-the-moat.html">Read the post</a></article></section>
 <section class="final"><img src="assets/solid-nib.svg" alt=""><h2>Make the point.<br><em>Keep your voice.</em></h2><p>Start with a website and one voice sample. Pointed prepares the first useful pack.</p><a href="#top">Build my first pack</a></section>
 </main>
 <footer class="foot"><b>pointed<i>.</i></b><span>Working product · Kaspasejo</span></footer>
@@ -77,7 +79,7 @@
 <nav>
 <button class="active" data-view="today">Today <em id="nav-count" hidden></em></button>
 <button data-view="review">Review queue</button>
-<button data-view="signals">Signals</button>
+<button data-view="signals">Signals</button><button data-view="listening">Listening</button>
 <button data-view="calendar">Calendar</button>
 <button data-view="voice">Voice profile</button>
 <button data-view="results">Results</button>
@@ -90,6 +92,7 @@
 <div class="view" id="view-today"></div>
 <div class="view" id="view-review" hidden></div>
 <div class="view" id="view-signals" hidden></div>
+<div class="view" id="view-listening" hidden></div>
 <div class="view" id="view-calendar" hidden></div>
 <div class="view" id="view-voice" hidden></div>
 <div class="view" id="view-results" hidden></div>
