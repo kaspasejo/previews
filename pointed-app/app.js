@@ -609,7 +609,7 @@ function renderListening() {
     .sort((a, b) => b.rank - a.rank).slice(0, 20);
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">LISTENING INBOX</span><h2>Conversations worth joining. Nothing watched in secret.</h2></div></div>
-    <p class="muted">Pointed searches Hacker News for each lane's watch query and ranks what it finds: source link, age, discussion size, and the reason it matched. More communities (Reddit and others) join once their account connections land. You always send any reply yourself. You always send any reply yourself.</p>
+    <p class="muted">Pointed searches Hacker News for each lane's watch query and ranks what it finds: source link, age, discussion size, and the reason it matched. More communities (Reddit and others) join once their account connections land. You always send any reply yourself.</p>
     <div class="sig-list">${lanes || '<p class="muted">No lanes yet. Add the communities you want watched.</p>'}</div>
     ${S.lanes.length < 5 ? `<form id="lane-form" class="lane-form">
       <div class="lane-grid">
