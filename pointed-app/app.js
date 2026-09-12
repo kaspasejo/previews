@@ -2,6 +2,7 @@
    Everything runs client-side. State persists in localStorage under pointed.state.v1. */
 
 const LS_KEY = 'pointed.state.v1';
+const API = 'https://pointed-api.sgibzx.workers.dev';
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => [...(r || document).querySelectorAll(s)];
 const uid = () => Math.random().toString(36).slice(2, 10);
@@ -36,8 +37,65 @@ S.outlets = S.outlets || [];
 S.pitches = S.pitches || [];
 S.coverage = S.coverage || [];
 if (typeof S.brandSensitive === 'undefined') S.brandSensitive = false;
-const save = () => localStorage.setItem(LS_KEY, JSON.stringify(S));
-const log = (action, detail) => { S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail }); };
+if (typeof S.hosted === 'undefined') S.hosted = null; // {orgId, brandId, token, syncedAt, error} once connected to the hosted backend
+const save = () => { localStorage.setItem(LS_KEY, JSON.stringify(S)); syncHosted(); };
+
+/* ----- hosted backend sync (PR #13) -----
+   Local state stays the fast copy; when a brand is connected, every save also
+   pushes the state domains to the hosted API so they live server-side. */
+let syncTimer = null;
+function syncHosted() {
+  if (!S.hosted || !S.hosted.token) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(pushState, 700);
+}
+async function pushState() {
+  const h = S.hosted; if (!h || !h.token) return;
+  const doms = { signals: S.signals, drafts: S.drafts, changes: S.changes, competitors: S.competitors, lanes: S.lanes, destinations: S.destinations, watchTopics: S.watchTopics, watchSources: S.watchSources };
+  try {
+    for (const [d, doc] of Object.entries(doms)) {
+      const r = await fetch(`${API}/api/brands/${h.brandId}/state/${d}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + h.token }, body: JSON.stringify({ doc }) });
+      if (!r.ok) throw new Error('sync ' + d + ' failed (' + r.status + ')');
+    }
+    h.syncedAt = new Date().toISOString(); h.error = null;
+  } catch (e) { h.error = String(e && e.message || e); }
+  try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {}
+  renderPill();
+}
+async function connectBackend() {
+  if (!S.brand || (S.hosted && S.hosted.token)) return;
+  try {
+    const r = await fetch(API + '/api/brands', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ brand: S.brand }) });
+    if (!r.ok) throw new Error('brand create failed (' + r.status + ')');
+    const { orgId, brandId, token } = await r.json();
+    S.hosted = { orgId, brandId, token };
+    const mig = { signals: S.signals, drafts: S.drafts, changes: S.changes, competitors: S.competitors, lanes: S.lanes, destinations: S.destinations, watchTopics: S.watchTopics, watchSources: S.watchSources, audit: S.audit };
+    const m = await fetch(`${API}/api/brands/${brandId}/migrate`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(mig) });
+    if (!m.ok) throw new Error('migrate failed (' + m.status + ')');
+    S.hosted.syncedAt = new Date().toISOString(); S.hosted.error = null;
+    try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {}
+  } catch (e) {
+    S.hosted = null; // stay honest: if the backend cannot be reached, the preview pill says so
+  }
+  renderPill();
+}
+function renderPill() {
+  const p = document.querySelector('.preview-pill'); if (!p) return;
+  if (S.hosted && S.hosted.token && !S.hosted.error) {
+    p.textContent = 'Hosted · data lives on Pointed\u2019s backend';
+    p.title = 'Brand-scoped state syncs to the hosted backend (Cloudflare Worker + D1). A local copy stays in this browser as the offline fallback.';
+  } else if (S.hosted && S.hosted.error) {
+    p.textContent = 'Sync issue · data is safe in this browser';
+    p.title = 'The last backend sync failed: ' + S.hosted.error;
+  } else {
+    p.textContent = 'Preview · data stays in this browser';
+    p.title = 'Everything in this preview stays in your browser.';
+  }
+}
+const log = (action, detail) => {
+  S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail });
+  if (S.hosted && S.hosted.token) fetch(`${API}/api/brands/${S.hosted.brandId}/audit`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + S.hosted.token }, body: JSON.stringify({ action, detail }) }).catch(() => {});
+};
 
 /* ---------- helpers ---------- */
 
@@ -251,6 +309,7 @@ $('#onb-finish').addEventListener('click', () => {
   S.onboarded = true;
   log('onboarding finished', 'workspace opened');
   save(); closeOnboarding(); openApp();
+  connectBackend();
 });
 
 /* ---------- workspace ---------- */
@@ -284,6 +343,7 @@ function renderBrand() {
 
 function renderAll() {
   renderBrand();
+  renderPill();
   const d = new Date();
   $('#ws-date').textContent = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
   const h = d.getHours();
@@ -909,3 +969,6 @@ function renderHealth() {
 /* ---------- boot ---------- */
 renderBrand();
 if (location.hash === '#workspace') openApp();
+
+/* Existing brands from before the hosted backend: connect + migrate on first load. */
+if (S.onboarded && S.brand && !(S.hosted && S.hosted.token)) connectBackend();
