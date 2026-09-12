@@ -34,6 +34,7 @@ S.angles = S.angles || [];
 S.outlets = S.outlets || [];
 S.pitches = S.pitches || [];
 S.coverage = S.coverage || [];
+if (typeof S.brandSensitive === 'undefined') S.brandSensitive = false;
 const save = () => localStorage.setItem(LS_KEY, JSON.stringify(S));
 const log = (action, detail) => { S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail }); };
 
@@ -287,8 +288,8 @@ function renderAll() {
   $('#ws-greeting').textContent = h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   const ready = S.drafts.filter(x => x.state === 'ready').length;
   const nc = $('#nav-count'); nc.hidden = !ready; nc.textContent = ready;
-  ['today', 'review', 'signals', 'listening', 'watch', 'press', 'publishing', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
-  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, press: renderPress, publishing: renderPublishing, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
+  ['today', 'review', 'signals', 'listening', 'watch', 'press', 'publishing', 'agency', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, press: renderPress, publishing: renderPublishing, agency: renderAgency, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
 const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
@@ -682,6 +683,45 @@ function renderPublishing() {
   </div>`;
 }
 
+/* ----- Agency: client workspaces, roles, approval routes, sensitive-brand isolation ----- */
+function renderAgency() {
+  const el = $('#view-agency');
+  const b = S.brand;
+  const roles = [
+    ['Read-only', 'Sees the client workspace, drafts and results. Cannot change anything.'],
+    ['Reviewer', 'Approves, edits and rejects in the review queue. Cannot change voice rules or connections.'],
+    ['Voice editor', 'Shapes the voice profile and its evidence. Cannot publish or export.'],
+    ['Admin', 'Manages connections, destinations, policies and people. Publishing still follows the per-site policy.'],
+  ].map(([r, d]) => `<article class="lane"><span class="provider blue">${r[0]}</span><div class="lane-main"><b>${r}</b><small>${d}</small></div></article>`).join('');
+  el.innerHTML = `<div class="review-wrap">
+    <div class="section-head"><div><span class="eyebrow">AGENCY</span><h2>Client work, deliberately separated.</h2></div></div>
+    <p class="muted">Agencies run client workspaces with roles, approval routes and exports. Switching workspace or brand is always a deliberate act - nothing leaks across by default.</p>
+    <div class="watch-group">
+      <h3 class="group-h">This workspace</h3>
+      <div class="sig-list">
+        <article class="lane"><span class="provider mint">${b ? esc(b.name[0]) : '?'}</span><div class="lane-main"><b>${b ? esc(b.name) : 'No brand yet'}</b><small>${b ? esc(b.domain) : 'Finish onboarding first'} · sources, destinations, search and audit stay inside this brand</small></div><em>${S.brandSensitive ? 'Sensitive' : 'Standard'}</em></article>
+      </div>
+      ${b ? `<form id="sensitive-form" class="lane-form">
+        <label class="check-line"><input type="checkbox" id="brand-sensitive" ${S.brandSensitive ? 'checked' : ''}> Mark this brand sensitive</label>
+        <p class="muted small">Sensitive brands require an additional role before anyone - including your own team - can open them. In the hosted build, isolation is enforced in storage queries, background jobs, search and notifications, not only in this UI. Cross-brand retrieval is denied by default and covered by automated tests.</p>
+        <button class="onb-primary">Save</button>
+      </form>` : ''}
+    </div>
+    <div class="watch-group">
+      <h3 class="group-h">Client access roles</h3>
+      <div class="sig-list">${roles}</div>
+      <p class="muted small">Inviting clients and assigning roles happens in the hosted build. Approval routes stay fixed: drafts and pitches pass the review queue regardless of role.</p>
+    </div>
+  </div>`;
+  const sf = $('#sensitive-form');
+  if (sf) sf.addEventListener('submit', e => {
+    e.preventDefault();
+    S.brandSensitive = $('#brand-sensitive').checked;
+    log('brand sensitivity ' + (S.brandSensitive ? 'enabled' : 'removed'), S.brand.name);
+    save(); renderAll();
+  });
+}
+
 /* ----- Notifications: destinations + per-event choices (recorded here, delivered by the hosted backend) ----- */
 const NOTIF_EVENTS = [['draft', 'Draft ready'], ['decision', 'Decision needed'], ['exported', 'Export completed'], ['failed', 'Run failed'], ['recovery', 'Recovery needed'], ['digest', 'Weekly digest']];
 
@@ -854,6 +894,7 @@ function renderHealth() {
     ['Market watch', (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? ['ok', 'Watching'] : ['off', 'Nothing tracked'], (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? [S.competitors.length + (S.competitors.length === 1 ? ' competitor' : ' competitors'), S.watchTopics.length + (S.watchTopics.length === 1 ? ' topic' : ' topics'), S.watchSources.length + (S.watchSources.length === 1 ? ' source' : ' sources')].join(', ') + ', tracker is hosted-only' : 'Add one in Market watch'],
     ['Press', (S.angles.length + S.outlets.length) ? ['ok', 'Lists set'] : ['off', 'No angles or outlets'], (S.angles.length + S.outlets.length) ? S.angles.length + (S.angles.length === 1 ? ' angle' : ' angles') + ', ' + S.outlets.length + (S.outlets.length === 1 ? ' outlet' : ' outlets') + ', pitching is hosted-only' : 'Add them in Press'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
+    ['Isolation', ['ok', 'Enforced'], (S.brandSensitive ? 'Sensitive brand: extra role required, ' : '') + 'cross-brand retrieval denied by default'],
   ];
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">SYSTEM HEALTH</span><h2>Every routine shows its state.</h2></div></div>
