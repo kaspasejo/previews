@@ -257,6 +257,7 @@ $('#onb-finish').addEventListener('click', () => {
 
 const app = $('#app');
 let view = 'today';
+let focusDraft = null;
 
 function openApp() { app.hidden = false; document.body.style.overflow = 'hidden'; location.hash = 'workspace'; renderAll(); }
 function closeApp() { app.hidden = true; document.body.style.overflow = ''; history.replaceState(null, '', location.pathname); }
@@ -329,7 +330,7 @@ function renderToday() {
         <button data-goto="voice">See the voice →</button></section>
     </aside>
   </div>`;
-  $$('[data-review]', el).forEach(b => b.addEventListener('click', () => { view = 'review'; renderAll(); }));
+  $$('[data-review]', el).forEach(b => b.addEventListener('click', () => { focusDraft = b.dataset.review; view = 'review'; renderAll(); }));
 }
 
 /* ----- Review queue ----- */
@@ -388,6 +389,11 @@ function renderReview() {
       renderAll();
     }
   }));
+  if (focusDraft) {
+    const card = $(`.rev-card[data-id="${focusDraft}"]`, el);
+    if (card) { card.classList.add('flash'); setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 30); }
+    focusDraft = null;
+  }
 }
 
 /* ----- Signals ----- */
