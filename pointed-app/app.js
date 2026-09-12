@@ -27,6 +27,9 @@ try { S = JSON.parse(localStorage.getItem(LS_KEY)) || freshState(); } catch (e) 
 S.lanes = S.lanes || [];
 S.destinations = S.destinations || [];
 S.competitors = S.competitors || [];
+S.watchTopics = S.watchTopics || [];
+S.watchSources = S.watchSources || [];
+S.marketSignals = S.marketSignals || [];
 const save = () => localStorage.setItem(LS_KEY, JSON.stringify(S));
 const log = (action, detail) => { S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail }); };
 
@@ -280,8 +283,8 @@ function renderAll() {
   $('#ws-greeting').textContent = h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   const ready = S.drafts.filter(x => x.state === 'ready').length;
   const nc = $('#nav-count'); nc.hidden = !ready; nc.textContent = ready;
-  ['today', 'review', 'signals', 'listening', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
-  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
+  ['today', 'review', 'signals', 'listening', 'watch', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
 const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
@@ -520,6 +523,63 @@ function renderListening() {
   }));
 }
 
+/* ----- Market watch: competitors, topics, trusted sources; every signal keeps its chain ----- */
+const WATCH_GROUPS = [
+  ['competitors', 'Competitors', 3, 'competitor name', 'https://competitor.com'],
+  ['watchTopics', 'Topics', 6, 'topic, e.g. founder-led marketing', null],
+  ['watchSources', 'Trusted sources', 6, 'source name', 'https://source.example/feed'],
+];
+
+function validUrl(v) { try { const u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; } catch (e) { return false; } }
+
+function renderWatch() {
+  const el = $('#view-watch');
+  const groups = WATCH_GROUPS.map(([key, label, cap, namePh, urlPh]) => {
+    const items = S[key].map((w, i) => `
+      <article class="lane"><span class="provider comp">${label[0]}</span><div class="lane-main"><b>${esc(w.name)}</b>${w.url ? '<small>' + esc(w.url) + '</small>' : ''}</div><em><button class="linklike" data-rmwatch="${key}:${i}">Remove</button></em></article>`).join('');
+    return `<div class="watch-group">
+      <h3 class="group-h">${label} <span class="muted small">${S[key].length}/${cap}</span></h3>
+      <div class="sig-list">${items || '<p class="muted">Nothing tracked yet.</p>'}</div>
+      ${S[key].length < cap ? `<form class="lane-form" data-watchform="${key}">
+        <div class="lane-grid">
+          <input data-wname placeholder="${namePh}" required>
+          ${urlPh ? `<input data-wurl placeholder="${urlPh}" required>` : ''}
+        </div>
+        <button class="onb-primary">Add ${label.toLowerCase().replace(/s$/, '')}</button>
+      </form>` : `<p class="muted">Cap reached (${cap}). Remove one to add another.</p>`}
+    </div>`;
+  }).join('');
+  el.innerHTML = `<div class="review-wrap">
+    <div class="section-head"><div><span class="eyebrow">MARKET WATCH</span><h2>Watch the market. Show the chain.</h2></div></div>
+    <p class="muted">Track selected competitors, topics and trusted sources. In this preview the watch list is real and saved; the tracking runs on the hosted backend.</p>
+    ${groups}
+    <div class="kw-map"><span class="eyebrow">SIGNALS</span>
+      <p class="muted">${(S.competitors.length + S.watchTopics.length + S.watchSources.length) ? 'No market signals yet. When the hosted watcher sees movement, each signal lands here with its source link, the time it was observed, a summary and the reason it matters.' : 'The signal list stays empty until something is tracked. No watch list, no watching.'}</p>
+      <div class="chain"><span>signal</span><i>&#8594;</i><span>proposed topic</span><i>&#8594;</i><span>draft</span></div>
+      <p class="muted small">A draft can only exist from signals you can inspect: same source link, same reason, all the way down. Unsupported claims never enter generation.</p>
+    </div>
+  </div>`;
+  $$('[data-watchform]', el).forEach(f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const key = f.dataset.watchform;
+    const name = f.querySelector('[data-wname]').value.trim();
+    const urlInput = f.querySelector('[data-wurl]');
+    const url = urlInput ? urlInput.value.trim() : '';
+    if (!name) return;
+    if (urlInput && !validUrl(url)) { urlInput.focus(); urlInput.setCustomValidity('Needs a full https:// URL'); urlInput.reportValidity(); return; }
+    S[key].push(url ? { id: uid(), name, url } : { id: uid(), name });
+    const labels = { competitors: 'competitor', watchTopics: 'topic', watchSources: 'trusted source' };
+    log(labels[key] + ' added to market watch', name + (url ? ' - ' + url : ''));
+    save(); renderAll();
+  }));
+  $$('[data-rmwatch]', el).forEach(b => b.addEventListener('click', () => {
+    const [key, i] = b.dataset.rmwatch.split(':');
+    const [removed] = S[key].splice(+i, 1);
+    log('removed from market watch', removed.name);
+    save(); renderAll();
+  }));
+}
+
 /* ----- Notifications: destinations + per-event choices (recorded here, delivered by the hosted backend) ----- */
 const NOTIF_EVENTS = [['draft', 'Draft ready'], ['decision', 'Decision needed'], ['exported', 'Export completed'], ['failed', 'Run failed'], ['recovery', 'Recovery needed'], ['digest', 'Weekly digest']];
 
@@ -585,6 +645,7 @@ function digestPreview() {
       <li><b>${approved}</b> approved, <b>${exported}</b> exported this cycle</li>
       <li><b>${S.signals.filter(s => s.status === 'kept').length}</b> voice rules kept, <b>${changes}</b> voice change${changes === 1 ? '' : 's'} this week</li>
       <li><b>${S.lanes.length}</b> listening lane${S.lanes.length === 1 ? '' : 's'}, <b>${S.destinations.length}</b> notification destination${S.destinations.length === 1 ? '' : 's'}</li>
+      <li><b>${S.competitors.length + S.watchTopics.length + S.watchSources.length}</b> market watch entr${(S.competitors.length + S.watchTopics.length + S.watchSources.length) === 1 ? 'y' : 'ies'} set</li>
       <li><b>${recent.length}</b> audited action${recent.length === 1 ? '' : 's'} in 7 days</li>
     </ul>
     <small class="muted">Computed from this browser's state right now. The hosted build sends this to your chosen destinations weekly.</small>
@@ -687,6 +748,7 @@ function renderHealth() {
     ['Review queue', ready ? ['warn', 'Needs you'] : ['ok', 'Clear'], ready ? `${ready} drafts waiting` : 'Nothing waiting'],
     ['Search ingestion', ['off', 'Not connected'], 'Connect Search Console to start'],
     ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + (S.lanes.length === 1 ? ' lane saved' : ' lanes saved') + ', watcher is hosted-only' : 'Add a lane in Listening'],
+    ['Market watch', (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? ['ok', 'Watching'] : ['off', 'Nothing tracked'], (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? S.competitors.length + ' competitors, ' + S.watchTopics.length + ' topics, ' + S.watchSources.length + ' sources, tracker is hosted-only' : 'Add one in Market watch'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
   ];
   el.innerHTML = `<div class="review-wrap">
