@@ -16,6 +16,8 @@ function freshState() {
     changes: [],            // {id, title, before, after, status, author, time, affected}
     audit: [],              // {id, time, actor, action, detail}
     competitors: [],        // urls
+    lanes: [],              // {id, community, query, exclusions, cap}
+    destinations: [],       // {id, kind, masked, events:{...}}
     onboarded: false
   };
 }
@@ -274,8 +276,8 @@ function renderAll() {
   $('#ws-greeting').textContent = h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   const ready = S.drafts.filter(x => x.state === 'ready').length;
   const nc = $('#nav-count'); nc.hidden = !ready; nc.textContent = ready;
-  ['today', 'review', 'signals', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
-  ({ today: renderToday, review: renderReview, signals: renderSignals, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
+  ['today', 'review', 'signals', 'listening', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
 const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
@@ -475,6 +477,116 @@ function downloadPack(d) {
   save(); renderAll();
 }
 
+/* ----- Listening inbox: opt-in lanes, honest empty inbox ----- */
+function renderListening() {
+  const el = $('#view-listening');
+  const lanes = S.lanes.map((l, i) => `
+    <article class="lane"><span class="provider comp">R</span><div class="lane-main"><b>r/${esc(l.community)}</b><small>Watching for: ${esc(l.query)}${l.exclusions ? ' · Excluding: ' + esc(l.exclusions) : ''} · Cap ${esc(String(l.cap))}/week</small></div><em><button class="linklike" data-rmlane="${i}">Remove</button></em></article>`).join('');
+  el.innerHTML = `<div class="review-wrap">
+    <div class="section-head"><div><span class="eyebrow">LISTENING INBOX</span><h2>Conversations worth joining. Nothing watched in secret.</h2></div></div>
+    <p class="muted">Pointed ranks public conversations against your lanes: matching signal, source link, age, the reason it matters, and a suggested reply in your voice. You always send the reply yourself. In this preview the lanes are real and saved; the watching runs on the hosted backend.</p>
+    <div class="sig-list">${lanes || '<p class="muted">No lanes yet. Add the communities you want watched.</p>'}</div>
+    ${S.lanes.length < 5 ? `<form id="lane-form" class="lane-form">
+      <div class="lane-grid">
+        <input id="lane-community" placeholder="subreddit, e.g. startups" required>
+        <input id="lane-query" placeholder="watch for, e.g. ${S.brand ? esc(S.brand.name) + ', alternatives to, looking for a tool' : 'your brand, alternatives to, looking for a tool'}" required>
+      </div>
+      <div class="lane-grid">
+        <input id="lane-exclusions" placeholder="exclude (optional), e.g. hiring, meme">
+        <input id="lane-cap" type="number" min="1" max="50" value="10" title="Max conversations per week">
+      </div>
+      <button class="onb-primary">Add lane</button>
+    </form>` : '<p class="muted">Lane cap reached (5). Remove one to add another.</p>'}
+    <div class="kw-map"><span class="eyebrow">INBOX</span><p class="muted">${S.lanes.length ? 'No conversations yet. The first ranked run lands here once the hosted watcher picks up your lanes, each with its source link and the reason it matched.' : 'The inbox stays empty until a lane exists. No lane, no watching.'}</p></div>
+  </div>`;
+  const f = $('#lane-form');
+  if (f) f.addEventListener('submit', e => {
+    e.preventDefault();
+    const community = $('#lane-community').value.trim().replace(/^r\//, '').replace(/[^A-Za-z0-9_-]/g, '');
+    const query = $('#lane-query').value.trim();
+    if (!community || !query) return;
+    S.lanes.push({ id: uid(), community, query, exclusions: $('#lane-exclusions').value.trim(), cap: Math.min(50, Math.max(1, +$('#lane-cap').value || 10)) });
+    log('listening lane added', 'r/' + community + ' - ' + query);
+    save(); renderAll();
+  });
+  $$('[data-rmlane]', el).forEach(b => b.addEventListener('click', () => {
+    const [removed] = S.lanes.splice(+b.dataset.rmlane, 1);
+    log('listening lane removed', 'r/' + removed.community);
+    save(); renderAll();
+  }));
+}
+
+/* ----- Notifications: destinations + per-event choices (recorded here, delivered by the hosted backend) ----- */
+const NOTIF_EVENTS = [['draft', 'Draft ready'], ['decision', 'Decision needed'], ['exported', 'Export completed'], ['failed', 'Run failed'], ['recovery', 'Recovery needed'], ['digest', 'Weekly digest']];
+
+function maskWebhook(url) {
+  try { const u = new URL(url); return u.origin + u.pathname.slice(0, 14) + '...'; } catch (e) { return 'invalid URL'; }
+}
+
+function renderNotifications() {
+  const dests = S.destinations.map((d, i) => `
+    <article class="lane"><span class="provider ${d.kind === 'slack' ? 'slack' : 'cms'}">${d.kind === 'slack' ? 'S' : 'D'}</span>
+    <div class="lane-main"><b>${d.kind === 'slack' ? 'Slack' : 'Discord'} webhook</b><small>${esc(d.masked)}</small>
+    <small>${NOTIF_EVENTS.filter(([k]) => d.events[k]).map(([, l]) => l).join(' · ') || 'No events chosen'}</small></div>
+    <em><button class="linklike" data-rmdest="${i}">Remove</button></em></article>`).join('');
+  return `
+    <h3 class="group-h">Notification destinations</h3>
+    <p class="muted small">Slack and Discord get OAuth pickers in the hosted build. The webhook fallback works today: paste an incoming-webhook URL, choose its events, and it is stored only in this browser - never in logs or links. Notifications never carry approval or publishing power.</p>
+    <div class="sig-list">${dests || '<p class="muted">No destinations yet.</p>'}</div>
+    <form id="dest-form" class="lane-form">
+      <div class="lane-grid"><input id="dest-url" type="url" placeholder="https://hooks.slack.com/... or discord webhook" required></div>
+      <div class="dest-events">${NOTIF_EVENTS.map(([k, l]) => `<label><input type="checkbox" data-ev="${k}" ${k === 'draft' || k === 'failed' ? 'checked' : ''}> ${l}</label>`).join('')}</div>
+      <button class="onb-primary">Add destination</button>
+    </form>`;
+}
+
+function bindNotifications(el) {
+  const f = $('#dest-form', el);
+  if (f) f.addEventListener('submit', e => {
+    e.preventDefault();
+    const url = $('#dest-url').value.trim();
+    let kind = null;
+    try {
+      const u = new URL(url);
+      if (u.hostname === 'hooks.slack.com') kind = 'slack';
+      if (u.hostname === 'discord.com' && u.pathname.startsWith('/api/webhooks/')) kind = 'discord';
+    } catch (err) {}
+    if (!kind) { $('#dest-url').setCustomValidity('Enter a Slack (hooks.slack.com) or Discord webhook URL'); $('#dest-url').reportValidity(); return; }
+    const events = {};
+    $$('[data-ev]', f).forEach(c => { events[c.dataset.ev] = c.checked; });
+    S.destinations.push({ id: uid(), kind, masked: maskWebhook(url), events });
+    log('notification destination added', kind + ' webhook ' + maskWebhook(url));
+    save(); renderAll();
+  });
+  $$('[data-rmdest]', el).forEach(b => b.addEventListener('click', () => {
+    const [removed] = S.destinations.splice(+b.dataset.rmdest, 1);
+    log('notification destination removed', removed.kind);
+    save(); renderAll();
+  }));
+}
+
+/* ----- Weekly digest preview: computed from real local state ----- */
+function digestPreview() {
+  const weekAgo = Date.now() - 7 * 864e5;
+  const recent = S.audit.filter(a => new Date(a.time).getTime() > weekAgo);
+  const waiting = S.drafts.filter(d => d.state === 'ready').length;
+  const approved = S.drafts.filter(d => d.state === 'approved').length;
+  const exported = S.drafts.filter(d => d.state === 'exported').length;
+  const changes = S.changes.filter(c => new Date(c.time).getTime() > weekAgo).length;
+  return `<article class="digest-card">
+    <span class="mini-label">WEEKLY DIGEST · PREVIEW</span>
+    <h3>Your week, as the digest would say it</h3>
+    <ul>
+      <li><b>${waiting}</b> draft${waiting === 1 ? '' : 's'} waiting for review</li>
+      <li><b>${approved}</b> approved, <b>${exported}</b> exported this cycle</li>
+      <li><b>${S.signals.filter(s => s.status === 'kept').length}</b> voice rules kept, <b>${changes}</b> voice change${changes === 1 ? '' : 's'} this week</li>
+      <li><b>${S.lanes.length}</b> listening lane${S.lanes.length === 1 ? '' : 's'}, <b>${S.destinations.length}</b> notification destination${S.destinations.length === 1 ? '' : 's'}</li>
+      <li><b>${recent.length}</b> audited action${recent.length === 1 ? '' : 's'} in 7 days</li>
+    </ul>
+    <small class="muted">Computed from this browser's state right now. The hosted build sends this to your chosen destinations weekly.</small>
+  </article>`;
+}
+
 /* ----- Calendar ----- */
 function renderCalendar() {
   const el = $('#view-calendar');
@@ -570,13 +682,15 @@ function renderHealth() {
     ['Voice learning', S.signals.some(s => s.status === 'kept') ? ['ok', 'Active'] : ['warn', 'Waiting'], `${S.signals.filter(s => s.status === 'kept').length} rules kept, ${S.changes.length} changes recorded`],
     ['Review queue', ready ? ['warn', 'Needs you'] : ['ok', 'Clear'], ready ? `${ready} drafts waiting` : 'Nothing waiting'],
     ['Search ingestion', ['off', 'Not connected'], 'Connect Search Console to start'],
-    ['Listening', ['off', 'Not connected'], 'Add a source in Signals'],
+    ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + ' lane(s) saved, watcher is hosted-only' : 'Add a lane in Listening'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
   ];
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">SYSTEM HEALTH</span><h2>Every routine shows its state.</h2></div></div>
     <div class="routine-list">${routines.map(([name, [cls, st], note]) => `
       <div class="routine"><i class="${cls}"></i><div><b>${name}</b><small>${note}</small></div><em class="${cls === 'warn' ? 'needs-you' : ''}">${st}</em></div>`).join('')}</div>
+    ${digestPreview()}
+    ${renderNotifications()}
     <h3 class="group-h">Activity</h3>
     <p class="muted small">Everything you approve, edit, reject or roll back is recorded here. Newest first.</p>
     <div class="audit-list">${S.audit.length ? S.audit.map(a => `
@@ -584,6 +698,7 @@ function renderHealth() {
       <time>${new Date(a.time).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</time></div>`).join('')
       : '<p class="muted">Nothing recorded yet.</p>'}</div>
   </div>`;
+  bindNotifications(el);
 }
 
 /* ---------- boot ---------- */
