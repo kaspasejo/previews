@@ -30,6 +30,10 @@ S.competitors = S.competitors || [];
 S.watchTopics = S.watchTopics || [];
 S.watchSources = S.watchSources || [];
 S.marketSignals = S.marketSignals || [];
+S.angles = S.angles || [];
+S.outlets = S.outlets || [];
+S.pitches = S.pitches || [];
+S.coverage = S.coverage || [];
 const save = () => localStorage.setItem(LS_KEY, JSON.stringify(S));
 const log = (action, detail) => { S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail }); };
 
@@ -283,8 +287,8 @@ function renderAll() {
   $('#ws-greeting').textContent = h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   const ready = S.drafts.filter(x => x.state === 'ready').length;
   const nc = $('#nav-count'); nc.hidden = !ready; nc.textContent = ready;
-  ['today', 'review', 'signals', 'listening', 'watch', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
-  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
+  ['today', 'review', 'signals', 'listening', 'watch', 'press', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, press: renderPress, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
 const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
@@ -580,6 +584,76 @@ function renderWatch() {
   }));
 }
 
+/* ----- Press: angles, outlets/contacts, pitches, coverage. Outbound needs approval + a verified recipient. ----- */
+function renderPress() {
+  const el = $('#view-press');
+  const angles = S.angles.map((a, i) => `
+    <article class="lane"><span class="provider comp">A</span><div class="lane-main"><b>${esc(a.angle)}</b><small>Grounded in: ${esc(a.ground)}</small></div><em><button class="linklike" data-rmangle="${i}">Remove</button></em></article>`).join('');
+  const outlets = S.outlets.map((o, i) => `
+    <article class="lane"><span class="provider cms">O</span><div class="lane-main"><b>${esc(o.outlet)}</b><small>${esc(o.contact)} · ${esc(o.email)} · unverified - verification happens in the hosted build</small></div><em><button class="linklike" data-rmoutlet="${i}">Remove</button></em></article>`).join('');
+  el.innerHTML = `<div class="review-wrap">
+    <div class="section-head"><div><span class="eyebrow">PRESS</span><h2>Pitches with a paper trail. Nothing sends itself.</h2></div></div>
+    <p class="muted">Keep story angles, outlets and contacts. The hosted build drafts pitches from grounded signals, routes them through your review queue, and tracks replies and coverage. Outbound email requires your explicit approval and a verified recipient - always.</p>
+    <div class="watch-group">
+      <h3 class="group-h">Story angles <span class="muted small">${S.angles.length}/6</span></h3>
+      <div class="sig-list">${angles || '<p class="muted">No angles yet. An angle names the story and the signal that grounds it.</p>'}</div>
+      ${S.angles.length < 6 ? `<form id="angle-form" class="lane-form">
+        <div class="lane-grid">
+          <input id="angle-text" placeholder="angle, e.g. founder-led brands outgrow generic SEO" required>
+          <input id="angle-ground" placeholder="grounded in, e.g. GSC: rising 'founder brand' queries" required>
+        </div>
+        <button class="onb-primary">Add angle</button>
+      </form>` : '<p class="muted">Cap reached (6). Remove one to add another.</p>'}
+    </div>
+    <div class="watch-group">
+      <h3 class="group-h">Outlets and contacts <span class="muted small">${S.outlets.length}/8</span></h3>
+      <div class="sig-list">${outlets || '<p class="muted">No outlets yet. Add the publications and people worth a pitch.</p>'}</div>
+      ${S.outlets.length < 8 ? `<form id="outlet-form" class="lane-form">
+        <div class="lane-grid">
+          <input id="outlet-name" placeholder="outlet, e.g. Maker Press" required>
+          <input id="outlet-contact" placeholder="contact name" required>
+        </div>
+        <div class="lane-grid">
+          <input id="outlet-email" type="email" placeholder="contact email" required>
+        </div>
+        <button class="onb-primary">Add outlet</button>
+      </form>` : '<p class="muted">Cap reached (8). Remove one to add another.</p>'}
+    </div>
+    <div class="kw-map"><span class="eyebrow">PITCHES</span>
+      <p class="muted">${S.angles.length && S.outlets.length ? 'No pitches yet. The hosted build drafts them from your grounded angles, and each one lands in your review queue first. You approve the wording and the recipient; it never sends itself.' : 'Pitches stay empty until an angle and an outlet exist - a pitch needs both a grounded story and a verified destination.'}</p>
+    </div>
+    <div class="kw-map"><span class="eyebrow">COVERAGE</span>
+      <p class="muted">No coverage tracked yet. When a pitch lands, the coverage is recorded here with its URL and becomes an eligible input for later topics and drafts.</p>
+    </div>
+  </div>`;
+  const af = $('#angle-form');
+  if (af) af.addEventListener('submit', e => {
+    e.preventDefault();
+    const angle = $('#angle-text').value.trim(), ground = $('#angle-ground').value.trim();
+    if (!angle || !ground) return;
+    S.angles.push({ id: uid(), angle, ground });
+    log('story angle added', angle + ' - grounded in ' + ground);
+    save(); renderAll();
+  });
+  const of = $('#outlet-form');
+  if (of) of.addEventListener('submit', e => {
+    e.preventDefault();
+    const outlet = $('#outlet-name').value.trim(), contact = $('#outlet-contact').value.trim(), email = $('#outlet-email').value.trim();
+    if (!outlet || !contact || !email) return;
+    S.outlets.push({ id: uid(), outlet, contact, email });
+    log('press outlet added', outlet + ' - ' + contact);
+    save(); renderAll();
+  });
+  $$('[data-rmangle]', el).forEach(b => b.addEventListener('click', () => {
+    const [r] = S.angles.splice(+b.dataset.rmangle, 1);
+    log('story angle removed', r.angle); save(); renderAll();
+  }));
+  $$('[data-rmoutlet]', el).forEach(b => b.addEventListener('click', () => {
+    const [r] = S.outlets.splice(+b.dataset.rmoutlet, 1);
+    log('press outlet removed', r.outlet); save(); renderAll();
+  }));
+}
+
 /* ----- Notifications: destinations + per-event choices (recorded here, delivered by the hosted backend) ----- */
 const NOTIF_EVENTS = [['draft', 'Draft ready'], ['decision', 'Decision needed'], ['exported', 'Export completed'], ['failed', 'Run failed'], ['recovery', 'Recovery needed'], ['digest', 'Weekly digest']];
 
@@ -646,6 +720,7 @@ function digestPreview() {
       <li><b>${S.signals.filter(s => s.status === 'kept').length}</b> voice rules kept, <b>${changes}</b> voice change${changes === 1 ? '' : 's'} this week</li>
       <li><b>${S.lanes.length}</b> listening lane${S.lanes.length === 1 ? '' : 's'}, <b>${S.destinations.length}</b> notification destination${S.destinations.length === 1 ? '' : 's'}</li>
       <li><b>${S.competitors.length + S.watchTopics.length + S.watchSources.length}</b> market watch entr${(S.competitors.length + S.watchTopics.length + S.watchSources.length) === 1 ? 'y' : 'ies'} set</li>
+      <li><b>${S.angles.length}</b> press angle${S.angles.length === 1 ? '' : 's'}, <b>${S.outlets.length}</b> outlet${S.outlets.length === 1 ? '' : 's'} on file</li>
       <li><b>${recent.length}</b> audited action${recent.length === 1 ? '' : 's'} in 7 days</li>
     </ul>
     <small class="muted">Computed from this browser's state right now. The hosted build sends this to your chosen destinations weekly.</small>
@@ -749,6 +824,7 @@ function renderHealth() {
     ['Search ingestion', ['off', 'Not connected'], 'Connect Search Console to start'],
     ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + (S.lanes.length === 1 ? ' lane saved' : ' lanes saved') + ', watcher is hosted-only' : 'Add a lane in Listening'],
     ['Market watch', (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? ['ok', 'Watching'] : ['off', 'Nothing tracked'], (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? [S.competitors.length + (S.competitors.length === 1 ? ' competitor' : ' competitors'), S.watchTopics.length + (S.watchTopics.length === 1 ? ' topic' : ' topics'), S.watchSources.length + (S.watchSources.length === 1 ? ' source' : ' sources')].join(', ') + ', tracker is hosted-only' : 'Add one in Market watch'],
+    ['Press', (S.angles.length + S.outlets.length) ? ['ok', 'Lists set'] : ['off', 'No angles or outlets'], (S.angles.length + S.outlets.length) ? S.angles.length + (S.angles.length === 1 ? ' angle' : ' angles') + ', ' + S.outlets.length + (S.outlets.length === 1 ? ' outlet' : ' outlets') + ', pitching is hosted-only' : 'Add them in Press'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
   ];
   el.innerHTML = `<div class="review-wrap">
