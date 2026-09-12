@@ -142,3 +142,22 @@ h2,h3{text-wrap:balance}
   .rv-approve,.rv-edit,.rv-back{flex:1;text-align:center}
   .preview-pill{display:none}
 }
+
+/* ===== Export pack: preflight + pack panel ===== */
+.st.exported{background:var(--blue)}
+.cal-item{display:grid;gap:0}
+.pack-panel{background:white;border:1px solid var(--line);border-top:0;border-radius:0 0 16px 16px;padding:16px 18px;display:grid;gap:12px;margin-top:-1px}
+.pack-panel.done{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cal-item .cal-row{border-radius:16px 16px 0 0}
+.cal-item:not(:has(.pack-panel)) .cal-row{border-radius:16px}
+.pf-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pf-list li{display:flex;gap:10px;align-items:start}
+.pf-list li i{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none}
+.pf-pass i{background:#72a879}
+.pf-warn i{background:#e0a93e}
+.pf-block i{background:#c25b4e}
+.pf-list b{font-size:12px}
+.pf-list small{display:block;font-size:11px;color:var(--soft);line-height:1.5;margin-top:2px}
+.pack-actions{display:flex;gap:10px;flex-wrap:wrap}
+.pack-actions button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:560px){.pack-actions button{flex:1}}
