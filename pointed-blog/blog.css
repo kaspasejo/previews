@@ -35,3 +35,4 @@
 .blog-teaser .post-card h3 a{text-decoration:none}
 .blog-teaser .post-card h3 a:hover{border-bottom:3px solid var(--acid)}
 @media(max-width:900px){.blog-teaser{grid-template-columns:1fr;padding:75px 20px}}
+@media(max-width:900px){.top nav a.nav-cta{display:inline-block;padding:10px 13px;font-size:11px}}
