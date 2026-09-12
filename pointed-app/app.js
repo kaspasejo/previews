@@ -17,7 +17,7 @@ function freshState() {
     changes: [],            // {id, title, before, after, status, author, time, affected}
     audit: [],              // {id, time, actor, action, detail}
     competitors: [],        // urls
-    lanes: [],              // {id, community, query, exclusions, cap}
+    lanes: [],              // {id, query, exclusions, cap, inbox, lastRun, lastError}
     destinations: [],       // {id, kind, masked, events:{...}}
     onboarded: false
   };
@@ -25,7 +25,7 @@ function freshState() {
 let S;
 try { S = JSON.parse(localStorage.getItem(LS_KEY)) || freshState(); } catch (e) { S = freshState(); }
 /* Forward-compatible state: fields added after a user first ran the preview. */
-S.lanes = S.lanes || [];
+S.lanes = (S.lanes || []).map(l => l.query ? l : { ...l, query: l.query || l.community || '' }).filter(l => l.query);
 S.destinations = S.destinations || [];
 S.competitors = S.competitors || [];
 S.competitors = S.competitors.map(c => typeof c === 'string' ? { id: uid(), name: c, url: 'https://' + c } : c);
@@ -145,6 +145,16 @@ function extractSignals(text) {
 }
 
 /* Build the first pack from what we actually hold. Each card says what grounded it. */
+function timeAgo(iso) {
+  const s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s / 60) + 'm ago';
+  if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+  return Math.floor(s / 86400) + 'd ago';
+}
+function topListening() {
+  return S.lanes.flatMap(l => (l.inbox || [])).sort((a, b) => (b.rank || 0) - (a.rank || 0)).slice(0, 3);
+}
 function buildPackLocal() {
   const kept = S.signals.filter(s => s.status === 'kept');
   const name = S.brand.name;
@@ -170,11 +180,18 @@ function buildPackLocal() {
     why: 'A search-shaped article outline for your site. Connect Search Console to ground it in real queries.',
     evidence: evidence.slice(0, 1)
   };
-  const listen = {
+  const convos = topListening();
+  const listen = convos.length ? {
+    id: uid(), channel: 'Listening', kind: 'Conversation brief', state: 'ready', slot,
+    title: `${convos.length} conversation${convos.length === 1 ? '' : 's'} worth a look`,
+    body: `Top match: "${convos[0].title}" (${convos[0].source || 'Hacker News'}).\n\nRead it, and if you have something real to add, reply as yourself. Pointed never posts for you.`,
+    why: 'From your listening lanes, ranked by discussion size and recency.',
+    evidence: convos.slice(0, 3).map(c => c.url)
+  } : {
     id: uid(), channel: 'Listening', kind: 'Connection needed', state: 'blocked', slot: null,
     title: 'Your listening lane is empty',
-    body: 'Pointed watches communities you opt into and ranks conversations worth joining, with the source link and the reason. Connect a source in Signals to fill this lane.',
-    why: 'No listening source connected.',
+    body: 'Pointed watches communities you opt into and ranks conversations worth joining, with the source link and the reason. Add a lane in Listening to fill this card.',
+    why: 'No listening lane has run yet.',
     evidence: []
   };
   S.drafts = [post, outline, listen];
@@ -201,7 +218,7 @@ async function buildPack() {
       body: JSON.stringify({
         kind: 'generate-pack',
         idempotencyKey: packKey(),
-        payload: { sampleText, brandName: S.brand.name, keptSignals: kept.map(k => ({ rule: k.rule })) }
+        payload: { sampleText, brandName: S.brand.name, keptSignals: kept.map(k => ({ rule: k.rule })), listening: topListening().map(c => ({ title: c.title, url: c.url, source: c.source || 'Hacker News' })) }
       })
     });
     if (!r.ok) throw new Error('job request failed: ' + r.status);
@@ -586,15 +603,17 @@ function downloadPack(d) {
 function renderListening() {
   const el = $('#view-listening');
   const lanes = S.lanes.map((l, i) => `
-    <article class="lane"><span class="provider comp">R</span><div class="lane-main"><b>r/${esc(l.community)}</b><small>Watching for: ${esc(l.query)}${l.exclusions ? ' · Excluding: ' + esc(l.exclusions) : ''} · Cap ${esc(String(l.cap))}/week</small></div><em><button class="linklike" data-rmlane="${i}">Remove</button></em></article>`).join('');
+    <article class="lane"><span class="provider comp">H</span><div class="lane-main"><b>Hacker News</b><small>Watching for: ${esc(l.query)}${l.exclusions ? ' · Excluding: ' + esc(l.exclusions) : ''} · Cap ${esc(String(l.cap))}/week</small>
+    <small>${l.lastError ? '<span class="needs-you">Last run failed: ' + esc(l.lastError) + '</span>' : l.lastRun ? 'Last run ' + timeAgo(l.lastRun) + ' · ' + (l.inbox || []).length + ' conversation' + ((l.inbox || []).length === 1 ? '' : 's') : 'Not run yet'}</small></div><em><button class="linklike" data-checklane="${i}">Check now</button> <button class="linklike" data-rmlane="${i}">Remove</button></em></article>`).join('');
+  const inbox = S.lanes.flatMap(l => (l.inbox || []).map(c => ({ ...c, lane: l })))
+    .sort((a, b) => b.rank - a.rank).slice(0, 20);
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">LISTENING INBOX</span><h2>Conversations worth joining. Nothing watched in secret.</h2></div></div>
-    <p class="muted">Pointed ranks public conversations against your lanes: matching signal, source link, age, the reason it matters, and a suggested reply in your voice. You always send the reply yourself. In this preview the lanes are real and saved; the watching runs on the hosted backend.</p>
+    <p class="muted">Pointed searches Hacker News for each lane's watch query and ranks what it finds: source link, age, discussion size, and the reason it matched. More communities (Reddit and others) join once their account connections land. You always send any reply yourself. You always send any reply yourself.</p>
     <div class="sig-list">${lanes || '<p class="muted">No lanes yet. Add the communities you want watched.</p>'}</div>
     ${S.lanes.length < 5 ? `<form id="lane-form" class="lane-form">
       <div class="lane-grid">
-        <input id="lane-community" placeholder="subreddit, e.g. startups" required>
-        <input id="lane-query" placeholder="watch for, e.g. ${S.brand ? esc(S.brand.name) + ', alternatives to, looking for a tool' : 'your brand, alternatives to, looking for a tool'}" required>
+        <input id="lane-query" placeholder="watch Hacker News for, e.g. ${S.brand ? esc(S.brand.name) + ', alternatives to, looking for a tool' : 'your brand, alternatives to, looking for a tool'}" required>
       </div>
       <div class="lane-grid">
         <input id="lane-exclusions" placeholder="exclude (optional), e.g. hiring, meme">
@@ -602,23 +621,53 @@ function renderListening() {
       </div>
       <button class="onb-primary">Add lane</button>
     </form>` : '<p class="muted">Lane cap reached (5). Remove one to add another.</p>'}
-    <div class="kw-map"><span class="eyebrow">INBOX</span><p class="muted">${S.lanes.length ? 'No conversations yet. The first ranked run lands here once the hosted watcher picks up your lanes, each with its source link and the reason it matched.' : 'The inbox stays empty until a lane exists. No lane, no watching.'}</p></div>
+    <div class="kw-map"><span class="eyebrow">INBOX</span>${inbox.length ? `<div class="sig-list">${inbox.map(c => `
+      <article class="sig"><div class="sig-main"><b><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.title)}</a></b>
+      <small>${esc(c.source || 'Hacker News')} · ${timeAgo(c.createdAt)} · ${c.score} points · ${c.comments} comments · ${esc(c.reason)}</small>
+      ${c.snippet ? `<blockquote>${esc(c.snippet)}</blockquote>` : ''}</div></article>`).join('')}</div>`
+    : `<p class="muted">${S.lanes.length ? (S.lanes.some(l => l.lastRun) ? 'The last run found nothing matching. That is a real result, not a loading state.' : 'No conversations yet. Hit Check now on a lane to run it against live Hacker News search.') : 'The inbox stays empty until a lane exists. No lane, no watching.'}</p>`}</div>
   </div>`;
   const f = $('#lane-form');
   if (f) f.addEventListener('submit', e => {
     e.preventDefault();
-    const community = $('#lane-community').value.trim().replace(/^r\//, '').replace(/[^A-Za-z0-9_-]/g, '');
     const query = $('#lane-query').value.trim();
-    if (!community || !query) return;
-    S.lanes.push({ id: uid(), community, query, exclusions: $('#lane-exclusions').value.trim(), cap: Math.min(50, Math.max(1, +$('#lane-cap').value || 10)) });
-    log('listening lane added', 'r/' + community + ' - ' + query);
+    if (!query) return;
+    S.lanes.push({ id: uid(), query, exclusions: $('#lane-exclusions').value.trim(), cap: Math.min(50, Math.max(1, +$('#lane-cap').value || 10)) });
+    log('listening lane added', 'Hacker News - ' + query);
     save(); renderAll();
   });
   $$('[data-rmlane]', el).forEach(b => b.addEventListener('click', () => {
     const [removed] = S.lanes.splice(+b.dataset.rmlane, 1);
-    log('listening lane removed', 'r/' + removed.community);
+    log('listening lane removed', 'Hacker News - ' + removed.query);
     save(); renderAll();
   }));
+  $$('[data-checklane]', el).forEach(b => b.addEventListener('click', () => checkLane(+b.dataset.checklane)));
+}
+
+async function checkLane(i) {
+  const lane = S.lanes[i];
+  if (!lane) return;
+  if (!S.hosted || !S.hosted.token) { lane.lastError = 'Listening runs through the hosted backend - finish onboarding to connect.'; save(); renderAll(); return; }
+  lane.lastError = null;
+  log('listening run started', 'Hacker News - ' + lane.query);
+  save(); renderAll();
+  try {
+    const r = await fetch(`${API}/api/brands/${S.hosted.brandId}/listen?query=${encodeURIComponent(lane.query)}&limit=25`, { headers: { Authorization: 'Bearer ' + S.hosted.token } });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || ('HTTP ' + r.status));
+    const excl = (lane.exclusions || '').split(',').map(w => w.trim().toLowerCase()).filter(Boolean);
+    lane.inbox = (data.items || [])
+      .filter(c => !excl.some(w => (c.title + ' ' + (c.snippet || '')).toLowerCase().includes(w)))
+      .map(c => ({ ...c, reason: `matches "${lane.query}" on Hacker News`, rank: c.comments * 2 + c.score }))
+      .sort((a, b) => b.rank - a.rank)
+      .slice(0, lane.cap);
+    lane.lastRun = new Date().toISOString();
+    log('listening run finished', `Hacker News - ${lane.inbox.length} conversations ranked`);
+  } catch (e) {
+    lane.lastError = String(e.message || e);
+    log('listening run failed', lane.lastError);
+  }
+  save(); renderAll();
 }
 
 /* ----- Market watch: competitors, topics, trusted sources; every signal keeps its chain ----- */
