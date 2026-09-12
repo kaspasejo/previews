@@ -686,7 +686,7 @@ function renderHealth() {
     ['Voice learning', S.signals.some(s => s.status === 'kept') ? ['ok', 'Active'] : ['warn', 'Waiting'], `${S.signals.filter(s => s.status === 'kept').length} rules kept, ${S.changes.length} changes recorded`],
     ['Review queue', ready ? ['warn', 'Needs you'] : ['ok', 'Clear'], ready ? `${ready} drafts waiting` : 'Nothing waiting'],
     ['Search ingestion', ['off', 'Not connected'], 'Connect Search Console to start'],
-    ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + ' lane(s) saved, watcher is hosted-only' : 'Add a lane in Listening'],
+    ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + (S.lanes.length === 1 ? ' lane saved' : ' lanes saved') + ', watcher is hosted-only' : 'Add a lane in Listening'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
   ];
   el.innerHTML = `<div class="review-wrap">
