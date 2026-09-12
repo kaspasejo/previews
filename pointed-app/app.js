@@ -748,7 +748,7 @@ function renderHealth() {
     ['Review queue', ready ? ['warn', 'Needs you'] : ['ok', 'Clear'], ready ? `${ready} drafts waiting` : 'Nothing waiting'],
     ['Search ingestion', ['off', 'Not connected'], 'Connect Search Console to start'],
     ['Listening', S.lanes.length ? ['ok', 'Lanes set'] : ['off', 'No lanes'], S.lanes.length ? S.lanes.length + (S.lanes.length === 1 ? ' lane saved' : ' lanes saved') + ', watcher is hosted-only' : 'Add a lane in Listening'],
-    ['Market watch', (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? ['ok', 'Watching'] : ['off', 'Nothing tracked'], (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? S.competitors.length + ' competitors, ' + S.watchTopics.length + ' topics, ' + S.watchSources.length + ' sources, tracker is hosted-only' : 'Add one in Market watch'],
+    ['Market watch', (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? ['ok', 'Watching'] : ['off', 'Nothing tracked'], (S.competitors.length + S.watchTopics.length + S.watchSources.length) ? [S.competitors.length + (S.competitors.length === 1 ? ' competitor' : ' competitors'), S.watchTopics.length + (S.watchTopics.length === 1 ? ' topic' : ' topics'), S.watchSources.length + (S.watchSources.length === 1 ? ' source' : ' sources')].join(', ') + ', tracker is hosted-only' : 'Add one in Market watch'],
     ['Publishing', ['off', 'Draft-only'], 'Connect a CMS to export'],
   ];
   el.innerHTML = `<div class="review-wrap">
