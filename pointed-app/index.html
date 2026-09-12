@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f6f6f1">
 <meta name="description" content="Pointed turns your voice and real business signals into useful work, ready for review.">
 <title>Pointed · Your voice, ready to work</title>
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 <link rel="stylesheet" href="blog.css?v=1">
 </head>
 <body>
@@ -77,13 +77,28 @@
 <a class="brand" href="#"><img src="assets/solid-nib.svg" alt=""><b>pointed<i>.</i></b></a>
 <div class="brand-pick" id="brand-pick"><span class="avatar amber" id="brand-initials">?</span><div><b id="brand-name">No brand yet</b><small id="brand-sub">Start with onboarding</small></div><button aria-label="Switch brand">⌄</button></div>
 <nav>
+<div class="nav-group"><span class="nav-label">Work</span>
 <button class="active" data-view="today">Today <em id="nav-count" hidden></em></button>
 <button data-view="review">Review queue</button>
-<button data-view="signals">Signals</button><button data-view="listening">Listening</button><button data-view="watch">Market watch</button><button data-view="press">Press</button><button data-view="publishing">Publishing</button><button data-view="agency">Agency</button>
 <button data-view="calendar">Calendar</button>
+</div>
+<div class="nav-group"><span class="nav-label">Signals</span>
+<button data-view="signals">Signals</button>
+<button data-view="listening">Listening</button>
+<button data-view="watch">Market watch</button>
+</div>
+<div class="nav-group"><span class="nav-label">Distribution</span>
+<button data-view="press">Press</button>
+<button data-view="publishing">Publishing</button>
+<button data-view="agency">Agency</button>
+</div>
+<div class="nav-group"><span class="nav-label">Brand</span>
 <button data-view="voice">Voice profile</button>
 <button data-view="results">Results</button>
+</div>
+<div class="nav-group"><span class="nav-label">System</span>
 <button data-view="health">System health</button>
+</div>
 </nav>
 <button class="back" data-close-app>← Landing page</button>
 </aside>
@@ -104,6 +119,6 @@
 </section>
 </section>
 
-<script src="app.js?v=11"></script>
+<script src="app.js?v=12"></script>
 </body>
 </html>
