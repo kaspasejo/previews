@@ -798,6 +798,30 @@ function renderPress() {
 }
 
 /* ----- Publishing: CMS connector framework. Connections are OAuth in the hosted build; policies are per-site. ----- */
+const OAUTH_PROVIDERS_UI = [
+  ['gsc', 'G', 'Google Search Console', 'Search queries and page performance, read-only.'],
+  ['slack', 'S', 'Slack', 'Digest destinations and approval pings in your workspace.'],
+  ['discord', 'D', 'Discord', 'Community destination for digests and alerts.'],
+];
+async function loadConnections() {
+  if (!S.hosted || !S.hosted.token) return null;
+  try {
+    const r = await fetch(`${API}/api/brands/${S.hosted.brandId}/connections`, { headers: { Authorization: 'Bearer ' + S.hosted.token } });
+    if (!r.ok) return null;
+    return (await r.json()).connections || {};
+  } catch (e) { return null; }
+}
+async function connectProvider(p) {
+  const err = $('#conn-err-' + p);
+  if (!S.hosted || !S.hosted.token) { if (err) err.textContent = 'Connections run through the hosted backend.'; return; }
+  try {
+    const r = await fetch(`${API}/api/brands/${S.hosted.brandId}/oauth/${p}`, { headers: { Authorization: 'Bearer ' + S.hosted.token } });
+    const d = await r.json();
+    if (!r.ok) { if (err) err.textContent = d.error + (d.fix ? ' - ' + d.fix : ''); return; }
+    window.open(d.url, '_blank', 'noopener');
+    log('connection started', p);
+  } catch (e) { if (err) err.textContent = String(e.message || e); }
+}
 function renderPublishing() {
   const el = $('#view-publishing');
   const connectors = [
@@ -809,6 +833,11 @@ function renderPublishing() {
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">PUBLISHING</span><h2>Connected when you connect it. Draft-first by default.</h2></div></div>
     <p class="muted">Pointed publishes through CMS connectors. In this preview the framework is visible; the connections themselves are authorized in the hosted build.</p>
+    <div class="watch-group">
+      <h3 class="group-h">Account connections</h3>
+      <p class="muted small">Each connection is an OAuth consent you complete yourself, for your own accounts, stored against this brand only. Disconnect any time.</p>
+      <div class="sig-list" id="conn-list"><p class="muted">Checking connection status...</p></div>
+    </div>
     <div class="watch-group">
       <h3 class="group-h">Connectors</h3>
       <div class="sig-list">${connectors}</div>
@@ -822,7 +851,24 @@ function renderPublishing() {
       <h3 class="group-h">Article tracking</h3>
       <div class="kw-map"><p class="muted">Nothing published yet. Every article Pointed touches is tracked here with its full history, canonical URL, sitemap presence, index state and any publishing failure with its fix.</p></div>
     </div>
+    <div class="watch-group">
+      <h3 class="group-h">For your agents (MCP)</h3>
+      <div class="kw-map"><p class="muted">Pointed is an MCP server. POST JSON-RPC to <b id="mcp-url"></b> with header <b>Authorization: Bearer &lt;your brand token&gt;</b>. Tools: list_drafts, list_signals, listening_inbox, recent_audit. Read-only - agents can look, never change. Your brand token was issued when this workspace connected; treat it like a password.</p></div>
+    </div>
   </div>`;
+  $('#mcp-url').textContent = API + '/api/mcp';
+  loadConnections().then(conns => {
+    const c = $('#conn-list');
+    if (!c) return;
+    if (!conns) { c.innerHTML = '<p class="muted">Connection status unavailable - this workspace is not on the hosted backend.</p>'; return; }
+    c.innerHTML = OAUTH_PROVIDERS_UI.map(([p, l, name, desc]) => {
+      const st = conns[p] || { connected: false };
+      return `<article class="lane"><span class="provider comp">${l}</span><div class="lane-main"><b>${name}</b><small>${desc}</small>
+        <small>${st.connected ? 'Connected since ' + timeAgo(st.since) : 'Not connected'}<span class="needs-you" id="conn-err-${p}"></span></small></div>
+        <em>${st.connected ? '<span class="muted small">Connected</span>' : `<button class="linklike" data-connect="${p}">Connect</button>`}</em></article>`;
+    }).join('');
+    $$('[data-connect]', c).forEach(b => b.addEventListener('click', () => connectProvider(b.dataset.connect)));
+  });
 }
 
 /* ----- Agency: client workspaces, roles, approval routes, sensitive-brand isolation ----- */
