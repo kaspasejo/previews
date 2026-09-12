@@ -182,6 +182,7 @@ h2,h3{text-wrap:balance}
 .digest-card .muted{color:#8b918b}
 .watch-group{margin:26px 0}
 .check-line{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600}
+#go-watch{width:auto;display:inline-block;margin:10px 0 0}
 .chain{display:flex;align-items:center;gap:10px;margin:16px 0 10px;flex-wrap:wrap}
 .chain span{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700}
 .chain i{font-style:normal;color:var(--soft)}
