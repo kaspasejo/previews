@@ -278,7 +278,7 @@ function renderAll() {
   ({ today: renderToday, review: renderReview, signals: renderSignals, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
-const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>' }[s] || '');
+const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
 
 /* ----- Today ----- */
 function renderToday() {
@@ -338,13 +338,14 @@ function renderReview() {
         <button class="rv-approve" data-act="approve">Approve</button>
         <button class="rv-edit" data-act="edit">Edit</button>
         <button class="rv-back" data-act="sendback">Send back</button>
-      </footer>` : d.state === 'approved' ? `<footer><span class="muted">Approved by you. It sits in the Calendar as approved, never auto-published.</span></footer>` : ''}
+      </footer>` : d.state === 'approved' ? `<footer><span class="muted">Approved by you. It sits in the Calendar as approved, never auto-published.</span><button class="linklike" data-act="toexport">Export pack &rarr;</button></footer>` : d.state === 'exported' ? `<footer><span class="muted">Exported. The pack lives in the Calendar; publishing stays manual or via a connected CMS.</span></footer>` : ''}
     </article>`).join('')}
   </div>`;
   $$('.rev-card button', el).forEach(b => b.addEventListener('click', () => {
     const card = b.closest('.rev-card');
     const d = S.drafts.find(x => x.id === card.dataset.id);
     const act = b.dataset.act;
+    if (act === 'toexport') { view = 'calendar'; renderAll(); return; }
     if (act === 'approve') {
       d.state = 'approved';
       log('draft approved', d.title);
@@ -406,18 +407,119 @@ function renderSignals() {
   }));
 }
 
+/* ----- Export pack + preflight (local, mechanical, honest) ----- */
+function preflight(d) {
+  const checks = [];
+  const zw = d.body.match(/[\u200B-\u200D\uFEFF\u00AD]/);
+  checks.push(zw
+    ? { name: 'Hidden characters', ok: false, blocking: true, fix: 'A zero-width or hidden character is in the copy, around position ' + zw.index + '. Delete it before this leaves.' }
+    : { name: 'Hidden characters', ok: true, note: 'No zero-width or invisible characters found.' });
+  if (d.channel === 'LinkedIn') {
+    const limit = 3000, over = d.body.length - limit;
+    checks.push(over > 0
+      ? { name: 'Channel length', ok: false, blocking: true, fix: 'LinkedIn cuts off at 3,000 characters. This is ' + over + ' over. Trim it in Review.' }
+      : { name: 'Channel length', ok: true, note: d.body.length + ' of 3,000 characters.' });
+  }
+  const tags = d.body.match(/#[A-Za-z]\w+/g) || [];
+  checks.push(tags.length
+    ? { name: 'Hashtags', ok: false, blocking: false, fix: tags.length + ' hashtag' + (tags.length > 1 ? 's' : '') + ' found (' + tags.slice(0, 3).join(' ') + '). Remove them unless they are deliberate.' }
+    : { name: 'Hashtags', ok: true, note: 'None. Clean.' });
+  const links = d.body.match(/https?:\/\/[^\s)\]]+/g) || [];
+  checks.push(links.length
+    ? { name: 'Links', ok: true, note: links.length + ' link' + (links.length > 1 ? 's' : '') + ': ' + links.join(', ') + '. Check they are the ones you mean to ship.' }
+    : { name: 'Links', ok: true, note: 'No links in the copy.' });
+  const closingQ = /\?\s*$/.test(d.body);
+  const noCloseQ = S.signals.some(s => s.status === 'kept' && s.rule === 'No generic closing questions');
+  if (closingQ && noCloseQ) checks.push({ name: 'Voice check', ok: false, blocking: false, fix: 'Ends on a question. Your kept voice rules say no generic closing questions.' });
+  return checks;
+}
+
+function packText(d) {
+  const checks = preflight(d);
+  return [
+    '# ' + d.title,
+    '',
+    'Channel: ' + d.channel + ' - ' + d.kind,
+    'Suggested slot: ' + (d.slot || 'Unscheduled'),
+    'Exported: ' + new Date().toISOString() + ' (from the Pointed preview, by you)',
+    '',
+    '## Copy',
+    '',
+    d.body,
+    '',
+    '## Media and alt text',
+    '',
+    'No media attached to this pack.',
+    '',
+    '## Why this exists',
+    '',
+    d.why,
+    ...(d.evidence && d.evidence.length ? ['', 'Evidence:', ...d.evidence.map(e => '- ' + e)] : []),
+    '',
+    '## Preflight at export',
+    '',
+    ...checks.map(c => '- ' + (c.ok ? 'PASS' : (c.blocking ? 'BLOCKED' : 'CHECK')) + ' - ' + c.name + ': ' + (c.note || c.fix)),
+    '',
+    'Publishing stays manual or via a connected CMS. Pointed never posts silently.'
+  ].join('\n');
+}
+
+function downloadPack(d) {
+  const blob = new Blob([packText(d)], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pointed-pack-' + d.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) + '.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  log('export pack downloaded', d.title);
+  save(); renderAll();
+}
+
 /* ----- Calendar ----- */
 function renderCalendar() {
   const el = $('#view-calendar');
   const sched = S.drafts.filter(d => d.state !== 'blocked');
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">CALENDAR</span><h2>Planned work, honest states.</h2></div></div>
-    ${sched.length ? sched.map(d => `
+    ${sched.length ? sched.map(d => {
+      const exportable = d.state === 'approved' || d.state === 'edited';
+      const exported = d.state === 'exported';
+      const checks = (exportable || exported) ? preflight(d) : [];
+      const blockedBy = checks.filter(c => c.blocking && !c.ok);
+      return `<div class="cal-item">
       <div class="cal-row"><div class="cal-day"><b>${esc(d.slot || 'Unscheduled')}</b><small>${esc(d.channel)}</small></div>
-      <div class="cal-main"><b>${esc(d.title)}</b><small>${esc(d.kind)}</small></div>${stateChip(d.state)}</div>`).join('')
+      <div class="cal-main"><b>${esc(d.title)}</b><small>${esc(d.kind)}</small></div>${stateChip(d.state)}</div>
+      ${exportable ? `<div class="pack-panel">
+        <span class="mini-label">EXPORT PACK · PREFLIGHT</span>
+        <ul class="pf-list">${checks.map(c => `<li class="${c.ok ? 'pf-pass' : c.blocking ? 'pf-block' : 'pf-warn'}"><i></i><div><b>${esc(c.name)}</b><small>${esc(c.ok ? c.note : c.fix)}</small></div></li>`).join('')}</ul>
+        <div class="pack-actions">
+          <button class="rv-edit" data-xact="copy" data-id="${d.id}">Copy text</button>
+          <button class="rv-approve" data-xact="download" data-id="${d.id}" ${blockedBy.length ? 'disabled' : ''}>Download pack (.md)</button>
+          <button class="rv-back" data-xact="mark" data-id="${d.id}" ${blockedBy.length ? 'disabled' : ''}>Mark as exported</button>
+        </div>
+        ${blockedBy.length ? '<small class="muted">Preflight failed closed: ' + esc(blockedBy[0].name) + '. Fix it in Review, then export.</small>' : '<small class="muted">Nothing auto-publishes. The pack is for your hands or a connected CMS.</small>'}
+      </div>` : ''}
+      ${exported ? `<div class="pack-panel done"><small class="muted">Exported${d.exportedAt ? ' ' + new Date(d.exportedAt).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''}. Publishing stays manual or via a connected CMS.</small><button class="linklike" data-xact="download" data-id="${d.id}">Download again</button></div>` : ''}
+      </div>`;
+    }).join('')
       : '<p class="muted">Nothing planned. Build a first pack from onboarding.</p>'}
     <p class="muted small">Approved means approved. Publishing happens through a connected CMS or by hand, never silently.</p>
   </div>`;
+  $$('[data-xact]', el).forEach(b => b.addEventListener('click', () => {
+    const d = S.drafts.find(x => x.id === b.dataset.id);
+    if (!d) return;
+    const act = b.dataset.xact;
+    if (act === 'copy') {
+      navigator.clipboard.writeText(d.body).then(() => { b.textContent = 'Copied'; setTimeout(() => { b.textContent = 'Copy text'; }, 1500); });
+      log('copy copied to clipboard', d.title); save();
+    } else if (act === 'download') {
+      downloadPack(d);
+    } else if (act === 'mark') {
+      d.state = 'exported'; d.exportedAt = new Date().toISOString();
+      log('draft marked exported', d.title);
+      save(); renderAll();
+    }
+  }));
 }
 
 /* ----- Voice profile ----- */
