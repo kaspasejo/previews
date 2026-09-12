@@ -180,4 +180,8 @@ h2,h3{text-wrap:balance}
 .digest-card li{font-size:13px;line-height:1.7;color:#c9cec9}
 .digest-card li b{color:var(--acid)}
 .digest-card .muted{color:#8b918b}
+.watch-group{margin:26px 0}
+.chain{display:flex;align-items:center;gap:10px;margin:16px 0 10px;flex-wrap:wrap}
+.chain span{border:1px solid var(--line);background:white;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700}
+.chain i{font-style:normal;color:var(--soft)}
 @media(max-width:560px){.lane-grid{grid-template-columns:1fr}.dest-events{display:grid}}
