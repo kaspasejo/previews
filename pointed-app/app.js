@@ -27,6 +27,7 @@ try { S = JSON.parse(localStorage.getItem(LS_KEY)) || freshState(); } catch (e) 
 S.lanes = S.lanes || [];
 S.destinations = S.destinations || [];
 S.competitors = S.competitors || [];
+S.competitors = S.competitors.map(c => typeof c === 'string' ? { id: uid(), name: c, url: 'https://' + c } : c);
 S.watchTopics = S.watchTopics || [];
 S.watchSources = S.watchSources || [];
 S.marketSignals = S.marketSignals || [];
@@ -392,33 +393,20 @@ function renderReview() {
 /* ----- Signals ----- */
 function renderSignals() {
   const el = $('#view-signals');
-  const comps = S.competitors.map((c, i) => `<div class="check-row"><i class="ok"></i><span>${esc(c)}</span><em><button class="linklike" data-rmcomp="${i}">Remove</button></em></div>`).join('');
+  const comps = S.competitors.map(c => `<div class="check-row"><i class="ok"></i><span>${esc(c.name)}</span></div>`).join('');
   el.innerHTML = `<div class="review-wrap">
     <div class="section-head"><div><span class="eyebrow">SIGNALS</span><h2>Sources you choose. Nothing watched in secret.</h2></div></div>
     <div class="sig-sources">
-      <article><span class="provider comp">↗</span><div><b>Competitors</b><small>Up to 3 sites. Pointed proposes a keyword map you review.</small></div></article>
-      <form id="comp-form" class="comp-form"><input id="comp-url" type="url" placeholder="https://competitor.com" ${S.competitors.length >= 3 ? 'disabled' : ''} required><button ${S.competitors.length >= 3 ? 'disabled' : ''}>Add</button></form>
+      <article><span class="provider comp">↗</span><div><b>Competitors</b><small>Up to 3 sites. Pointed proposes a keyword map you review. Managed in Market watch.</small></div></article>
       ${comps || '<p class="muted">No competitors yet.</p>'}
+      <button class="linklike" id="go-watch">Manage competitors in Market watch</button>
       <article class="src-off"><span class="provider google">G</span><div><b>Google Search Console</b><small>OAuth read access. Property picker appears after sign-in.</small></div><em>Hosted build only</em></article>
       <article class="src-off"><span class="provider slack">R</span><div><b>Reddit listening</b><small>Opt-in communities, ranked conversations, source links.</small></div><em>Hosted build only</em></article>
     </div>
     <div class="kw-map"><span class="eyebrow">KEYWORD MAP</span><p class="muted">${S.competitors.length ? 'Proposed after the first research run. Runs live on the hosted backend; this preview records your competitors so the map has somewhere to start.' : 'Add at least one competitor and Pointed has somewhere to start.'}</p></div>
   </div>`;
-  const f = $('#comp-form');
-  if (f) f.addEventListener('submit', e => {
-    e.preventDefault();
-    try {
-      const u = new URL($('#comp-url').value.startsWith('http') ? $('#comp-url').value : 'https://' + $('#comp-url').value);
-      S.competitors.push(u.hostname.replace(/^www\./, ''));
-      log('competitor added', u.hostname);
-      save(); renderAll();
-    } catch (err) { $('#comp-url').setCustomValidity('Enter a valid URL'); $('#comp-url').reportValidity(); }
-  });
-  $$('[data-rmcomp]', el).forEach(b => b.addEventListener('click', () => {
-    const [removed] = S.competitors.splice(+b.dataset.rmcomp, 1);
-    log('competitor removed', removed);
-    save(); renderAll();
-  }));
+  const gw = $('#go-watch');
+  if (gw) gw.addEventListener('click', () => { view = 'watch'; renderAll(); });
 }
 
 /* ----- Export pack + preflight (local, mechanical, honest) ----- */
