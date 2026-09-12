@@ -287,8 +287,8 @@ function renderAll() {
   $('#ws-greeting').textContent = h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
   const ready = S.drafts.filter(x => x.state === 'ready').length;
   const nc = $('#nav-count'); nc.hidden = !ready; nc.textContent = ready;
-  ['today', 'review', 'signals', 'listening', 'watch', 'press', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
-  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, press: renderPress, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
+  ['today', 'review', 'signals', 'listening', 'watch', 'press', 'publishing', 'calendar', 'voice', 'results', 'health'].forEach(v => { $('#view-' + v).hidden = v !== view; });
+  ({ today: renderToday, review: renderReview, signals: renderSignals, listening: renderListening, watch: renderWatch, press: renderPress, publishing: renderPublishing, calendar: renderCalendar, voice: renderVoice, results: renderResults, health: renderHealth })[view]();
 }
 
 const stateChip = s => ({ ready: '<span class="st ready">Ready for you</span>', approved: '<span class="st approved">Approved</span>', edited: '<span class="st edited">Edited</span>', sentback: '<span class="st sentback">Sent back</span>', blocked: '<span class="st blocked">Connection needed</span>', exported: '<span class="st exported">Exported</span>' }[s] || '');
@@ -652,6 +652,34 @@ function renderPress() {
     const [r] = S.outlets.splice(+b.dataset.rmoutlet, 1);
     log('press outlet removed', r.outlet); save(); renderAll();
   }));
+}
+
+/* ----- Publishing: CMS connector framework. Connections are OAuth in the hosted build; policies are per-site. ----- */
+function renderPublishing() {
+  const el = $('#view-publishing');
+  const connectors = [
+    ['W', 'WordPress', 'comp'],
+    ['S', 'Shopify', 'mint'],
+    ['W', 'Webflow', 'blue'],
+  ].map(([l, name, cls]) => `
+    <article class="lane"><span class="provider ${cls}">${l}</span><div class="lane-main"><b>${name}</b><small>Authorize with OAuth in the hosted build. Until then nothing here can publish, draft or read.</small></div><em>Not connected</em></article>`).join('');
+  el.innerHTML = `<div class="review-wrap">
+    <div class="section-head"><div><span class="eyebrow">PUBLISHING</span><h2>Connected when you connect it. Draft-first by default.</h2></div></div>
+    <p class="muted">Pointed publishes through CMS connectors. In this preview the framework is visible; the connections themselves are authorized in the hosted build.</p>
+    <div class="watch-group">
+      <h3 class="group-h">Connectors</h3>
+      <div class="sig-list">${connectors}</div>
+      <p class="muted small">Later systems implement the same connector contract: authenticate, list sites, create draft, update draft, read article state. Nothing outside that contract touches your CMS.</p>
+    </div>
+    <div class="watch-group">
+      <h3 class="group-h">Sites and policy</h3>
+      <div class="kw-map"><p class="muted">No sites connected. When a connector is authorized, its sites appear here and each site gets its own policy: <b>draft-only</b> (Pointed creates drafts, you publish) or <b>reviewed publishing</b> (publishes only what you approved in the review queue). There is no global auto-publish switch, and no site publishes without a policy you set.</p></div>
+    </div>
+    <div class="watch-group">
+      <h3 class="group-h">Article tracking</h3>
+      <div class="kw-map"><p class="muted">Nothing published yet. Every article Pointed touches is tracked here with its full history, canonical URL, sitemap presence, index state and any publishing failure with its fix.</p></div>
+    </div>
+  </div>`;
 }
 
 /* ----- Notifications: destinations + per-event choices (recorded here, delivered by the hosted backend) ----- */
