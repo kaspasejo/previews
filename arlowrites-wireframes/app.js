@@ -8,7 +8,7 @@ function show(n,replace=false){
   count.textContent=`${String(n).padStart(2,'0')} / ${String(frames.length).padStart(2,'0')}`;
   const url=new URL(location.href);url.searchParams.set('frame',n);
   history[replace?'replaceState':'pushState']({frame:n},'',url);
-  document.title=`${String(n).padStart(2,'0')} · Arlowrites wireframes`;
+  document.title=`${String(n).padStart(2,'0')} · Pointed wireframes`;
   scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }
 function current(){return Number(select.value)}
