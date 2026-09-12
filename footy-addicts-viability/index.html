@@ -4,24 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Footy Addicts Competitor — Viability Deep Dive</title>
-<meta name="description" content="An honest viability verdict on building a competitor to Footy Addicts, grounded in Companies House filings.">
+<meta name="description" content="An honest viability verdict on Footy Addicts: build, buy, or walk away — grounded in the founder's actual financials and Companies House filings.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #16161a;
-    --ink-2: #454550;
-    --ink-3: #6f6f7c;
-    --line: #e8e6e1;
-    --paper: #fbfaf8;
-    --card: #ffffff;
-    --accent: #FF8E3A;
-    --accent-soft: #fff3e9;
-    --green: #0d7a4f;
-    --green-soft: #e9f6f0;
-    --red: #b3261e;
-    --red-soft: #fdefed;
+    --ink: #16161a; --ink-2: #454550; --ink-3: #6f6f7c;
+    --line: #e8e6e1; --paper: #fbfaf8; --card: #ffffff;
+    --accent: #FF8E3A; --accent-soft: #fff3e9;
+    --green: #0d7a4f; --green-soft: #e9f6f0;
+    --red: #b3261e; --red-soft: #fdefed;
+    --blue: #1d5fa8; --blue-soft: #e9f1fa;
     --radius: 14px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,28 +23,19 @@
   body {
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     background: linear-gradient(180deg, #fdf3ea 0%, var(--paper) 340px);
-    color: var(--ink);
-    line-height: 1.62;
-    font-size: 16.5px;
+    color: var(--ink); line-height: 1.62; font-size: 16.5px;
     -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width: 780px; margin: 0 auto; padding: 44px 20px 80px; }
-
-  /* Header */
   .kicker {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--accent); margin-bottom: 14px;
   }
   .kicker::before { content: ""; width: 22px; height: 2px; background: var(--accent); border-radius: 2px; }
-  h1 {
-    font-size: clamp(30px, 6vw, 42px); font-weight: 800; letter-spacing: -0.03em;
-    line-height: 1.12; text-wrap: balance;
-  }
+  h1 { font-size: clamp(30px, 6vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; text-wrap: balance; }
   .meta { margin-top: 12px; color: var(--ink-3); font-size: 14px; }
   .lede { margin-top: 18px; font-size: 18px; color: var(--ink-2); text-wrap: pretty; }
-
-  /* Verdict card */
   .verdict {
     margin-top: 30px; background: var(--card); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 26px 26px 24px;
@@ -60,19 +45,16 @@
   .verdict::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 5px; background: linear-gradient(180deg, var(--accent), #ffb37e); }
   .verdict .tag {
     display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    background: var(--red-soft); color: var(--red); border-radius: 999px; padding: 5px 12px; margin-bottom: 14px;
+    border-radius: 999px; padding: 5px 12px; margin: 0 6px 14px 0;
   }
-  .verdict .tag.alt { background: var(--green-soft); color: var(--green); margin-left: 6px; }
+  .verdict .tag.r { background: var(--red-soft); color: var(--red); }
+  .verdict .tag.g { background: var(--green-soft); color: var(--green); }
+  .verdict .tag.b { background: var(--blue-soft); color: var(--blue); }
   .verdict p { text-wrap: pretty; color: var(--ink-2); }
   .verdict p + p { margin-top: 12px; }
   .verdict strong { color: var(--ink); }
-
-  /* Sections */
   section { margin-top: 52px; }
-  .sec-label {
-    font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--ink-3); margin-bottom: 10px;
-  }
+  .sec-label { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
   h2 { font-size: clamp(21px, 4.4vw, 26px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; text-wrap: balance; margin-bottom: 16px; }
   h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 26px 0 8px; text-wrap: balance; }
   p { text-wrap: pretty; }
@@ -81,27 +63,15 @@
   li { margin-top: 8px; text-wrap: pretty; }
   li::marker { color: var(--accent); font-weight: 700; }
   strong { font-weight: 700; }
-
-  .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px; margin-top: 18px;
-    box-shadow: 0 1px 2px rgba(22,22,26,.04);
-  }
-  .callout {
-    background: var(--accent-soft); border: 1px solid #f5d9bf; border-radius: var(--radius);
-    padding: 16px 18px; margin-top: 18px; font-size: 15px; color: var(--ink-2);
-  }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-top: 18px; box-shadow: 0 1px 2px rgba(22,22,26,.04); }
+  .callout { background: var(--accent-soft); border: 1px solid #f5d9bf; border-radius: var(--radius); padding: 16px 18px; margin-top: 18px; font-size: 15px; color: var(--ink-2); }
   .callout strong { color: var(--ink); }
-
-  /* Fact chips */
   .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 18px; }
   .chip { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
   .chip .n { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
   .chip .l { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
-
-  /* Table */
   .table-scroll { margin-top: 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 480px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { padding: 11px 14px; text-align: right; white-space: nowrap; }
   th:first-child, td:first-child { text-align: left; }
   thead th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); font-weight: 700; border-bottom: 1px solid var(--line); background: #fbfaf7; }
@@ -110,8 +80,6 @@
   td.neg { color: var(--red); font-weight: 600; }
   td.pos { color: var(--green); font-weight: 600; }
   .table-note { font-size: 12.5px; color: var(--ink-3); margin-top: 8px; }
-
-  /* Numbered verdict list */
   ol.big { counter-reset: n; list-style: none; padding: 0; margin-top: 6px; }
   ol.big li { counter-increment: n; position: relative; padding-left: 44px; margin-top: 18px; }
   ol.big li::before {
@@ -121,20 +89,12 @@
     display: flex; align-items: center; justify-content: center;
   }
   ol.big li strong.head { display: block; margin-bottom: 2px; }
-
-  /* Sources */
   .sources { font-size: 13.5px; color: var(--ink-2); }
   .sources li { margin-top: 6px; }
   .sources a { color: var(--ink); text-decoration: none; border-bottom: 1px solid #d8d4c9; word-break: break-all; }
   .sources a:hover { border-bottom-color: var(--accent); color: var(--accent); }
-
-  footer {
-    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
-    color: var(--ink-3); font-size: 13px;
-  }
+  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; color: var(--ink-3); font-size: 13px; }
   .wordmark { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--accent); font-size: 15px; letter-spacing: .01em; }
-
   @media (max-width: 480px) {
     body { font-size: 15.5px; }
     .wrap { padding: 32px 16px 64px; }
@@ -151,38 +111,32 @@
 
   <header>
     <div class="kicker">Viability deep&nbsp;dive</div>
-    <h1>Competing with Footy&nbsp;Addicts</h1>
-    <div class="meta">12 September 2026 · Prepared for Sam</div>
-    <p class="lede">Should you build a competitor to the UK&rsquo;s casual-football platform? We pulled the real Companies&nbsp;House filings, the market data and the cold-start evidence. Verdict first, plan&nbsp;second.</p>
+    <h1>Footy Addicts: build, buy, or walk&nbsp;away</h1>
+    <div class="meta">12 September 2026 · Prepared for Sam · v2 with the founder&rsquo;s actuals</div>
+    <p class="lede">The founder&rsquo;s real numbers are in, he&rsquo;s already quoted a price, and the business changed shape in January. Here is what the hard data says &mdash; verdict first, plan&nbsp;second.</p>
   </header>
 
   <div class="verdict">
-    <span class="tag">Don&rsquo;t build&nbsp;it</span><span class="tag alt">Acquire&nbsp;it</span>
-    <p><strong>A direct Footy Addicts competitor is not viable as an autonomous, ads-driven venture.</strong> The incumbent needed 13 years of manual community grind to reach roughly &pound;111k/year profit with zero employees, and the thing that makes it work &mdash; local game liquidity built by organisers &mdash; cannot be bought with ads or scraped pitch&nbsp;data.</p>
-    <p>The scrape-pitches &rarr; SEO &rarr; player-profiles &rarr; organisers wedge attacks the wrong side of the market: pitch data is a commodity, and players do not create profiles where there are no games. <strong>The viable route in is the conversation you have already opened: acquire Footy&nbsp;Addicts.</strong> The filings show a profitable, growing, founder-dependent business with one decision-maker. If he won&rsquo;t sell, the fallback is invest-and-operate, not&nbsp;compete.</p>
+    <span class="tag r">Don&rsquo;t build head&#8209;on</span><span class="tag b">Buyout: keep warm, not&nbsp;now</span><span class="tag g">Niche ops: optional</span>
+    <p><strong>Don&rsquo;t build a head-on competitor, and don&rsquo;t chase the buyout at anywhere near his number.</strong> The founder asked ~&pound;10M off future-value projections &mdash; that&rsquo;s 25&ndash;90&times; what the business actually earns (&pound;110k by the filings, up to ~&pound;300k on the friendliest reading of his own sheet). Your own model values it at &pound;2.8M, and even that leans on the new lean model holding up. A &pound;10M anchor is not a negotiation, it&rsquo;s a&nbsp;no.</p>
+    <p>The head-on build case got weaker, not stronger, in January: Footy Addicts slashed its take (from ~34% of player spend to ~12%) and cut staff and pitch costs to near zero &mdash; and profit went <em>up</em>. The &ldquo;I&rsquo;ll run it cheaper&rdquo; wedge is gone; they already run it at zero headcount. The one thing they gave up is the facilitator-run game layer they used to operate themselves &mdash; that&rsquo;s the only open lane, and it&rsquo;s a hands-on operating business, not an autonomous&nbsp;one.</p>
+    <p><strong>The move:</strong> keep the buyout warm &mdash; your &pound;2.8M seller-financed model is documented, the FY26 filings make his &pound;10M projection look sillier every year, and anchors crack. If you want in-market exposure now, the only grounded version is one city, one niche, facilitator-run games you seed yourself &mdash; treated as an operating business with a real time cost, never an autonomous&nbsp;one.</p>
   </div>
 
   <section>
     <div class="sec-label">Section 1</div>
-    <h2>What Footy Addicts actually&nbsp;is</h2>
-    <p>FOOTY ADDICTS LTD (company 08486314), incorporated 12 April 2013. Founder and sole director Konstantinos Gkortsilas, person with significant control owning 75%+. Site born 2013, app in 2015, first unofficial game in May&nbsp;2010.</p>
+    <h2>The real business, from the founder&rsquo;s own&nbsp;numbers</h2>
+    <p>FOOTY ADDICTS LTD (08486314), founded April 2013, app since 2015. Sole director Konstantinos Gkortsilas, 75%+ owner, with ~&pound;351k of investor money in from 2018&ndash;19 (Tracxn: Niche&nbsp;Invest).</p>
 
     <div class="chips">
-      <div class="chip"><div class="n">6,000+</div><div class="l">games per month (self-reported)</div></div>
-      <div class="chip"><div class="n">210k</div><div class="l">community, grown from 5 players</div></div>
-      <div class="chip"><div class="n">333+</div><div class="l">active venues per month</div></div>
-      <div class="chip"><div class="n">140+</div><div class="l">locations across England</div></div>
+      <div class="chip"><div class="n">&pound;4.39M</div><div class="l">player spend, FY2024 (founder&rsquo;s sheet)</div></div>
+      <div class="chip"><div class="n">49,635</div><div class="l">games played, FY2024</div></div>
+      <div class="chip"><div class="n">21,379</div><div class="l">avg. active users, FY2024 &mdash; doubled in 3 years</div></div>
+      <div class="chip"><div class="n">+102k</div><div class="l">P/L after tax, FY2024 (&pound;)</div></div>
     </div>
-    <p class="table-note">Scale figures are the company&rsquo;s own marketing numbers &mdash; directionally true, not audited. The filings below are hard&nbsp;data.</p>
+    <p class="table-note">First correction: the &ldquo;~&pound;500k/yr GMV&rdquo; estimate was off by ~9&times;. Player money in (Stripe + PayPal top-ups plus leagues) was &pound;2.17M in FY2021 and &pound;4.39M by FY2024, growing 23&ndash;33% a year. Organiser payouts took &pound;2.88M of the FY24 total, leaving ~34% in the&nbsp;company.</p>
 
-    <h3>The dual revenue&nbsp;model</h3>
-    <ul>
-      <li><strong>Open platform:</strong> organisers post games free; players pay in-app; Footy Addicts pays organisers weekly minus 4.3% + 20p processing.</li>
-      <li><strong>Own games:</strong> the company organises sessions itself with contracted &ldquo;game facilitators&rdquo;, bibs and balls &mdash; where the real margin sits. Player prices start at &pound;2, typically ~&pound;7 a session. The payment splits into VAT (20%), transaction fees, pitch hire (their biggest cost, up 55%+ in four years by their own account), facilitators, and reinvestment.</li>
-    </ul>
-    <p>Funding: &pound;349,800 of share premium on &pound;1,200 share capital from 2018&ndash;19 allotments &mdash; roughly &pound;351k of external money in. Tracxn lists one institutional investor, Niche&nbsp;Invest. Minority shareholders exist and would need buying&nbsp;out.</p>
-
-    <h3>The real financials, from Companies&nbsp;House</h3>
+    <h3>What the filings confirm (and add)</h3>
     <div class="table-scroll">
       <table>
         <thead>
@@ -196,93 +150,99 @@
         </tbody>
       </table>
     </div>
-    <p class="table-note">Small-company filleted accounts file no P&amp;L (s444(5A) exemption), so profit is inferred from P&amp;L reserve movement, assuming no dividends. Dividends would mean profits were higher. Average employees: zero in both FY25 and FY26 &mdash; everything is outsourced. FY26 accounts approved 21 May 2026.</p>
+    <p class="table-note">Companies House small-company accounts (no P&amp;L filed); profit inferred from reserve movement, so any dividends make true profit higher. Zero employees in FY25 and FY26. Reconciliation with the founder&rsquo;s sheet: his P/L-after-tax line (+89.9k, &minus;56.5k, +28.8k, +102.3k for FY21&ndash;24) directionally matches the filing trend of loss &rarr; recovery &rarr; solid profit, offset by year boundaries. Both sources agree on the shape: reliably profitable since FY23 at ~&pound;70&ndash;110k&nbsp;retained.</p>
 
-    <div class="callout"><strong>Reality-checking your numbers.</strong> Your &ldquo;~&pound;80k/year to the founder&rdquo; is close to true &mdash; FY26 profit is ~&pound;111k. Your &ldquo;~&pound;500k GMV&rdquo; looks low: 6,000 games a month at even 8 paid players &times; &pound;6 implies multi-million GMV, and &pound;111k profit on &pound;500k GMV would need an implausible 20%+ net margin. More likely GMV sits around &pound;1.5&ndash;4M with the platform netting a few percent. Confirm with the founder&rsquo;s actuals before any offer &mdash; but the filing trend (loss &rarr; &pound;69k &rarr; &pound;111k) says the business is real, growing, and accelerating since&nbsp;2024.</div>
+    <div class="callout"><strong>Second correction: your &ldquo;~&pound;80k/yr to the founder&rdquo; is probably low.</strong> His own sheet shows Jan&ndash;Jul 2025 running at roughly &pound;25&ndash;55k/month after tax under the new lean model (~&pound;300&ndash;400k annualised), while the FY26 filing only retained &pound;111k. The gap is almost certainly dividends &mdash; he&rsquo;s likely extracting &pound;100&ndash;250k+ a&nbsp;year. That matters for price: this is a business its owner milks, not one he&rsquo;s desperate to&nbsp;sell.</div>
 
-    <h3>Weaknesses users actually complain&nbsp;about</h3>
+    <h3>Weaknesses that don&rsquo;t show in his&nbsp;deck</h3>
     <ul>
-      <li><strong>The Android app is poor:</strong> 2.88 stars from 345 ratings, ~71k lifetime downloads. (iOS is much better: 4.5 stars, 646 ratings.)</li>
-      <li><strong>Refunds come back as wallet credit,</strong> not cash, with fees to withdraw &mdash; a recurring friction point in their own help docs.</li>
-      <li><strong>Payment-sync bugs:</strong> their help centre carries a &ldquo;Paid and not added in the list&rdquo; article.</li>
-      <li><strong>Light moderation:</strong> Trustpilot is 4.6 but only 86 reviews; complaints include rude, belittling players going unchecked.</li>
-      <li><strong>London-heavy</strong> despite &ldquo;140 locations&rdquo;, and 13 years to reach this scale &mdash; organic-only growth, no marketing sophistication.</li>
+      <li><strong>Android app: 2.88 stars</strong> (345 ratings) vs iOS 4.5 (646). Refunds come back as wallet credit, not cash. Payment-sync bugs (&ldquo;Paid and not added in the list&rdquo; is a standing help article).</li>
+      <li><strong>Thin moderation</strong> (Trustpilot 4.6 on only 86 reviews, with live complaints about abusive players) and London-heavy coverage.</li>
+      <li><strong>Key-person risk on one 44-year-old</strong> with other ventures &mdash; &pound;28.5k of company cash is loaned interest-free to his other company, The Grassroots Post Ltd.</li>
+      <li><strong>Minority investors</strong> from the &pound;351k raise complicate any sale &mdash; he can&rsquo;t sell 100% cleanly without them.</li>
     </ul>
   </section>
 
   <section>
     <div class="sec-label">Section 2</div>
-    <h2>The market is big, the commission pool&nbsp;isn&rsquo;t</h2>
-    <p>The FA&rsquo;s State of the Game report counts <strong>~1 million adults playing small-sided football at least weekly</strong> in England, with only ~218k in affiliated leagues &mdash; the large majority is recreational. The Football Foundation&rsquo;s 2018 insight report adds the killer detail: <strong>46% of small-sided players play for free</strong>, mostly in parks.</p>
-    <p>The money in this space lives in venues and leagues &mdash; Powerleague alone did &pound;33.8m revenue in FY2016 across 48 centres &mdash; not in marketplace commissions. Footy Addicts&rsquo; own P&amp;L (~&pound;111k profit after 13 years) is the best empirical measure of the standalone ceiling for a game-organising&nbsp;platform.</p>
+    <h2>The January pivot: they got leaner, not&nbsp;weaker</h2>
+    <p>Your read on the voice note is confirmed by his own numbers. In the sheet&rsquo;s Base Layer actuals, January 2025 is a hard break:</p>
+    <ul>
+      <li><strong>Take cut roughly in half:</strong> monthly platform turnover dropped from ~&pound;90k (Nov&ndash;Dec 2024) to &pound;39&ndash;61k &mdash; from ~34% of player spend to ~12%.</li>
+      <li><strong>Costs gutted:</strong> salaries go to zero from January 2025, and pitch hire &mdash; previously &pound;40&ndash;110k/month &mdash; effectively stops being a cost (months show net credits). Facilitator spend shrinks to a trickle. This is what &ldquo;stopped organising their own games&rdquo; looks like in a ledger: they exited the own-operated layer and became a pure booking platform.</li>
+      <li><strong>Profit went up:</strong> post-pivot months run at &pound;25&ndash;55k/month after tax in his sheet, and the FY26 filing (May 2025&ndash;Apr 2026, entirely post-pivot) confirms the new model works &mdash; +&pound;111k retained, zero employees, &pound;329k cash.</li>
+    </ul>
+    <p><strong>What this does to your case:</strong> two of the three build arguments die here. You can&rsquo;t undercut them on take &mdash; they already cut theirs. You can&rsquo;t out-lean them on cost &mdash; they run at zero headcount. What they left behind is the layer they abandoned: <strong>organised, facilitator-run games with quality control</strong> &mdash; the thing that made their sessions reliably better than a WhatsApp kickabout. That lane is open. It is also operationally heavy by definition &mdash; pitches booked 4&ndash;12 weeks ahead, facilitators on the ground, no&nbsp;autonomy.</p>
   </section>
 
   <section>
     <div class="sec-label">Section 3</div>
-    <h2>Who a new entrant actually&nbsp;fights</h2>
-    <ul>
-      <li><strong>Footy Addicts:</strong> the incumbent network &mdash; community, organiser relationships, payout rails, a London FA endorsement.</li>
-      <li><strong>Free substitutes:</strong> WhatsApp and Meetup groups and park kickabouts. The organiser&rsquo;s default tool is WhatsApp, not an app &mdash; one Hyde Park Meetup group alone has 500 members playing free every Sunday.</li>
-      <li><strong>Venue booking platforms:</strong> Playfinder, Bookteq, Schoolhire, Powerleague/Goals direct &mdash; they already own &ldquo;book a pitch&rdquo; search intent.</li>
-      <li><strong>Adjacent apps:</strong> Sentr Football (2022, free) and Prematch, a German grassroots app expanding into England.</li>
-    </ul>
+    <h2>The market, honestly&nbsp;sized</h2>
+    <p>~1 million adults play small-sided football weekly in England (FA State of the Game), but 46% of small-sided players play free, mostly in parks (Football Foundation 2018). The money pool concentrates in venues &mdash; Powerleague alone did &pound;33.8M revenue across 48 centres &mdash; while the platform layer is a single low-six-figure-profit business after 13 years. Competition for a new entrant: Footy Addicts&rsquo; network, free WhatsApp/Meetup groups (the organiser&rsquo;s real default), venue-booking platforms (Playfinder, Bookteq, Powerleague direct) for pitch SEO, and adjacent apps (Sentr, Prematch entering&nbsp;England).</p>
   </section>
 
   <section>
     <div class="sec-label">Section 4</div>
-    <h2>Why the scrape&ndash;SEO wedge doesn&rsquo;t work as&nbsp;drawn</h2>
+    <h2>Why the scrape&ndash;SEO wedge still doesn&rsquo;t&nbsp;work</h2>
     <ol class="big">
-      <li><strong class="head">Pitch data is a commodity.</strong> Playfinder, Bookteq, Schoolhire, Powerleague and Google Maps already rank for &ldquo;5-a-side pitch hire [town]&rdquo;. Ranking a new directory takes years per county &mdash; and that traffic is low-intent for pickup games: people searching &ldquo;book a pitch&rdquo; already have a group. They&rsquo;re organisers, not players looking for a game.</li>
-      <li><strong class="head">Player profiles need games, not data.</strong> A player registers to join a specific game with a date, a time and an open spot. No games means no reason to register, so the directory converts to bounce. Supply has to come first.</li>
-      <li><strong class="head">The marketplace is hyper-local.</strong> A game in Hackney does nothing for a player in Leeds. Every city is a fresh cold start &mdash; this is Andrew Chen&rsquo;s Cold Start Problem structure, won city by city with manual hustle. Uber paid drivers, Reddit faked content, Airbnb scraped Craigslist demand. There is no national shortcut.</li>
-      <li><strong class="head">The incumbent&rsquo;s history is the warning.</strong> First game May 2010, founded 2013, app 2015, profitable only in FY2025. Gkortsilas seeded supply himself for years. Thirteen years to ~&pound;111k profit.</li>
-      <li><strong class="head">Organisers are the scarce side &mdash; and already served.</strong> Footy Addicts fills their spare spots and handles the money. There&rsquo;s no pain big enough to make them switch, because their real alternative is their own WhatsApp group, which is free.</li>
+      <li><strong class="head">Pitch data is a commodity.</strong> Playfinder, Bookteq, Schoolhire, Powerleague and Google Maps already rank for pitch-hire searches &mdash; and that traffic is organisers who already have a group, not players looking for one.</li>
+      <li><strong class="head">Players need games, not data.</strong> Profiles follow supply. No games means no reason to register; the directory converts to bounce.</li>
+      <li><strong class="head">It&rsquo;s hyper-local.</strong> Every city is a fresh cold start (Chen&rsquo;s Cold Start Problem) &mdash; won with manual hustle, not automation. Uber paid drivers; Reddit faked content. There is no national shortcut.</li>
+      <li><strong class="head">The incumbent&rsquo;s history is the warning.</strong> First game 2010, founded 2013, profitable only from FY2023 &mdash; thirteen years of founder hustle, and he just proved the model only really pays when run lean.</li>
+      <li><strong class="head">Post-pivot, the price war is unwinnable.</strong> At a 12% take with zero staff, there is no margin left to attack. The only unserved demand is quality-run games &mdash; an ops business, not a platform.</li>
     </ol>
-    <p style="margin-top:18px"><strong>What would actually move organisers</strong> &mdash; including the ones you know personally &mdash; is guaranteed numbers: underwrite their empty spots (guaranteed minimum fill, or the platform pays the difference, or a guaranteed fee for the first ten games in a city). That is Chen&rsquo;s &ldquo;paying up for launch&rdquo; play &mdash; it works, it costs ~&pound;30&ndash;60 per underwritten game, and it is the opposite of&nbsp;autonomous.</p>
   </section>
 
   <section>
     <div class="sec-label">Section 5</div>
-    <h2>The economics of&nbsp;building</h2>
+    <h2>The economics, with real&nbsp;inputs</h2>
     <ul>
-      <li><strong>Unit economics:</strong> the platform nets roughly &pound;0.50&ndash;&pound;2 per booking after processing and VAT. An active casual player books ~2&times;/month &mdash; &pound;12&ndash;48/year gross margin per active player, before churn.</li>
-      <li><strong>Paid acquisition can&rsquo;t carry that:</strong> UK sports CPC benchmarks sit around &pound;3.56 in London, with fitness/leisure cost-per-lead at &pound;17&ndash;24. Paying &pound;15&ndash;25 to acquire a player worth &pound;12&ndash;48/year, in a marketplace that has no games in their area yet, means payback beyond a year on users who mostly never activate. Ads work for reactivation once a city has liquidity &mdash; not for cold start.</li>
-      <li><strong>Build cost is not the cost.</strong> You can build the platform yourself cheaply. The true cost is 2&ndash;4 years of city-by-city community operations &mdash; exactly the thing you want to be autonomous.</li>
-      <li><strong>Realistic ceiling if built well:</strong> a second Footy Addicts in 5+ years, earning low six figures a year. Probability-weighted outcome: stalls at the empty-marketplace stage, as Sentr and others have.</li>
+      <li><strong>Platform margin per booking is small:</strong> on his own FY24 numbers, &pound;1.51M platform revenue on 49,635 games &asymp; &pound;30/game &mdash; before VAT, staff, development and pitch costs left the P&amp;L at +&pound;102k. The post-pivot lean version keeps ~&pound;300&ndash;400k/yr by his sheet, ~&pound;111k+ retained by the filings.</li>
+      <li><strong>Paid acquisition can&rsquo;t seed this:</strong> UK sports CPC ~&pound;3.56 (London benchmark), CPL &pound;17&ndash;24 &mdash; against pounds-per-year margin per active player, in a marketplace with no local games yet. Ads are for reactivation after liquidity, never for cold start.</li>
+      <li><strong>The build cost is not the cost.</strong> 2&ndash;4 years of city-by-city community operations is &mdash; the exact thing you want&nbsp;autonomous.</li>
     </ul>
   </section>
 
   <section>
     <div class="sec-label">Section 6</div>
-    <h2>The viable play:&nbsp;acquisition</h2>
-    <p>You have already spoken to the co-founder about an acquisition &mdash; that conversation is worth more than any build plan.</p>
-    <ul>
-      <li><strong>What you&rsquo;d buy:</strong> ~&pound;111k/year of growing profit, &pound;329k of balance-sheet cash (price nets against it), a 210k community, organiser network, app, brand, payment rails and the London FA relationship.</li>
-      <li><strong>Price logic:</strong> a lifestyle-business multiple on ~&pound;70&ndash;111k of seller discretionary earnings &mdash; roughly 3&ndash;5&times; &mdash; puts the trade around &pound;300&ndash;550k, adjusted for cash. Check the cap table early: minority shareholders from the &pound;351k raise (Niche Invest et al.) need buying out, and the founder may want to keep The Grassroots Post separate &mdash; note the &pound;28.5k interest-free loan from Footy Addicts to that company sitting on the balance sheet.</li>
-      <li><strong>Why it fits you:</strong> your wedge ideas &mdash; SEO pitch data, automation, paid social, autonomous ops &mdash; are exactly what this business needs and lacks. It grew organically with zero marketing sophistication; a growth operator could plausibly 2&ndash;3&times; it. And you play on it twice a week &mdash; you are the user.</li>
-      <li><strong>If the founder won&rsquo;t sell:</strong> invest and operate rather than compete &mdash; buy a stake, take over growth and automation, leave him the community.</li>
-    </ul>
+    <h2>Acquisition: the number is fantasy &mdash; for&nbsp;now</h2>
+    <p>He asked ~&pound;10M off future-value projections. Stack the three prices side by side:</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Price basis</th><th>Value</th><th>Multiple of real earnings</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Founder&rsquo;s ask (future-value projections)</td><td>~&pound;10M</td><td class="neg">~25&ndash;90&times;</td></tr>
+          <tr><td>Your seller-financed model (&pound;250k down + &pound;205k/yr)</td><td>~&pound;2.8M</td><td>~8&ndash;25&times;</td></tr>
+          <tr><td>Conventional small-business multiple (4&ndash;7&times; &pound;110&ndash;300k)</td><td>~&pound;0.5&ndash;2M</td><td class="pos">4&ndash;7&times;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Real earnings range: &pound;111k retained in FY26 (filings) up to ~&pound;300k annualised on his own Jan&ndash;Jul 2025 actuals. Note the FY26 filing covers a full post-pivot year and retained only &pound;111k &mdash; your &pound;2.8M model already prices in the lean upside generously.</p>
+    <p>The gap between &pound;2.8M and &pound;10M is not a negotiation gap, it&rsquo;s a reality gap &mdash; his Base Layer tab projects 1.5% month-on-month growth forever, and he believes it. But anchors crack: he&rsquo;s 44, running it solo with zero staff, attention split to The Grassroots Post, minority shareholders to satisfy, and a business that pays him best while he keeps it. <strong>Keep the relationship and your model warm, revisit yearly, and let each new filing (&pound;111k retained vs his &pound;10M story) do the arguing.</strong> If he ever engages below ~&pound;3M on seller-financed terms, your Calcs tab shows it cash-flows: the business services its own purchase from year&nbsp;2&ndash;3.</p>
   </section>
 
   <section>
     <div class="sec-label">Section 7</div>
-    <h2>If you build anyway, the only credible&nbsp;version</h2>
+    <h2>If you want in now: the only credible&nbsp;version</h2>
     <ol>
-      <li>One city, one niche Footy Addicts is weak in &mdash; your own London patch, women&rsquo;s games, or over-35s, segments the Football Foundation report shows are underserved and respond to &ldquo;an activator&rdquo;.</li>
-      <li>Seed supply manually: sign ten organisers you know and underwrite their games for 8&ndash;12 weeks.</li>
-      <li>Keep the SEO pitch directory as a side-channel for organiser leads, not the engine.</li>
-      <li>Only spend on ads once a city has weekly liquidity, aimed at reactivation.</li>
+      <li>One city, one niche the lean Footy Addicts no longer serves: quality-run games with facilitators &mdash; your own London patch, women&rsquo;s games, or over-35s.</li>
+      <li>Seed supply manually: ten organisers you know, games underwritten for 8&ndash;12 weeks.</li>
+      <li>Charge for the quality layer, not the booking: curated games at a premium price point, run lean the way his own pivot proves possible.</li>
+      <li>SEO pitch directory as a side-channel for organiser leads, not the engine. Ads only for reactivation once weekly liquidity exists.</li>
     </ol>
-    <p>Budget honestly: &pound;20&ndash;50k in seeding subsidies plus 12&ndash;24 months before you know whether liquidity sticks. Autonomy comes after liquidity, never&nbsp;before.</p>
+    <p>Budget honestly: &pound;20&ndash;50k in seeding plus 12&ndash;24 months of your attention. It could become a &pound;50&ndash;150k/yr operating business. It will not be autonomous at the start, and it will not dent Footy Addicts &mdash; it lives in the lane they&nbsp;vacated.</p>
   </section>
 
   <section>
     <div class="sec-label">Section 8</div>
     <h2>Caveats</h2>
     <ul>
-      <li>Platform scale stats (6k games/month, 210k community, 15k signups/month) are self-reported marketing figures. The filings are hard data but balance-sheet only; profits are inferred from reserve movements assuming no dividends.</li>
-      <li>GMV is an estimate range, not a measured figure &mdash; settle it with the founder&rsquo;s actuals.</li>
-      <li>CPC/CPL figures are third-party benchmarks (aggregator-sourced), not quotes.</li>
+      <li>The founder&rsquo;s sheet is his own document: actuals to mid-2025 look genuine and reconcile with the filings, but monthly lines carry VAT-timing noise, and FY boundaries differ slightly between the two sources.</li>
+      <li>Filing profits are inferred from reserve movements &mdash; dividends (likely, given the gap) mean true profits were higher.</li>
+      <li>Platform scale stats (6k games/month on their site) are marketing figures; the sheet&rsquo;s 49,635 games in FY24 (~4.1k/month) is the harder number.</li>
+      <li>CPC/CPL figures are third-party benchmarks, not quotes.</li>
     </ul>
   </section>
 
@@ -290,24 +250,22 @@
     <div class="sec-label">Section 9</div>
     <h2>Sources</h2>
     <ul class="sources">
+      <li>Founder&rsquo;s financials + Sam&rsquo;s buyout model (Google Sheet) &mdash; <a href="https://docs.google.com/spreadsheets/d/1Ndfy19qsFB-4vvXDjLXdbxKbfSOeF3UPK1Q0DHE4rjQ/edit">docs.google.com &mdash; &ldquo;Footy Addicts&rdquo; (Existing / Summary / Activity / Base Layer / Calcs)</a></li>
       <li>Companies House overview &mdash; <a href="https://find-and-update.company-information.service.gov.uk/company/08486314">find-and-update.company-information.service.gov.uk/company/08486314</a></li>
-      <li>Filing history (accounts to 30 Apr 2026, filed 22 May 2026; plus 2025 and 2024 accounts) &mdash; <a href="https://find-and-update.company-information.service.gov.uk/company/08486314/filing-history">/company/08486314/filing-history</a></li>
+      <li>Filing history (accounts to 30 Apr 2026, filed 22 May 2026; 2025 and 2024 accounts) &mdash; <a href="https://find-and-update.company-information.service.gov.uk/company/08486314/filing-history">/company/08486314/filing-history</a></li>
       <li>Persons with significant control &mdash; <a href="https://find-and-update.company-information.service.gov.uk/company/08486314/persons-with-significant-control">/company/08486314/persons-with-significant-control</a></li>
-      <li>Footy Addicts About (scale stats, timeline) &mdash; <a href="https://footyaddicts.com/pages/about">footyaddicts.com/pages/about</a></li>
-      <li>What is Footy Addicts (model) &mdash; <a href="https://blog.footyaddicts.com/what-is-footy-addicts/">blog.footyaddicts.com/what-is-footy-addicts</a></li>
-      <li>Organiser payments: 4.3% + 20p, weekly payouts, refunds as credit &mdash; <a href="https://footyaddicts.uservoice.com/knowledgebase/articles/194593-collect-money-for-my-game">footyaddicts.uservoice.com &mdash; collect money for my game</a> and <a href="https://blog.footyaddicts.com/organise-football-games/">blog.footyaddicts.com/organise-football-games</a></li>
-      <li>Payment split: VAT, pitch hire +55%, facilitators &mdash; <a href="https://footyaddicts.uservoice.com/knowledgebase/articles/1998847-what-do-i-pay-for">footyaddicts.uservoice.com &mdash; what do I pay for</a></li>
-      <li>Android ratings/downloads (2.88 stars, ~71k downloads) &mdash; <a href="https://www.appbrain.com/app/footy-addicts/com.footyaddicts">appbrain.com/app/footy-addicts</a></li>
-      <li>iOS rating (4.5 stars, 646 ratings) &mdash; <a href="https://apps.apple.com/gb/app/footy-addicts-play-football/id980967349">apps.apple.com &mdash; Footy Addicts</a></li>
+      <li>Footy Addicts About (scale stats) &mdash; <a href="https://footyaddicts.com/pages/about">footyaddicts.com/pages/about</a></li>
+      <li>Organiser payments: 4.3% + 20p, weekly payouts, refunds as credit &mdash; <a href="https://footyaddicts.uservoice.com/knowledgebase/articles/194593-collect-money-for-my-game">footyaddicts.uservoice.com</a> and <a href="https://blog.footyaddicts.com/organise-football-games/">blog.footyaddicts.com/organise-football-games</a></li>
+      <li>Payment split: VAT, pitch hire, facilitators &mdash; <a href="https://footyaddicts.uservoice.com/knowledgebase/articles/1998847-what-do-i-pay-for">footyaddicts.uservoice.com &mdash; what do I pay for</a></li>
+      <li>Android ratings (2.88 stars) &mdash; <a href="https://www.appbrain.com/app/footy-addicts/com.footyaddicts">appbrain.com/app/footy-addicts</a> · iOS (4.5 stars) &mdash; <a href="https://apps.apple.com/gb/app/footy-addicts-play-football/id980967349">apps.apple.com</a></li>
       <li>Trustpilot (4.6, 86 reviews) &mdash; <a href="https://www.trustpilot.com/review/footyaddicts.com">trustpilot.com/review/footyaddicts.com</a></li>
-      <li>Funding (Niche Invest) &mdash; <a href="https://tracxn.com/d/companies/footyaddicts/__Z4b5aOGDNBK8aOOBkEsnzG0wD-h9uztPSyAZNYggz-g/funding-and-investors">tracxn.com &mdash; Footy Addicts funding</a></li>
-      <li>FA State of the Game 2015 (1m weekly small-sided players) &mdash; <a href="https://www.thefa.com/-/media/files/pdf/fa-competitions-archive/fa-competitions-1415/9386-fa-state-of-the-game-final-apr15.ashx?la=en">thefa.com &mdash; State of the Game</a></li>
-      <li>Football Foundation Small-sided Insight Report 2018 (46% play free) &mdash; <a href="https://footballfoundation.org.uk/sites/default/files/2020-07/Small-sided%20Football%20Insight%20Report%20Summary%20May%202018.pdf">footballfoundation.org.uk report (PDF)</a></li>
-      <li>Powerleague revenue &pound;33.8m &mdash; <a href="https://www.heraldscotland.com/business_hq/15343500.five-a-side-football-group-powerleague-lifts-revenue-33-8m/">heraldscotland.com</a></li>
-      <li>Andrew Chen, The Cold Start Problem &mdash; <a href="https://andrewchen.com/wp-content/uploads/2022/01/ColdStartProb_9780062969743_AS0928_cc20_Final.pdf">andrewchen.com (sample PDF)</a></li>
-      <li>UK CPC benchmarks &mdash; <a href="https://weirdigital.media/ppc-benchmarks-for-uk-industries-2026/">weirdigital.media</a> and <a href="https://ppcchief.com/google-ads-cost/sports-recreation/london">ppcchief.com</a> (aggregator-sourced)</li>
-      <li>Footy Addicts vs Sentr &mdash; <a href="https://footyapps.com/compare/footy-addicts-a4a7b515-vs-sentr-football">footyapps.com</a></li>
-      <li>Meetup/WhatsApp substitute example &mdash; <a href="https://www.meetup.com/cosmos-social-free-football-and-volleyball/">meetup.com/cosmos-social-free-football-and-volleyball</a></li>
+      <li>Funding (Niche Invest) &mdash; <a href="https://tracxn.com/d/companies/footyaddicts/__Z4b5aOGDNBK8aOOBkEsnzG0wD-h9uztPSyAZNYggz-g/funding-and-investors">tracxn.com</a></li>
+      <li>FA State of the Game 2015 &mdash; <a href="https://www.thefa.com/-/media/files/pdf/fa-competitions-archive/fa-competitions-1415/9386-fa-state-of-the-game-final-apr15.ashx?la=en">thefa.com</a></li>
+      <li>Football Foundation Small-sided Insight Report 2018 &mdash; <a href="https://footballfoundation.org.uk/sites/default/files/2020-07/Small-sided%20Football%20Insight%20Report%20Summary%20May%202018.pdf">footballfoundation.org.uk (PDF)</a></li>
+      <li>Powerleague revenue &mdash; <a href="https://www.heraldscotland.com/business_hq/15343500.five-a-side-football-group-powerleague-lifts-revenue-33-8m/">heraldscotland.com</a></li>
+      <li>Andrew Chen, The Cold Start Problem &mdash; <a href="https://andrewchen.com/wp-content/uploads/2022/01/ColdStartProb_9780062969743_AS0928_cc20_Final.pdf">andrewchen.com (PDF)</a></li>
+      <li>UK CPC benchmarks &mdash; <a href="https://weirdigital.media/ppc-benchmarks-for-uk-industries-2026/">weirdigital.media</a>, <a href="https://ppcchief.com/google-ads-cost/sports-recreation/london">ppcchief.com</a> (aggregator-sourced)</li>
+      <li>Competitor context &mdash; <a href="https://footyapps.com/compare/footy-addicts-a4a7b515-vs-sentr-football">footyapps.com</a>, <a href="https://www.meetup.com/cosmos-social-free-football-and-volleyball/">meetup.com</a></li>
     </ul>
   </section>
 
