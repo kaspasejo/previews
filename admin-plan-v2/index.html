@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b0b10">
-<title>admin.kaspasejo.com - product plan v2</title>
+<title>admin.kaspasejo.com - product plan v3</title>
 <style>
   :root{
     --paper:#f4f3ee; --ink:#17171c; --muted:#6f6e78; --faint:#8a8896;
@@ -151,6 +151,91 @@
     .stat .sv{font-size:22px}
     .mock{margin-top:24px}
   }
+
+  /* ===== phone mockups (v3) ===== */
+  .phone-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:38px 28px;margin-top:46px;justify-items:center;align-items:start;position:relative}
+  .phone{width:100%;max-width:352px;background:#101016;border:1px solid #2a2a33;border-radius:48px;padding:11px;box-shadow:0 40px 90px -34px rgba(0,0,0,.7)}
+  .phone-screen{background:#f2f2f7;border-radius:38px;overflow:hidden;display:flex;flex-direction:column;height:648px;position:relative;color:#17171c;text-align:left}
+  .p-status{display:flex;justify-content:space-between;align-items:center;padding:15px 27px 4px;font-size:13.5px;font-weight:700;flex:none;color:#17171c}
+  .p-icons{display:inline-flex;gap:5px;align-items:center;color:#17171c}
+  .p-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:11px;padding:8px 16px 12px;overflow:hidden}
+  .p-kick{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8a8896}
+  .p-title{font-size:29px;font-weight:800;letter-spacing:-0.025em;line-height:1.08;margin-top:1px;text-wrap:balance}
+  .p-search{display:flex;align-items:center;gap:8px;background:#e8e8ee;border-radius:11px;padding:8px 12px;font-size:13.5px;color:#8a8896;flex:none}
+  .p-card{background:#fff;border-radius:16px;padding:13px 15px;box-shadow:0 1px 2px rgba(18,18,43,.05);flex:none}
+  .p-bignum{font-size:30px;font-weight:800;letter-spacing:-0.02em}
+  .p-sumlabel{font-size:13.5px;font-weight:600;color:#55535f}
+  .p-sumrow{display:flex;align-items:baseline;gap:8px}
+  .p-chips{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+  .p-chip{font-size:11.5px;font-weight:600;background:#f0eff6;color:#55535f;border-radius:999px;padding:4px 10px;white-space:nowrap}
+  .p-rowtop{display:flex;align-items:center;gap:11px}
+  .p-rowmain{min-width:0}
+  .p-rowmain b{display:block;font-size:14.5px;letter-spacing:-0.01em}
+  .p-rowmain span{display:block;font-size:12.5px;color:#6f6e78;margin-top:1px}
+  .p-btn{display:block;text-align:center;background:var(--purple);color:#fff;font-size:13px;font-weight:700;border-radius:11px;padding:9px 0;margin-top:11px}
+  .p-btn.soft{background:#f0eff6;color:#3f3d4d}
+  .av-sm{width:34px;height:34px;border-radius:50%;background:#e4dcfa;color:#5b43b3;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .p-back{color:var(--purple);font-size:14px;font-weight:600}
+  .p-navrow{display:flex;justify-content:space-between;align-items:center;flex:none}
+  .p-idrow{display:flex;align-items:center;gap:12px;flex:none}
+  .p-idrow .av-sm{width:46px;height:46px;font-size:15px}
+  .p-idname b{display:block;font-size:18px;font-weight:800;letter-spacing:-0.015em}
+  .p-idname span{display:block;margin-top:4px}
+  .p-list{display:flex;flex-direction:column}
+  .p-li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #f0f0f4;font-size:13px;align-items:baseline}
+  .p-li:first-child{border-top:0}
+  .p-li .k{color:#8a8896;flex:none}
+  .p-li .v{font-weight:600;text-align:right}
+  .p-mailquote{font-size:13px;color:#3f3d4d;margin-top:6px;line-height:1.45}
+  .p-link{color:var(--purple);font-size:13px;font-weight:700;margin-top:9px;display:inline-block}
+  .p-stagebar{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;flex:none;padding-bottom:2px}
+  .p-stagebar::-webkit-scrollbar{display:none}
+  .p-stage{flex:none;font-size:12.5px;font-weight:700;padding:7px 13px;border-radius:999px;background:#e8e8ee;color:#55535f;white-space:nowrap}
+  .p-stage.on{background:var(--purple);color:#fff}
+  .p-fab{position:absolute;right:18px;bottom:74px;width:52px;height:52px;border-radius:50%;background:var(--purple);color:#fff;font-size:26px;font-weight:500;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px -8px rgba(123,92,214,.7)}
+  .tabbar{flex:none;display:flex;justify-content:space-around;background:rgba(252,252,253,.94);border-top:1px solid #e5e4ea;padding:7px 4px 15px}
+  .tab{display:flex;flex-direction:column;align-items:center;gap:2.5px;font-size:9.5px;font-weight:600;color:#9a99a6;min-width:52px}
+  .tab.on{color:var(--purple)}
+  .tab svg{width:22px;height:22px;display:block}
+  .bub-u{align-self:flex-end;background:var(--purple);color:#fff;border-radius:17px 17px 4px 17px;padding:9px 13px;font-size:13px;line-height:1.4;max-width:84%;flex:none}
+  .bub-k{align-self:flex-start;background:#fff;border-radius:17px 17px 17px 4px;padding:9px 13px;font-size:13px;line-height:1.4;max-width:88%;box-shadow:0 1px 2px rgba(18,18,43,.05);flex:none}
+  .p-evi{display:flex;gap:6px;flex-wrap:wrap;flex:none}
+  .p-evi span{font-size:10.5px;font-weight:700;background:#efeafd;color:#6a4fc9;border-radius:999px;padding:3.5px 9px;white-space:nowrap}
+  .p-act{background:#fff;border:1.5px solid #ddd2f5;border-radius:16px;padding:12px 14px;flex:none}
+  .p-actbtns{display:flex;gap:8px;margin-top:10px}
+  .p-actbtns .a1{flex:1;background:var(--purple);color:#fff;text-align:center;font-size:12.5px;font-weight:700;border-radius:10px;padding:8px 0}
+  .p-actbtns .a2{flex:1;background:#f0eff6;color:#3f3d4d;text-align:center;font-size:12.5px;font-weight:700;border-radius:10px;padding:8px 0}
+  .p-input{flex:none;display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:7px 8px 7px 15px;font-size:13px;color:#9a99a6;box-shadow:0 1px 2px rgba(18,18,43,.05)}
+  .p-send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+  .p-gmailsub{font-size:15px;font-weight:700;letter-spacing:-0.01em}
+  .p-sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -14px 40px -12px rgba(18,18,43,.28);padding:8px 18px 20px}
+  .p-grab{width:38px;height:4.5px;border-radius:99px;background:#d8d7de;margin:2px auto 12px}
+  .p-sheetrow{display:flex;align-items:center;gap:11px}
+  .p-mini{font-size:12px;color:#6f6e78;margin-top:8px}
+  .p-mini b{color:#17171c}
+  .p-more{display:block;text-align:center;font-size:12px;font-weight:600;color:#8a8896;padding:9px 0 2px}
+  .rules-card{align-self:center;width:100%;max-width:352px}
+  .rules-card .rl{display:flex;gap:13px;padding:11px 0;border-top:1px solid var(--dark-line);align-items:baseline}
+  .rules-card .rl:first-of-type{border-top:0}
+  .rules-card .rn{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--purple);flex:none}
+  .rules-card .rl b{font-size:14.5px;display:block;letter-spacing:-0.01em}
+  .rules-card .rl span{font-size:12.5px;color:var(--dark-muted);display:block;margin-top:2px}
+  @media (max-width:640px){
+    #cover .pill{white-space:normal;line-height:1.45}
+    .mock-side{display:flex;align-items:center;gap:4px 10px;overflow-x:auto;scrollbar-width:none;padding:11px 14px}
+    .mock-side::-webkit-scrollbar{display:none}
+    .mock-side .brand{flex:none;margin-right:2px}
+    .mock-side nav{display:flex;gap:2px;margin:0;flex:none}
+    .mock-side .side-h{display:none}
+    .mi{padding:5px 10px;font-size:12.5px;white-space:nowrap;flex:none}
+    .statgrid{grid-template-columns:1fr;gap:10px}
+    .stat{display:grid;grid-template-columns:1fr auto;grid-template-areas:"sk sv" "sn sv";column-gap:12px;align-items:center;padding:12px 16px}
+    .stat .sk{grid-area:sk}
+    .stat .sn{grid-area:sn;margin-top:1px}
+    .stat .sv{grid-area:sv;margin:0;font-size:24px}
+    .mock-main{padding:14px}
+    .phone-grid{grid-template-columns:1fr;gap:30px}
+  }
 </style>
 </head>
 <body>
@@ -159,11 +244,11 @@
 <section class="dark" id="cover">
   <div class="wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;position:relative">
-      <div class="eyebrow" style="margin:0">Product plan · 11 September 2026</div>
+      <div class="eyebrow" style="margin:0">Product plan v3 · 12 September 2026</div>
       <a href="../" style="color:var(--dark-faint);font-size:12.5px;text-decoration:none">kaspasejo.github.io/previews</a>
     </div>
     <h1 style="margin-top:26px">One admin.<br><span style="color:#a78bfa">The whole operating system.</span></h1>
-    <p class="lede">A build plan for the place where Sam runs the CRM, manages Adonae and Murmr, and asks Kai to act. Includes designed product views, system boundaries, migration order, effort and running costs.</p>
+    <p class="lede">A build plan for the place where Sam runs the CRM, manages Adonae and Murmr, and asks Kai to act. Includes designed product views for desktop and phone, system boundaries, migration order, effort and running costs.</p>
     <div class="grid g3" style="margin-top:44px">
       <div class="card">
         <div class="kick">Memory</div>
@@ -283,13 +368,13 @@
         <p>Chat on the right, live records on the left. Kai can gather context and stage actions without hiding what changes.</p>
       </div>
     </div>
-    <div class="mtable" style="margin-top:14px">
+    <div class="x-scroll" style="margin-top:14px"><div class="mtable" style="min-width:620px">
       <div class="mrow mhead" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Area</span><span>Owns</span><span>Reads</span><span>Never owns</span></div>
       <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Vault</span><span>Memory</span><span>CRM + sources</span><span>Deal state</span></div>
       <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>CRM</span><span>Operational ledger</span><span>Vault + Gmail</span><span>App customer truth</span></div>
       <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>App admin</span><span>Admin actions</span><span>App databases</span><span>CRM dossiers</span></div>
       <div class="mrow" style="grid-template-columns:1fr 1fr 1fr 1fr"><span>Kai</span><span>Reasoning + actions</span><span>All permitted context</span><span>Canonical records</span></div>
-    </div>
+    </div></div>
     <div class="src"><span>Decision encoded from ecosystem plan: vault = memory; CRM = ledger; content = output.</span><span class="pg">ADMIN.KASPASEJO.COM · 04</span></div>
   </div>
 </section>
@@ -727,7 +812,126 @@
   </div>
 </section>
 
-<!-- 11 EMAIL INSIDE ADMIN -->
+
+<!-- 11 MOBILE APP -->
+<section class="dark" id="mobile-app">
+  <div class="wrap">
+    <div class="eyebrow">Mobile &middot; the admin app</div>
+    <h2>Designed for the phone, not shrunk to fit it.</h2>
+    <p class="sub">The admin is used from a phone first, so the five key surfaces are designed as native-feeling phone screens. Bottom tab bar, cards instead of squeezed tables, one primary action in thumb reach, and Gmail still the only place mail is written. What is shown here is what gets built at 390px.</p>
+    <div class="phone-grid">
+      <div class="phone"><div class="phone-screen">
+<div class="p-status"><span>9:41</span><span class="p-icons"><svg viewBox="0 0 18 12" width="17" height="12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.5a10 10 0 0 1 13 0"/><path d="M4 7.2a6.4 6.4 0 0 1 8 0"/><circle cx="8" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 25 12" width="24" height="12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="15" height="7" rx="2" fill="currentColor"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".5"/></svg></span></div>
+<div class="p-body">
+  <div style="flex:none"><div class="p-kick">Friday, 11 September</div><div class="p-title">Today</div></div>
+  <div class="p-search"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span>Search people, deals, tasks</span></div>
+  <div class="p-card">
+    <div class="p-sumrow"><span class="p-bignum">7</span><span class="p-sumlabel">things need you</span></div>
+    <div class="p-chips"><span class="p-chip">3 replies</span><span class="p-chip">2 promises</span><span class="p-chip">2 stale deals</span></div>
+  </div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">JH</span><div class="p-rowmain"><b>J. Hart</b><span>No reply for 5 days &middot; Kulcho</span></div></div><span class="p-btn">Review draft</span></div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">NP</span><div class="p-rowmain"><b>Northstar</b><span>Promise due today &middot; Fundraising</span></div></div><span class="p-btn soft">Open deal</span></div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">MA</span><div class="p-rowmain"><b>Maya A.</b><span>Meeting in 2 hours &middot; Wickent</span></div></div><span class="p-btn soft">Read brief</span></div>
+</div>
+<div class="tabbar"><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.6"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg><span>Today</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.4"/><path d="M5.6 19.2c1.1-3.6 3.6-5.2 6.4-5.2s5.3 1.6 6.4 5.2"/></svg><span>People</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 19.5V9.5M12 19.5V4.5M17.8 19.5v-6.5"/></svg><span>Pipeline</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="4.5" y="13.1" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="13.1" width="6.4" height="6.4" rx="1.8"/></svg><span>Apps</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2l1.9 5.1 5.1 1.9-5.1 1.9L12 18.2l-1.9-5.1L5 11.2l5.1-1.9z"/></svg><span>Kai</span></div></div>
+</div></div>
+      <div class="phone"><div class="phone-screen">
+<div class="p-status"><span>9:41</span><span class="p-icons"><svg viewBox="0 0 18 12" width="17" height="12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.5a10 10 0 0 1 13 0"/><path d="M4 7.2a6.4 6.4 0 0 1 8 0"/><circle cx="8" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 25 12" width="24" height="12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="15" height="7" rx="2" fill="currentColor"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".5"/></svg></span></div>
+<div class="p-body">
+  <div class="p-navrow"><span class="p-back">&lsaquo; People</span><span class="av-sm" style="background:#17171f;color:#fff">SG</span></div>
+  <div class="p-idrow"><span class="av-sm">MA</span><div class="p-idname"><b>Maya Anderson</b><span class="pill pill-green" style="font-size:11px;padding:3px 10px">Warm relationship</span></div></div>
+  <div class="p-card"><div class="p-list">
+    <div class="p-li"><span class="k">Organisation</span><span class="v">Northstar Ventures</span></div>
+    <div class="p-li"><span class="k">Pipeline</span><span class="v">Fundraising &middot; Meeting</span></div>
+    <div class="p-li"><span class="k">Next step</span><span class="v">Data room by Monday</span></div>
+    <div class="p-li"><span class="k">Known from</span><span class="v">3 emails &middot; 1 meeting</span></div>
+  </div></div>
+  <div class="p-card">
+    <div class="p-kick">Latest thread &middot; Re: Kulcho follow-up</div>
+    <p class="p-mailquote">&ldquo;Could you send the retention table and current runway?&rdquo; &mdash; Maya, yesterday</p>
+    <span class="p-link">Open in Gmail &nearr;</span>
+  </div>
+  <div class="p-act">
+    <div class="p-kick" style="color:#6a4fc9">Kai suggestion</div>
+    <p class="p-mailquote" style="margin-top:5px">Draft a concise reply with the retention table, held in Gmail for approval.</p>
+    <span class="p-btn">Ask Kai to draft</span>
+  </div>
+</div>
+<div class="tabbar"><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.6"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg><span>Today</span></div><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.4"/><path d="M5.6 19.2c1.1-3.6 3.6-5.2 6.4-5.2s5.3 1.6 6.4 5.2"/></svg><span>People</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 19.5V9.5M12 19.5V4.5M17.8 19.5v-6.5"/></svg><span>Pipeline</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="4.5" y="13.1" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="13.1" width="6.4" height="6.4" rx="1.8"/></svg><span>Apps</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2l1.9 5.1 5.1 1.9-5.1 1.9L12 18.2l-1.9-5.1L5 11.2l5.1-1.9z"/></svg><span>Kai</span></div></div>
+</div></div>
+      <div class="phone"><div class="phone-screen">
+<div class="p-status"><span>9:41</span><span class="p-icons"><svg viewBox="0 0 18 12" width="17" height="12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.5a10 10 0 0 1 13 0"/><path d="M4 7.2a6.4 6.4 0 0 1 8 0"/><circle cx="8" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 25 12" width="24" height="12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="15" height="7" rx="2" fill="currentColor"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".5"/></svg></span></div>
+<div class="p-body">
+  <div class="p-navrow" style="align-items:flex-end">
+    <div><div class="p-kick">Pipeline</div><div class="p-title" style="font-size:26px">Fundraising</div></div>
+    <span class="pill pill-purple" style="font-size:11.5px">&pound;210k open</span>
+  </div>
+  <div class="p-stagebar">
+    <span class="p-stage">New &middot; 4</span><span class="p-stage on">Contacted &middot; 6</span><span class="p-stage">Meeting &middot; 3</span><span class="p-stage">Nurture &middot; 8</span>
+  </div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">OC</span><div class="p-rowmain"><b>Orbit Capital</b><span>11 days in stage &middot; stale</span></div><span class="pill pill-amber" style="margin-left:auto;font-size:10.5px">Needs you</span></div></div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">VP</span><div class="p-rowmain"><b>Vale Partners</b><span>Last touch yesterday</span></div></div></div>
+  <div class="p-card"><div class="p-rowtop"><span class="av-sm">BR</span><div class="p-rowmain"><b>Beacon Row</b><span>Intro replied Tuesday</span></div></div></div>
+  <span class="p-more">+ 3 more in Contacted</span>
+</div>
+<span class="p-fab">+</span>
+<div class="tabbar"><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.6"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg><span>Today</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.4"/><path d="M5.6 19.2c1.1-3.6 3.6-5.2 6.4-5.2s5.3 1.6 6.4 5.2"/></svg><span>People</span></div><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 19.5V9.5M12 19.5V4.5M17.8 19.5v-6.5"/></svg><span>Pipeline</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="4.5" y="13.1" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="13.1" width="6.4" height="6.4" rx="1.8"/></svg><span>Apps</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2l1.9 5.1 5.1 1.9-5.1 1.9L12 18.2l-1.9-5.1L5 11.2l5.1-1.9z"/></svg><span>Kai</span></div></div>
+</div></div>
+      <div class="phone"><div class="phone-screen">
+<div class="p-status"><span>9:41</span><span class="p-icons"><svg viewBox="0 0 18 12" width="17" height="12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.5a10 10 0 0 1 13 0"/><path d="M4 7.2a6.4 6.4 0 0 1 8 0"/><circle cx="8" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 25 12" width="24" height="12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="15" height="7" rx="2" fill="currentColor"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".5"/></svg></span></div>
+<div class="p-body">
+  <div class="p-navrow"><div><div class="p-kick">Kai &middot; Phase 2.5</div><div class="p-title" style="font-size:26px">Ask Kai</div></div><span class="pill pill-green dot" style="font-size:10.5px">Sources current</span></div>
+  <div class="bub-u">What do I owe Maya, and can you prepare it?</div>
+  <div class="bub-k">The retention table and current runway, due Monday. I found the latest thread and the meeting note.</div>
+  <div class="p-evi"><span>Gmail &middot; 10 Sep</span><span>Vault note &middot; 8 Sep</span></div>
+  <div class="bub-u">Do that. Keep it direct.</div>
+  <div class="p-act">
+    <div class="p-kick" style="color:#6a4fc9">Action preview</div>
+    <p class="p-mailquote" style="margin-top:5px">Gmail draft to Maya Anderson with the retention table attached. Nothing sends.</p>
+    <div class="p-actbtns"><span class="a1">Approve draft</span><span class="a2">Edit</span></div>
+  </div>
+  <div class="p-input"><span>Ask Kai&hellip;</span><span class="p-send"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></span></div>
+</div>
+<div class="tabbar"><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.6"/><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg><span>Today</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.4"/><path d="M5.6 19.2c1.1-3.6 3.6-5.2 6.4-5.2s5.3 1.6 6.4 5.2"/></svg><span>People</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.2 19.5V9.5M12 19.5V4.5M17.8 19.5v-6.5"/></svg><span>Pipeline</span></div><div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="4.5" width="6.4" height="6.4" rx="1.8"/><rect x="4.5" y="13.1" width="6.4" height="6.4" rx="1.8"/><rect x="13.1" y="13.1" width="6.4" height="6.4" rx="1.8"/></svg><span>Apps</span></div><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.2l1.9 5.1 5.1 1.9-5.1 1.9L12 18.2l-1.9-5.1L5 11.2l5.1-1.9z"/></svg><span>Kai</span></div></div>
+</div></div>
+      <div class="phone"><div class="phone-screen">
+<div class="p-status"><span>9:41</span><span class="p-icons"><svg viewBox="0 0 18 12" width="17" height="12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="5" width="3" height="7" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 16 12" width="16" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1.5 4.5a10 10 0 0 1 13 0"/><path d="M4 7.2a6.4 6.4 0 0 1 8 0"/><circle cx="8" cy="10" r="1.2" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 25 12" width="24" height="12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="15" height="7" rx="2" fill="currentColor"/><path d="M23.5 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".5"/></svg></span></div>
+<div class="p-body">
+  <div class="p-navrow"><span class="p-back">&lsaquo; Inbox</span><span class="p-gmailsub">Re: Kulcho follow-up</span></div>
+  <div class="p-card" style="flex:none">
+    <div class="p-rowtop"><span class="av-sm">MA</span><div class="p-rowmain"><b>Maya Anderson</b><span>Yesterday, 16:42 &middot; to me</span></div></div>
+    <p class="p-mailquote" style="margin-top:10px">Thanks Sam. The creator migration story is clearer now. Could you send the retention table and current runway?</p>
+  </div>
+  <div class="p-card" style="flex:none;background:#f7f7fa">
+    <div class="p-kick">Reply in Gmail</div>
+    <p class="p-mailquote" style="margin-top:4px">Gmail remains the composer and the sending surface.</p>
+  </div>
+</div>
+<div class="p-sheet">
+  <div class="p-grab"></div>
+  <div class="p-kick" style="color:#6a4fc9">Admin &middot; side glance</div>
+  <div class="p-sheetrow" style="margin-top:9px"><span class="av-sm">MA</span><div class="p-rowmain"><b>Maya Anderson</b><span>Northstar Ventures &middot; Fundraising &middot; Meeting</span></div><span class="pill pill-green" style="margin-left:auto;font-size:10px">Warm</span></div>
+  <p class="p-mini"><b>Next step</b> &middot; Send revised data room by Monday</p>
+  <p class="p-mini"><b>Context</b> &middot; 3 emails &middot; 1 meeting &middot; asked about retention</p>
+  <span class="p-btn">Copy Kai draft</span>
+</div>
+</div></div>
+      <div class="card rules-card">
+  <div class="kick">The mobile rules</div>
+  <h3 style="font-size:19px;margin-top:4px">What changes at 390px</h3>
+  <div style="margin-top:10px">
+    <div class="rl"><span class="rn">01</span><div><b>Bottom tab bar, not a sidebar</b><span>Today, People, Pipeline, Apps and Kai sit under the thumb.</span></div></div>
+    <div class="rl"><span class="rn">02</span><div><b>Cards and lists, not tables</b><span>No desktop grid squeezed into a phone width. Ever.</span></div></div>
+    <div class="rl"><span class="rn">03</span><div><b>One primary action per screen</b><span>The main button sits in thumb reach, above the tab bar.</span></div></div>
+    <div class="rl"><span class="rn">04</span><div><b>Gmail stays the composer</b><span>On phone the companion becomes a sheet over the thread, not a second inbox.</span></div></div>
+  </div>
+</div>
+    </div>
+    <div class="src"><span>Patterns: Apple HIG tab bars and large titles, grouped cards, 390px-first layout. Same surfaces as the desktop mockups, redesigned - not resized.</span><span class="pg">ADMIN.KASPASEJO.COM &middot; 11</span></div>
+  </div>
+</section>
+
+<!-- 12 EMAIL INSIDE ADMIN -->
 <section class="light" id="email-inside">
   <div class="wrap">
     <div class="eyebrow">Email inside admin</div>
@@ -747,11 +951,11 @@
       <b style="font-size:13.5px;letter-spacing:.02em">THE HONEST ACCESS LINE</b>
       <p>Auto-updates and reply detection need one of two inputs: the Gmail companion can observe the open Gmail tab, or a proper Gmail connection can supply reliable mailbox events. Without either, Admin cannot know a send or reply happened. This must be visible in settings and onboarding, not buried as a technical dependency.</p>
     </div>
-    <div class="src"><span>Sources: Sam voice note, 11 Sep 2026; Attio email/calendar sync: <a href="https://attio.com/help/reference/email-calendar/email-and-calendar-syncing" style="color:inherit">attio.com/help/reference/email-calendar/email-and-calendar-syncing</a></span><span class="pg">ADMIN.KASPASEJO.COM · 11</span></div>
+    <div class="src"><span>Sources: Sam voice note, 11 Sep 2026; Attio email/calendar sync: <a href="https://attio.com/help/reference/email-calendar/email-and-calendar-syncing" style="color:inherit">attio.com/help/reference/email-calendar/email-and-calendar-syncing</a></span><span class="pg">ADMIN.KASPASEJO.COM · 12</span></div>
   </div>
 </section>
 
-<!-- 12 ACTIVITY AUTOMATION -->
+<!-- 13 ACTIVITY AUTOMATION -->
 <section class="light" id="activity-automation">
   <div class="wrap">
     <div class="eyebrow">Activity automation</div>
@@ -768,11 +972,11 @@
       <div class="card"><h3 style="letter-spacing:.02em">EXAMPLE: INBOUND</h3><p>“I’ll get those over next Tuesday.” Status → Promised. Next step → Await metrics. Due → Next Tuesday.</p></div>
       <div class="card"><h3 style="letter-spacing:.02em">WHEN IT IS UNCLEAR</h3><p>“Let’s catch up soon.” No invented date. Keep the current status and add a review card to Today.</p></div>
     </div>
-    <div class="src"><span>Design rule: an automation must retain the source event, prior value, new value and rollback path.</span><span class="pg">ADMIN.KASPASEJO.COM · 12</span></div>
+    <div class="src"><span>Design rule: an automation must retain the source event, prior value, new value and rollback path.</span><span class="pg">ADMIN.KASPASEJO.COM · 13</span></div>
   </div>
 </section>
 
-<!-- 13 SEQUENCES -->
+<!-- 14 SEQUENCES -->
 <section class="dark" id="sequences">
   <div class="wrap">
     <div class="eyebrow">Sequences</div>
@@ -792,11 +996,11 @@
       <div class="card"><h3>Guardrails</h3><p>Per-brand sending identity · working hours · daily cap · audit</p></div>
       <div class="card"><h3>First template</h3><p>Day 1 outreach · Day 7 follow-up · no branching in v1</p></div>
     </div>
-    <div class="src"><span>Attio reference: <a href="https://attio.com/help/academy/sequences/managing-sequences" style="color:inherit">attio.com/help/academy/sequences/managing-sequences</a></span><span class="pg">ADMIN.KASPASEJO.COM · 13</span></div>
+    <div class="src"><span>Attio reference: <a href="https://attio.com/help/academy/sequences/managing-sequences" style="color:inherit">attio.com/help/academy/sequences/managing-sequences</a></span><span class="pg">ADMIN.KASPASEJO.COM · 14</span></div>
   </div>
 </section>
 
-<!-- 14 MOCKUP GMAIL COMPANION -->
+<!-- 15 MOCKUP GMAIL COMPANION -->
 <section class="light" id="mock-companion">
   <div class="wrap">
     <div class="eyebrow">Mockup · Gmail companion</div>
@@ -857,11 +1061,11 @@
         </div>
       </div>
     </div>
-    <div class="src"><span>Mockup · Gmail companion. Side-glance context only; Gmail still owns reading, drafting and sending.</span><span class="pg">ADMIN.KASPASEJO.COM · 14</span></div>
+    <div class="src"><span>Mockup · Gmail companion. Side-glance context only; Gmail still owns reading, drafting and sending.</span><span class="pg">ADMIN.KASPASEJO.COM · 15</span></div>
   </div>
 </section>
 
-<!-- 15 MOCKUP SEQUENCE DETAIL -->
+<!-- 16 MOCKUP SEQUENCE DETAIL -->
 <section class="light" id="mock-sequence">
   <div class="wrap">
     <div class="eyebrow">Mockup · Sequence detail</div>
@@ -920,11 +1124,11 @@
         </div>
       </div>
     </div>
-    <div class="src"><span>Mockup · sequence detail. V1 starts with one Day 1 + Day 7 template and explicit stop conditions.</span><span class="pg">ADMIN.KASPASEJO.COM · 15</span></div>
+    <div class="src"><span>Mockup · sequence detail. V1 starts with one Day 1 + Day 7 template and explicit stop conditions.</span><span class="pg">ADMIN.KASPASEJO.COM · 16</span></div>
   </div>
 </section>
 
-<!-- 16 INTERFACE TEARDOWN -->
+<!-- 17 INTERFACE TEARDOWN -->
 <section class="light" id="teardown">
   <div class="wrap">
     <div class="eyebrow">Interface teardown</div>
@@ -940,11 +1144,11 @@
       <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><h3>7 · Visible automation state</h3><span class="tagpill">Admin-specific</span></div><p>Every rule says what source it watches, what it changes, last run, failure state and how to pause it.</p></div>
       <div class="card edge-green"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><h3>8 · Progressive disclosure</h3><span class="tagpill">Admin-specific</span></div><p>Default to essentials. Reveal provenance, raw events and audit detail only when asked.</p></div>
     </div>
-    <div class="src"><span>Sources: Attio navigation/lists docs; Radiant OSS repo and app screenshot: <a href="https://github.com/dylanmeyford/radiant-ai-crm-oss" style="color:inherit">github.com/dylanmeyford/radiant-ai-crm-oss</a></span><span class="pg">ADMIN.KASPASEJO.COM · 16</span></div>
+    <div class="src"><span>Sources: Attio navigation/lists docs; Radiant OSS repo and app screenshot: <a href="https://github.com/dylanmeyford/radiant-ai-crm-oss" style="color:inherit">github.com/dylanmeyford/radiant-ai-crm-oss</a></span><span class="pg">ADMIN.KASPASEJO.COM · 17</span></div>
   </div>
 </section>
 
-<!-- 17 WHAT CHANGES IN KAI -->
+<!-- 18 WHAT CHANGES IN KAI -->
 <section class="light" id="kai-changes">
   <div class="wrap">
     <div class="eyebrow">What changes in Kai</div>
@@ -960,11 +1164,11 @@
       <b style="font-size:13.5px;letter-spacing:.02em">ATTIO MIGRATION CHANGE</b>
       <p>There is no Attio history worth importing. Remove Attio from the migration path. Admin supersedes the future need for it; the source systems are the Master CRM sheet, Gmail/companion activity, meetings and the app databases.</p>
     </div>
-    <div class="src"><span>Source: Sam voice note, 11 Sep 2026; v1 Kai architecture retained.</span><span class="pg">ADMIN.KASPASEJO.COM · 17</span></div>
+    <div class="src"><span>Source: Sam voice note, 11 Sep 2026; v1 Kai architecture retained.</span><span class="pg">ADMIN.KASPASEJO.COM · 18</span></div>
   </div>
 </section>
 
-<!-- 18 DELIVERY PATH -->
+<!-- 19 DELIVERY PATH -->
 <section class="dark" id="delivery">
   <div class="wrap">
     <div class="eyebrow">Delivery path</div>
@@ -977,11 +1181,11 @@
       <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">3</span><div><h3 style="letter-spacing:.02em">APP ADMIN</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">2-4 weeks</div></div></div><p style="margin-top:12px">Adonae + Murmr admin tools behind shared contracts.</p></div>
       <div class="card"><div style="display:flex;gap:14px;align-items:baseline"><span style="font-size:34px;font-weight:800;color:#a78bfa">4</span><div><h3 style="letter-spacing:.02em">AUTOMATION</h3><div style="color:var(--green);font-size:12.5px;font-weight:700;margin-top:2px">Ongoing</div></div></div><p style="margin-top:12px">Connected Gmail, reliable reply events, safe auto-updates, measured sends.</p></div>
     </div>
-    <div class="src"><span>Effort ranges are implementation estimates, not quotes. Near-zero software cost remains the target; Gmail/API volume may add later cost.</span><span class="pg">ADMIN.KASPASEJO.COM · 18</span></div>
+    <div class="src"><span>Effort ranges are implementation estimates, not quotes. Near-zero software cost remains the target; Gmail/API volume may add later cost.</span><span class="pg">ADMIN.KASPASEJO.COM · 19</span></div>
   </div>
 </section>
 
-<!-- 19 LOCKED DECISIONS -->
+<!-- 20 LOCKED DECISIONS -->
 <section class="light" id="decisions">
   <div class="wrap">
     <div class="eyebrow">Locked decisions</div>
@@ -997,7 +1201,7 @@
       <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><h3>07 · Gmail companion</h3><span class="pill pill-green">LOCKED</span></div><p>Side-glance panel for identity, relationship and prior conversations.</p></div>
       <div class="card edge-l"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap"><h3>08 · Sequences</h3><span class="pill pill-green">LOCKED</span></div><p>Day 1 + Day 7 unless replied. Auto-send only with Gmail connected; otherwise drafts + reminders.</p></div>
     </div>
-    <div class="src"><span>Only wording to confirm: “one Admin with a protected adult workspace wall” versus removing that wall entirely.</span><span class="pg">ADMIN.KASPASEJO.COM · 19</span></div>
+    <div class="src"><span>Only wording to confirm: “one Admin with a protected adult workspace wall” versus removing that wall entirely.</span><span class="pg">ADMIN.KASPASEJO.COM · 20</span></div>
   </div>
 </section>
 
@@ -1007,3 +1211,4 @@
 </script>
 </body>
 </html>
+
