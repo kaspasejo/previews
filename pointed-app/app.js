@@ -23,6 +23,10 @@ function freshState() {
 }
 let S;
 try { S = JSON.parse(localStorage.getItem(LS_KEY)) || freshState(); } catch (e) { S = freshState(); }
+/* Forward-compatible state: fields added after a user first ran the preview. */
+S.lanes = S.lanes || [];
+S.destinations = S.destinations || [];
+S.competitors = S.competitors || [];
 const save = () => localStorage.setItem(LS_KEY, JSON.stringify(S));
 const log = (action, detail) => { S.audit.unshift({ id: uid(), time: new Date().toISOString(), actor: 'you', action, detail }); };
 
