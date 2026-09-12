@@ -24,7 +24,12 @@
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
+  main { flex: 1 0 auto; display: flex; flex-direction: column; }
   .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
   /* ---------- top bar ---------- */
@@ -57,6 +62,9 @@
   /* ---------- hero ---------- */
   .hero {
     position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
     background:
       radial-gradient(720px 420px at 78% 8%, rgba(168,230,224,0.10), transparent 65%),
       radial-gradient(560px 380px at 8% 92%, rgba(255,142,58,0.06), transparent 60%),
@@ -93,18 +101,56 @@
   .btn .arrow { font-weight: 400; }
 
   .hero-figure { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  .hero-figure img {
-    width: 100%; max-width: 340px; height: auto; border-radius: 24px;
+  .kai-stage {
+    position: relative;
+    width: 100%; max-width: 340px;
+    transform-origin: 50% 100%;
+    animation: kaisway 7.5s ease-in-out infinite alternate;
+  }
+  .kai-stage img {
+    display: block; width: 100%; height: auto; border-radius: 24px;
     border: 1px solid var(--line);
     animation: floaty 5.5s ease-in-out infinite;
   }
+  .kai-fx {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border-radius: 24px;
+    pointer-events: none;
+  }
   .hero-figure figcaption { font-size: 13px; color: var(--muted); }
+
+  /* Kai's life: sway, float, propeller spin, blink */
+  @keyframes kaisway {
+    from { transform: rotate(-1.2deg); }
+    to   { transform: rotate(1deg); }
+  }
   @keyframes floaty {
     0%, 100% { transform: translateY(0) rotate(-0.6deg); }
     50% { transform: translateY(-12px) rotate(0.8deg); }
   }
+  .prop-spin {
+    transform-origin: 377px 218px;
+    animation: propspin 3.2s linear infinite;
+  }
+  @keyframes propspin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .lid {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    transform: scaleY(0);
+    animation: kaiblink 5s ease-in-out infinite;
+  }
+  @keyframes kaiblink {
+    0%, 90%, 100% { transform: scaleY(0); }
+    93%, 95.5%    { transform: scaleY(1); }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .hero-figure img { animation: none; }
+    .kai-stage, .kai-stage img, .prop-spin, .lid, .rise { animation: none; }
+    .lid { transform: scaleY(0); }
+    .rise { opacity: 1; transform: none; }
   }
 
   /* ---------- sections ---------- */
@@ -148,7 +194,7 @@
   .final h2 { font-size: 40px; }
   .final .body-copy { max-width: 52ch; }
 
-  footer { border-top: 1px solid var(--line); }
+  footer { border-top: 1px solid var(--line); flex-shrink: 0; }
   footer .wrap {
     padding-top: 28px; padding-bottom: 28px;
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -170,7 +216,7 @@
       padding-top: 56px; padding-bottom: 56px;
     }
     .hero-figure { order: -1; }
-    .hero-figure img { max-width: 240px; }
+    .kai-stage { max-width: 240px; }
     h1 { font-size: 42px; }
     .hero p.kicker { font-size: 19px; }
     .hero p.lede { font-size: 17px; }
@@ -206,7 +252,22 @@
         </div>
       </div>
       <figure class="hero-figure rise d3">
-        <img src="kai.png" alt="Kai, a small doodlepunk-style robot in a propeller hat">
+        <div class="kai-stage">
+          <img src="kai.png" alt="Kai, a small doodlepunk-style robot in a propeller hat">
+          <svg class="kai-fx" viewBox="0 0 700 700" aria-hidden="true" focusable="false">
+            <!-- hide the static propeller blades so Kai's own propeller can spin -->
+            <ellipse cx="377" cy="218" rx="38" ry="19" fill="#234576"/>
+            <line x1="377" y1="213" x2="377" y2="243" stroke="#0a0a0a" stroke-width="9" stroke-linecap="round"/>
+            <g class="prop-spin">
+              <path d="M2 0 C9 -8 21 -10 27 -4 C29 -2 29 2 27 4 C21 10 9 8 2 0 Z" fill="#56a069" stroke="#0a0a0a" stroke-width="2.5" transform="translate(377 218) rotate(-13)"/>
+              <path d="M2 0 C9 -8 21 -10 27 -4 C29 -2 29 2 27 4 C21 10 9 8 2 0 Z" fill="#56a069" stroke="#0a0a0a" stroke-width="2.5" transform="translate(377 218) rotate(167)"/>
+              <circle cx="377" cy="218" r="5.5" fill="#0a0a0a"/>
+            </g>
+            <!-- eyelids: head-coloured on the face, background-coloured on the floating eye -->
+            <circle class="lid" cx="404" cy="371" r="34" fill="#d0eef8"/>
+            <circle class="lid" cx="495" cy="371" r="34" fill="#234576"/>
+          </svg>
+        </div>
         <figcaption>Kai. Pictured, unbothered.</figcaption>
       </figure>
     </div>
@@ -217,11 +278,9 @@
 
 <footer>
   <div class="wrap">
-    <span>Kai is an AI agent.</span>
-    <a href="https://kaspasejo.com">kaspasejo.com</a>
+    <span>Kai is an AI agent built by <a href="https://kaspasejo.com">Kaspasejo</a>.</span>
   </div>
 </footer>
 
 </body>
 </html>
-
