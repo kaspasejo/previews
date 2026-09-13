@@ -1370,6 +1370,80 @@ body.locked{overflow:hidden}
 .heduno .hub-node rect{fill:rgba(255,255,255,.05); stroke:var(--h-hair)}
 .heduno .hub-node text{fill:var(--h-sec)}
 
+
+/* ── Pass 3: data components become real graphics (same system, higher craft) ──
+   Funnel replaces the nested circles; fan-out becomes a curved network with
+   flow; bars carry their values; competition tables become positioning maps. */
+
+/* Market funnel. Bands are deliberately NOT to scale (a true-scale SOM is one
+   pixel); the percentages at each junction carry the honesty instead. */
+.mkt.funnelwrap{display:block}
+.funnel{display:block; width:100%; max-width:var(--m-bleed); height:auto}
+.fn-tam{fill:var(--surface); stroke:var(--border); stroke-width:1.5}
+.fn-sam{fill:var(--raise); stroke:var(--border); stroke-width:1.5}
+.fn-som{fill:var(--accent)}
+.fn-halo{fill:var(--accent-wash)}
+.fn-lab{font-family:'PlexMono',ui-monospace,monospace; font-size:13px; font-weight:600; letter-spacing:.22em; fill:var(--muted); text-anchor:middle}
+.fn-inv{fill:#053A22}
+.fn-pct{font-family:'PlexMono',ui-monospace,monospace; font-size:11px; font-weight:400; letter-spacing:.06em; fill:var(--muted); text-anchor:middle}
+.fn-lead{stroke:var(--border); stroke-width:1.5}
+.fn-val{font-family:'Jakarta',system-ui,sans-serif; font-size:36px; font-weight:800; letter-spacing:-.02em; fill:var(--ink); font-variant-numeric:tabular-nums}
+.fn-us{fill:var(--accent-ink)}
+.fn-t{font-size:15px; font-weight:700; fill:var(--ink)}
+.fn-d{font-size:13px; fill:var(--sec)}
+.funnel-stack{display:none; flex-direction:column; gap:var(--s2); max-width:var(--m-bleed)}
+.fs-band{width:var(--w); margin:0 auto; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-chip); padding:var(--s4) var(--s4); text-align:center}
+.fs-band.mid{background:var(--raise)}
+.fs-band .fs-lab{display:block; font-family:'PlexMono',ui-monospace,monospace; font-size:.66rem; font-weight:600; letter-spacing:.22em; color:var(--muted)}
+.fs-band b{display:block; font-size:1.5rem; font-weight:800; letter-spacing:-.02em; margin-top:var(--s1); font-variant-numeric:tabular-nums}
+.fs-band p{margin:var(--s1) auto 0; font-size:.8rem; color:var(--sec); max-width:16rem}
+.fs-band.us{background:var(--accent); border-color:var(--accent)}
+.fs-band.us .fs-lab{color:#053A22}
+.fs-band.us b{color:#053A22}
+.fs-band.us p{color:#0A4A2B}
+.fs-pct{display:block; text-align:center; font-family:'PlexMono',ui-monospace,monospace; font-size:.66rem; color:var(--muted); letter-spacing:.06em}
+@media(max-width:56rem){
+  .funnel{display:none}
+  .funnel-stack{display:flex}
+}
+
+/* $100 breakdown: one continuous bar per sale - square internal boundaries,
+   rounded only on the outer ends, no numbers inside (the $4 never fit). */
+.propbar{gap:0}
+.propbar > i{border-radius:0}
+.propbar > i + i{border-left:0}
+.propbar > i:first-child{border-radius:var(--r-chip) 0 0 var(--r-chip)}
+.propbar > i:last-child{border-radius:0 var(--r-chip) var(--r-chip) 0}
+
+/* Problem fan-out: curves instead of ruled lines, flow on the fan-in,
+   and a close mark on every account the fan never asked for. */
+.fan path.fan-line,.fan path.fan-dash{fill:none}
+.fan-flow{fill:none; stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-dasharray:3 17; animation:hubflow 2.1s linear infinite; animation-delay:var(--d,0s)}
+.fan-x{fill:none; stroke:var(--muted); stroke-width:1.7; stroke-linecap:round}
+@media(prefers-reduced-motion:reduce){.fan-flow{animation:none; opacity:.75}}
+
+
+/* Competition tables, pass 3: the board reads as one framed component, and
+   the marks sit centred under their column headings. */
+@media(min-width:56rem){
+  .capwrap{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-box); padding:var(--s5) var(--s5) var(--s4)}
+  .capmatrix td{text-align:center}
+  .capmatrix thead th .ch-name, .capmatrix thead th .ch-sub{text-align:left}
+}
+
+
+/* Competition boards, round 3: labels on one line, subs uniform and unwrapped,
+   marks centred with YES bolded and NO given a pill of its own. */
+@media(min-width:56rem){
+  .capmatrix .ch-cat{width:15.5rem}
+  .capmatrix .cat-name{white-space:nowrap; font-size:.92rem}
+  .capmatrix thead th .ch-sub{white-space:nowrap}
+}
+.cap-yes{font-weight:700; border:1px solid var(--accent-edge)}
+.cap-no{border:1px solid var(--border); color:var(--sec); padding-left:.85rem; padding-right:.85rem}
+/* Problem stats: superscript source markers on the quoted numbers. */
+.stat .v sup{font-size:.38em; font-weight:600; color:var(--muted); letter-spacing:0}
+
 /* ── The ask ───────────────────────────────────────────────────────────── */
 .askrow{display:grid; gap:var(--s4); grid-template-columns:repeat(auto-fit,minmax(14rem,1fr)); max-width:var(--m-bleed)}
 .askrow .card{border-color:var(--accent-edge)}
@@ -2797,86 +2871,89 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
 <section id="problem" class="slide rv">
   <div class="wrap">
     <div class="slidehead"><p class="eyebrow">The problem</p></div>
-    <h2>A creator with real demand has nowhere of their own to sell it<i class="fs">.</i></h2>
-    <div class="punch"><p>Creators sell directly now. A link in bio is a pass-through, not a shop.</p><p class="dim">Every purchase is a hand-off: another domain, another checkout, another account to create.</p><p>Each hand-off is priced twice. A fee on what gets through, and the buyers who never arrive.</p></div>
+    <h2>Every sale sends the fan somewhere else<i class="fs">.</i></h2>
+    <p class="lede">One fan, four checkouts, four accounts - and a cut lost at every hand-off.</p>
 
-    <div class="stats">
-      <div class="stat"><div class="v num">70%</div><div class="l">Of online carts are abandoned before payment.</div></div>
-      <div class="stat"><div class="v num">26%</div><div class="l">Of those left because they were asked to create an account.</div></div>
-      <div class="stat"><div class="v num">1.4%</div><div class="l">What a link in bio converts on Instagram. 3.4% on TikTok.</div></div>
-      <div class="stat"><div class="v g num">25&ndash;40%</div><div class="l">Better conversion from one destination than from a list of links.</div></div>
-    </div>
 
     <div class="tier">
       <h3>One fan, four destinations, four accounts</h3>
-      <svg class="fan" viewBox="0 0 920 290" role="img" aria-label="One fan wants four things from one creator - a membership, a video, merchandise and a video call - and is sent to four different destinations and asked to create four separate accounts.">
-        <text class="fan-cap" x="245" y="18">Wants</text>
-        <text class="fan-cap" x="530" y="18">Is sent to</text>
-        <text class="fan-cap" x="800" y="18">Must create</text>
-        <line class="fan-line" x1="74" y1="157" x2="150" y2="58" />
-        <line class="fan-line" x1="74" y1="157" x2="150" y2="124" />
-        <line class="fan-line" x1="74" y1="157" x2="150" y2="190" />
-        <line class="fan-line" x1="74" y1="157" x2="150" y2="256" />
-        <circle class="fan-node" cx="48" cy="157" r="26" />
-        <g class="fan-glyph" transform="translate(36 145)">
+      <svg class="fan" viewBox="0 0 940 300" role="img" aria-label="One fan wants four things from one creator - a membership, a custom video, a video call and a pay-per-view drop - and is sent to four different destinations and asked to create four separate accounts.">
+        <text class="fan-cap" x="265" y="16">Wants</text>
+        <text class="fan-cap" x="555" y="16">Is sent to</text>
+        <text class="fan-cap" x="810" y="16">Must create</text>
+        <path class="fan-line" d="M92 152 C 128 152, 136 60, 172 60"/>
+        <path class="fan-line" d="M92 152 C 126 152, 140 128, 172 128"/>
+        <path class="fan-line" d="M92 152 C 126 152, 140 196, 172 196"/>
+        <path class="fan-line" d="M92 152 C 128 152, 136 264, 172 264"/>
+        <path class="fan-flow" style="--d:0.0s" d="M92 152 C 128 152, 136 60, 172 60"/>
+        <path class="fan-flow" style="--d:0.5s" d="M92 152 C 126 152, 140 128, 172 128"/>
+        <path class="fan-flow" style="--d:1.0s" d="M92 152 C 126 152, 140 196, 172 196"/>
+        <path class="fan-flow" style="--d:1.5s" d="M92 152 C 128 152, 136 264, 172 264"/>
+        <circle class="fan-node" cx="66" cy="152" r="26"/>
+        <g class="fan-glyph" transform="translate(54 140)">
           <circle cx="12" cy="8.5" r="3.6" /><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" />
         </g>
-        <text class="fan-cap" x="48" y="203">One fan</text>
-        
-          <g>
-            <rect class="fan-want" x="150" y="38" width="190" height="40" rx="20" />
-            <text class="fan-want-t" x="245" y="63">The membership</text>
-            <line class="fan-dash" x1="340" y1="58" x2="420" y2="58" />
-            <rect class="fan-stop" x="420" y="40" width="220" height="36" rx="18" />
-            <text class="fan-stop-t" x="530" y="62">A platform checkout</text>
-            <line class="fan-line" x1="640" y1="58" x2="700" y2="58" />
-            <rect class="fan-out" x="700" y="40" width="200" height="36" rx="18" />
-            <text class="fan-out-t" x="800" y="62">A new account</text>
-          </g>
-        
-          <g>
-            <rect class="fan-want" x="150" y="104" width="190" height="40" rx="20" />
-            <text class="fan-want-t" x="245" y="129">One video</text>
-            <line class="fan-dash" x1="340" y1="124" x2="420" y2="124" />
-            <rect class="fan-stop" x="420" y="106" width="220" height="36" rx="18" />
-            <text class="fan-stop-t" x="530" y="128">A second domain</text>
-            <line class="fan-line" x1="640" y1="124" x2="700" y2="124" />
-            <rect class="fan-out" x="700" y="106" width="200" height="36" rx="18" />
-            <text class="fan-out-t" x="800" y="128">A second account</text>
-          </g>
-        
-          <g>
-            <rect class="fan-want" x="150" y="170" width="190" height="40" rx="20" />
-            <text class="fan-want-t" x="245" y="195">The merch</text>
-            <line class="fan-dash" x1="340" y1="190" x2="420" y2="190" />
-            <rect class="fan-stop" x="420" y="172" width="220" height="36" rx="18" />
-            <text class="fan-stop-t" x="530" y="194">A third store</text>
-            <line class="fan-line" x1="640" y1="190" x2="700" y2="190" />
-            <rect class="fan-out" x="700" y="172" width="200" height="36" rx="18" />
-            <text class="fan-out-t" x="800" y="194">A third account</text>
-          </g>
-        
-          <g>
-            <rect class="fan-want" x="150" y="236" width="190" height="40" rx="20" />
-            <text class="fan-want-t" x="245" y="261">A video call</text>
-            <line class="fan-dash" x1="340" y1="256" x2="420" y2="256" />
-            <rect class="fan-stop" x="420" y="238" width="220" height="36" rx="18" />
-            <text class="fan-stop-t" x="530" y="260">A fourth link</text>
-            <line class="fan-line" x1="640" y1="256" x2="700" y2="256" />
-            <rect class="fan-out" x="700" y="238" width="200" height="36" rx="18" />
-            <text class="fan-out-t" x="800" y="260">A fourth account</text>
-          </g>
+        <text class="fan-cap" x="66" y="198">One fan</text>
+        <g>
+          <rect class="fan-want" x="172" y="40" width="186" height="40" rx="20" />
+          <text class="fan-want-t" x="265" y="65">The membership</text>
+          <line class="fan-dash" x1="358" y1="60" x2="442" y2="60" />
+          <rect class="fan-stop" x="442" y="42" width="226" height="36" rx="18" />
+          <text class="fan-stop-t" x="555" y="64">A subscriber platform</text>
+          <line class="fan-line" x1="668" y1="60" x2="712" y2="60" />
+          <rect class="fan-out" x="712" y="42" width="196" height="36" rx="18" />
+          <path class="fan-x" d="M726 54 l12 12 M738 54 l-12 12" />
+          <text class="fan-out-t" x="816" y="64">A new account</text>
+        </g>
+        <g>
+          <rect class="fan-want" x="172" y="108" width="186" height="40" rx="20" />
+          <text class="fan-want-t" x="265" y="133">A custom video</text>
+          <line class="fan-dash" x1="358" y1="128" x2="442" y2="128" />
+          <rect class="fan-stop" x="442" y="110" width="226" height="36" rx="18" />
+          <text class="fan-stop-t" x="555" y="132">A Cameo-style site</text>
+          <line class="fan-line" x1="668" y1="128" x2="712" y2="128" />
+          <rect class="fan-out" x="712" y="110" width="196" height="36" rx="18" />
+          <path class="fan-x" d="M726 122 l12 12 M738 122 l-12 12" />
+          <text class="fan-out-t" x="816" y="132">A second account</text>
+        </g>
+        <g>
+          <rect class="fan-want" x="172" y="176" width="186" height="40" rx="20" />
+          <text class="fan-want-t" x="265" y="201">A video call</text>
+          <line class="fan-dash" x1="358" y1="196" x2="442" y2="196" />
+          <rect class="fan-stop" x="442" y="178" width="226" height="36" rx="18" />
+          <text class="fan-stop-t" x="555" y="200">A booking app</text>
+          <line class="fan-line" x1="668" y1="196" x2="712" y2="196" />
+          <rect class="fan-out" x="712" y="178" width="196" height="36" rx="18" />
+          <path class="fan-x" d="M726 190 l12 12 M738 190 l-12 12" />
+          <text class="fan-out-t" x="816" y="200">A third account</text>
+        </g>
+        <g>
+          <rect class="fan-want" x="172" y="244" width="186" height="40" rx="20" />
+          <text class="fan-want-t" x="265" y="269">The PPV drop</text>
+          <line class="fan-dash" x1="358" y1="264" x2="442" y2="264" />
+          <rect class="fan-stop" x="442" y="246" width="226" height="36" rx="18" />
+          <text class="fan-stop-t" x="555" y="268">A pay-per-view store</text>
+          <line class="fan-line" x1="668" y1="264" x2="712" y2="264" />
+          <rect class="fan-out" x="712" y="246" width="196" height="36" rx="18" />
+          <path class="fan-x" d="M726 258 l12 12 M738 258 l-12 12" />
+          <text class="fan-out-t" x="816" y="268">A fourth account</text>
+        </g>
       </svg>
       <div class="routes fan-stack" aria-hidden="true">
-        <div class="route"><span class="r-stream">The membership</span><span class="r-path"><i></i><span class="r-stop">A platform checkout</span><i></i></span><span class="r-out">A new account</span></div>
-        <div class="route"><span class="r-stream">One video</span><span class="r-path"><i></i><span class="r-stop">A second domain</span><i></i></span><span class="r-out">A second account</span></div>
-        <div class="route"><span class="r-stream">The merch</span><span class="r-path"><i></i><span class="r-stop">A third store</span><i></i></span><span class="r-out">A third account</span></div>
-        <div class="route"><span class="r-stream">A video call</span><span class="r-path"><i></i><span class="r-stop">A fourth link</span><i></i></span><span class="r-out">A fourth account</span></div>
+        <div class="route"><span class="r-stream">The membership</span><span class="r-path"><i></i><span class="r-stop">A subscriber platform</span><i></i></span><span class="r-out">A new account</span></div>
+        <div class="route"><span class="r-stream">A custom video</span><span class="r-path"><i></i><span class="r-stop">A Cameo-style site</span><i></i></span><span class="r-out">A second account</span></div>
+        <div class="route"><span class="r-stream">A video call</span><span class="r-path"><i></i><span class="r-stop">A booking app</span><i></i></span><span class="r-out">A third account</span></div>
+        <div class="route"><span class="r-stream">The PPV drop</span><span class="r-path"><i></i><span class="r-stop">A pay-per-view store</span><i></i></span><span class="r-out">A fourth account</span></div>
       </div>
-      <p class="note">Read from the buyer's side, because that is the side the money is on. The creator sees the same picture as four dashboards, four payout schedules and four customer lists, and 48% of them run it alone. This is the professional creator: someone already selling memberships, content, products or time to their own fans, not a hobbyist.</p>
-      <p class="note">Sources: Baymard Institute, cart abandonment meta-analysis of 50 studies, September 2025 (70.22% average; 26% of abandonments attributed to forced account creation). Link-in-bio conversion benchmarks by platform, 2026. Single-destination versus multi-link directory conversion, 2026. Solo operation: Circle creator survey, 2026.</p>
     </div>
-    <p class="thesis">At $1,000 a month of demand, $250 to $400 never arrives.<span>That is the hand-off alone, before any platform takes its fee. The creator is not short of demand. They are short of somewhere to put it.</span></p>
+    <div class="stats">
+      <div class="stat"><div class="v num">70%<sup>1</sup></div><div class="l">Of online carts are abandoned before payment.</div></div>
+      <div class="stat"><div class="v num">26%<sup>1</sup></div><div class="l">Of abandonments blamed on forced account creation.</div></div>
+      <div class="stat"><div class="v num">1.4%<sup>2</sup></div><div class="l">What a link in bio converts. 3.4% on TikTok.</div></div>
+      <div class="stat"><div class="v g num">25&ndash;40%<sup>3</sup></div><div class="l">Lift when one destination replaces a list of links.</div></div>
+    </div>
+      <p class="note">1. Baymard Institute &middot; 2. Link-in-bio conversion benchmarks &middot; 3. Single-destination vs multi-link conversion</p>
+
   </div>
 </section>
 
@@ -2970,75 +3047,49 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
   <div class="wrap">
     <div class="slidehead"><p class="eyebrow">Market &amp; why now</p></div>
     <h2>The largest direct-to-fan market has no infrastructure<i class="fs">.</i></h2>
-    <p class="lede">Sized on what fans pay creators directly. Adult is the largest segment, growing around 10% a year, and we serve it through Heduno, our adult-facing brand on the Kulcho stack. The timing is ours: the category went mainstream, the rules arrived, and the front end became free.</p>
+    <p class="lede">Adult is the largest segment of direct-to-fan spend, growing around 10% a year, and we serve it through Heduno, our adult-facing brand on the Kulcho stack.</p>
 
-    <div class="tier">
-      <h3>Sized bottom-up, on what fans pay creators</h3>
-      <div class="mkt" role="img" aria-label="Three nested circles drawn to scale: a $20bn global direct-to-fan market, a $9bn adult segment within it growing around 10% a year, and Kulcho's $120m five-year target, about 1.3% of that segment.">
-        <svg class="mkt-circles" viewBox="0 0 460 460" aria-hidden="true">
-          <circle class="c-tam" cx="230" cy="230" r="208"/>
-          <circle class="c-sam" cx="230" cy="230" r="140"/>
-          <circle class="c-som" cx="230" cy="230" r="16"/>
-          <text class="c-lab" x="230" y="42">TAM</text>
-          <text class="c-lab" x="230" y="110">SAM</text>
-          <text class="c-lab som" x="230" y="272">SOM</text>
+      <div class="mkt funnelwrap" role="img" aria-label="A funnel in three bands: the $20bn global direct-to-fan market narrows to the $9bn adult segment, about 45% of the total, and that narrows to Kulcho's $120m five-year target - 20,000 paying creators at $6,000 a year each, about 1.3% of the segment.">
+        <svg class="funnel" viewBox="0 0 1000 440" aria-hidden="true">
+          <path class="fn-halo" d="M146 290 L434 290 L404 414 L176 414 Z"/>
+          <path class="fn-tam" d="M20 20 L560 20 L510 140 L70 140 Z"/>
+          <path class="fn-sam" d="M85 168 L495 168 L440 272 L140 272 Z"/>
+          <path class="fn-som" d="M155 300 L425 300 L395 414 L185 414 Z"/>
+          <text class="fn-lab" x="290" y="86">TAM</text>
+          <text class="fn-lab" x="290" y="226">SAM</text>
+          <text class="fn-lab fn-inv" x="290" y="363">SOM</text>
+          <text class="fn-pct" x="290" y="159">~45% of it is adult</text>
+          <text class="fn-pct" x="290" y="291">1.3% of it is the five-year target</text>
+          <line class="fn-lead" x1="545" y1="80" x2="636" y2="80"/>
+          <line class="fn-lead" x1="478" y1="220" x2="636" y2="220"/>
+          <line class="fn-lead" x1="420" y1="357" x2="636" y2="357"/>
+          <text class="fn-val" x="660" y="72">$20bn</text>
+          <text class="fn-t" x="660" y="97">The whole market</text>
+          <text class="fn-d" x="660" y="119">Everything fans pay creators directly.</text>
+          <text class="fn-val" x="660" y="212">$9bn</text>
+          <text class="fn-t" x="660" y="237">The adult segment</text>
+          <text class="fn-d" x="660" y="259">Growing ~10% a year, served through Heduno.</text>
+          <text class="fn-val fn-us" x="660" y="349">$120m</text>
+          <text class="fn-t" x="660" y="374">Our five-year target</text>
+          <text class="fn-d" x="660" y="396">20,000 creators at $6,000 a year each.</text>
         </svg>
-        <div class="cols stack sizes">
-          <div class="card"><span class="tag">TAM</span><p class="big">$20bn</p><p>Global direct-to-fan GMV - everything fans pay creators for subscriptions, content, community and products.</p></div>
-          <div class="card"><span class="tag">SAM</span><p class="big">$9bn</p><p>The adult segment, around 45% of the total, growing ~10% a year - served through Heduno.</p></div>
-          <div class="card"><span class="tag">SOM</span><p class="big">$120m</p><p><b>20,000</b> paying creators in five years at <b>$6,000</b> a year each - 1.3% of the SAM.</p></div>
+        <div class="funnel-stack" aria-hidden="true">
+          <div class="fs-band" style="--w:100%"><span class="fs-lab">TAM</span><b>$20bn</b><p>The whole market - everything fans pay creators directly.</p></div>
+          <span class="fs-pct">~45% of it is adult</span>
+          <div class="fs-band mid" style="--w:74%"><span class="fs-lab">SAM</span><b>$9bn</b><p>The adult segment, growing ~10% a year - served through Heduno.</p></div>
+          <span class="fs-pct">1.3% of it is the five-year target</span>
+          <div class="fs-band us" style="--w:48%"><span class="fs-lab">SOM</span><b>$120m</b><p>20,000 creators at $6,000 a year each.</p></div>
         </div>
       </div>
-    </div>
-
-    <div class="stats">
-      <div class="stat"><div class="v num">$7.85bn</div><div class="l">Paid to creators on the largest adult platform, FY2025.</div></div>
-      <div class="stat"><div class="v num">437m</div><div class="l">Fan accounts on that one platform.</div></div>
-      <div class="stat"><div class="v num">~45%</div><div class="l">Adult's share of all direct-to-fan spend.</div></div>
-      <div class="stat"><div class="v g num">0</div><div class="l">Horizontal platforms that will serve the category.</div></div>
-    </div>
-
-    <ol class="seq">
-      <li><h4>Destigmatized</h4><p>5.0m creator accounts and 437m fan accounts on one platform. Selling direct is an ordinary side income.</p></li>
-      <li><h4>Personal brand is the asset</h4><p>56% of consumers already buy from creator-led brands. The address should be the name.</p></li>
-      <li><h4>Regulated, territory by territory</h4><p>27 US states with age-verification law, from one in 2023; the UK's duties began July 2025. We clear it once, for everyone on the rails.</p></li>
-      <li><h4>The front end went to zero</h4><p>A custom storefront costs nothing to generate. The value moved to the layer underneath: licences and audits, not sprints.</p></li>
-    </ol>
-
     <div class="tier">
-      <h3>What the layer underneath actually consists of</h3>
-      <div class="towers" role="img" aria-label="The front end is one thin layer anyone can build in a weekend. Underneath it sit four layers that take years: age assurance, content moderation, creator KYC and payment risk.">
-        <div class="tower">
-          <span class="t-lab">A weekend</span>
-          <div class="t-stack">
-            <span class="t-block">The front end</span>
-          </div>
-          <span class="t-time">Generated in an afternoon by anyone, and getting cheaper every month.</span>
-        </div>
-        <div class="tower ours">
-          <span class="t-lab">Years, and licensed territory by territory</span>
-          <div class="t-stack">
-            <span class="t-block">Payment risk &middot; processing, payouts and chargebacks, at 6.5% of GMV</span>
-            <span class="t-block">Creator KYC &middot; identity, age and rights to the content</span>
-            <span class="t-block">Content moderation &middot; at upload and continuously after</span>
-            <span class="t-block">Age assurance &middot; verified, auditable, per jurisdiction</span>
-          </div>
-          <span class="t-time">Not a feature you ship. A permission you earn, and then keep earning.</span>
-        </div>
-      </div>
+      <h3>Why now</h3>
+      <ol class="seq">
+        <li><h4>437m fan accounts, already paying</h4><p>Selling direct is an ordinary side income. The category went mainstream without us.</p></li>
+        <li><h4>56% of consumers buy from creator-led brands</h4><p>The personal brand is the asset. The address should be the name.</p></li>
+        <li><h4>27 US states with age-verification law</h4><p>From one in 2023, and UK duties began July 2025. We clear the rules once, for everyone on the rails.</p></li>
+        <li><h4>A storefront now costs nothing to generate</h4><p>The front end went to zero. The value moved to the layer underneath: licences and audits, not sprints.</p></li>
+      </ol>
     </div>
-
-    <div class="tier">
-      <h3>Why this market first</h3>
-      <div class="cols">
-        <div class="card"><span class="tag">Barriers</span><h3>Nobody else is let in</h3><p>Most processors and SaaS platforms will not serve this category at all.</p></div>
-        <div class="card"><span class="tag">Cash</span><h3>Paying already</h3><p>These creators transact daily, at high frequency and high value.</p></div>
-        <div class="card"><span class="tag">Incumbents</span><h3>Badly served</h3><p>Removed without appeal, by platforms that own the audience outright.</p></div>
-        <div class="card"><span class="tag">Demand</span><h3>Already moving</h3><p>15,000 creators registered interest through partners, for a product that has not shipped.</p></div>
-      </div>
-    </div>
-
-    <p class="thesis">The layer that got easy is not the layer we sell.<span>We sell the layer that got harder, into the market that just got bigger, with the roster already signed. A competitor starting today is behind us on licences and on people, and neither compounds by writing code faster.</span></p>
     <p class="note">TAM: OnlyFans $7.85bn (FY2025, via Variety), Patreon $2.3bn, Kajabi $2bn+, Substack $0.45bn, MYM $0.15bn, and a $5 to 8bn long tail of Fansly, Whop, Gumroad, Ko-fi, Fourthwall, Stan and Twitch. SAM: the adult share of that sum, cross-checked against 437m fan accounts at about $18 a year. SOM: 42,500 creators already within reach at the plan's 25% activation, the rest arriving through the network, at the financial model's revenue per creator. Why now: OnlyFans (Fenix International) FY2024 and FY2025 via Variety. Adobe, People trust people report (56% of consumers, 66% of Gen Z). State age-verification statutes: 27 in force as of September 2026, beginning with Louisiana HB142 (2023). Online Safety Act 2023 (UK), Ofcom age-assurance duties in force from July 2025.</p>
   </div>
 </section>
@@ -3352,8 +3403,8 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
 <section id="business-model" class="slide rv">
   <div class="wrap">
     <div class="slidehead"><p class="eyebrow">Business model</p></div>
-    <h2>Monthly minimums with scalable upside<i class="fs">.</i></h2>
-    <p class="lede">A freemium model, with license fees for advanced features and a platform fee on each sale.</p>
+    <h2>Freemium, monthly minimums, and a fee on every sale<i class="fs">.</i></h2>
+    <p class="lede">Free to start for every creator. License fees set the monthly minimums, and the platform fee on each transaction is the scalable upside - revenue that grows with sales, not seats.</p>
 
     <div class="cols revlines">
       <div class="card">
@@ -3481,8 +3532,8 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
 <section id="competition" class="slide rv">
   <div class="wrap">
     <div class="slidehead"><p class="eyebrow">Competition</p></div>
-    <h2>Two businesses, two sets of competitors<i class="fs">.</i></h2>
-    <p class="lede">Kulcho is infrastructure, so it is measured against what an operator would otherwise license or build. Heduno is a product standing on it, so it is measured against what a creator uses today. Neither board is the other one's.</p>
+    <h2>Nobody else ships the whole stack<i class="fs">.</i></h2>
+    <p class="lede">Kulcho is measured against what an operator would otherwise license or build, Heduno against what a creator uses today - neither board is the other one's.</p>
 
     <div class="cotabs" role="tablist" aria-label="Which business to compare" data-autoplay="10000">
       
@@ -3514,13 +3565,13 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>
                     <span class="ch-name">Revenue streams</span>
-                    <span class="ch-sub">all of them, one checkout</span>
+                    <span class="ch-sub">all in one checkout</span>
                   </th>
                   <th scope="col" role="columnheader">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 9.5h19"/><path d="M6 14.5h4"/></svg>
                     <span class="ch-name">Payments</span>
-                    <span class="ch-sub">in restricted categories</span>
+                    <span class="ch-sub">restricted categories</span>
                   </th>
                   <th scope="col" role="columnheader">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
@@ -3532,13 +3583,13 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.4"/><path d="M3 19c0-3.2 2.7-5.2 6-5.2s6 2 6 5.2"/><path d="M16 5.4a3.4 3.4 0 0 1 0 5.2"/><path d="M17.6 14.2c2 .8 3.4 2.5 3.4 4.8"/></svg>
                     <span class="ch-name">Rosters</span>
-                    <span class="ch-sub">multi-creator and payouts</span>
+                    <span class="ch-sub">multi-creator payouts</span>
                   </th>
                   <th scope="col" role="columnheader" class="aud">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18.5" r="2.4"/><path d="M6.6 7.6 10.6 16.4M17.4 7.6 13.4 16.4M7.2 6h9.6"/></svg>
                     <span class="ch-name">Distribution</span>
-                    <span class="ch-sub">a network to publish into</span>
+                    <span class="ch-sub">a network to sell into</span>
                   </th>
               </tr>
             </thead>
@@ -3632,8 +3683,7 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
           </table>
         </div>
         <div class="closer">
-          <h3>All of this can be assembled. None of it can be assembled quickly.</h3>
-          <p>The payments and the licences are the part that takes years, and they are already in production. The distribution network is the part that cannot be bought at any speed, because it needs creators before it has traffic and traffic before it has creators. We arrive holding both.</p>
+          <h3>All of this can be assembled - none of it quickly.</h3>
         </div>
       </div>
 
@@ -3652,19 +3702,19 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.4"/><path d="M3 19c0-3.2 2.7-5.2 6-5.2s6 2 6 5.2"/><path d="M16 5.4a3.4 3.4 0 0 1 0 5.2"/><path d="M17.6 14.2c2 .8 3.4 2.5 3.4 4.8"/></svg>
                     <span class="ch-name">Customer</span>
-                    <span class="ch-sub">and whose it stays</span>
+                    <span class="ch-sub">whose customer it is</span>
                   </th>
                   <th scope="col" role="columnheader">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4.2"/><path d="M11 11l8 8"/><path d="M16.5 16.5l2-2"/></svg>
                     <span class="ch-name">Brand</span>
-                    <span class="ch-sub">name and domain</span>
+                    <span class="ch-sub">their name and domain</span>
                   </th>
                   <th scope="col" role="columnheader">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
                          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/></svg>
                     <span class="ch-name">Revenue streams</span>
-                    <span class="ch-sub">all of them, one checkout</span>
+                    <span class="ch-sub">all in one checkout</span>
                   </th>
                   <th scope="col" role="columnheader" class="aud">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
@@ -3761,7 +3811,6 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
                     </td>
                     <td role="cell" data-cap="Traffic" class="aud">
                       <span class="cap cap-yes">Yes</span>
-                      <span class="cap-note">network</span>
                     </td>
                     <td role="cell" data-cap="Compliance">
                       <span class="cap cap-yes">Yes</span>
@@ -3771,20 +3820,10 @@ footer.end p a:hover{color:#fff; border-color:var(--accent)}
           </table>
         </div>
         <div class="closer">
-          <h3>A platform lends a creator an audience. We deliver one and let them keep it.</h3>
-          <p>The take rate is not what separates these options: it is what happens after the sale. A fan converted on a platform is the platform's, and stops being reachable the day the creator leaves. A fan our network converts lands on the creator's own site and stays there, so the same traffic sells again next month without being rented twice.</p>
+          <h3>A platform lends the audience; we deliver one the creator keeps.</h3>
         </div>
       </div>
 
-    <div class="tier">
-      <h3>What could change this</h3>
-      <div class="cols">
-        
-          <div class="card"><span class="tag">A fan platform opens up</span><h3>The largest sites offer creators domains</h3><p>The move that would hurt most, and the one their model cannot make, because the audience they own is the business.</p></div>
-          <div class="card"><span class="tag">A processor enters</span><h3>A payments company serves the category</h3><p>It would need age assurance, moderation and identity per jurisdiction before its first payment, and that is years.</p></div>
-          <div class="card"><span class="tag">The rules keep moving</span><h3>Regulation outruns the licences</h3><p>Twenty-seven statutes in three years, and each new one is a cost we clear once for everyone on the rails.</p></div>
-      </div>
-    </div>
   </div>
 </section>
 
